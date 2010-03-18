@@ -3,7 +3,9 @@
 	i18n:domain="indicators">
 
 	<body>
-		<dl metal:define-macro="portlet" class="portlet" tal:define="info here/get_completeness">
+		<dl metal:define-macro="portlet" class="portlet" 
+			tal:define="api nocall:context/@@get_readiness;
+								  info python:api.get_readiness_for('published'); ">
 
 			<dt class="portletHeader">
 				<a href="" 

@@ -1,18 +1,28 @@
 <configure
-    xmlns="http://namespaces.zope.org/zope"
-    xmlns:five="http://namespaces.zope.org/five"
-    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-    xmlns:plone="http://namespaces.plone.org/plone"
-    i18n_domain="eea.workflow">
+	xmlns="http://namespaces.zope.org/zope"
+	xmlns:browser="http://namespaces.zope.org/browser"
+	xmlns:five="http://namespaces.zope.org/five"
+	xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+	xmlns:plone="http://namespaces.plone.org/plone"
+	i18n_domain="eea.workflow">
 
-    <five:registerPackage package="." initialize=".initialize" />
+	<five:registerPackage package="." initialize=".initialize" />
 
-    <genericsetup:registerProfile
-       name="default"
-       title="eea.workflow"
-       directory="profiles/default"
-       description="Various workflow enhancements for EEA Content"
-       provides="Products.GenericSetup.interfaces.EXTENSION"
-       />
+	<genericsetup:registerProfile
+		name="default"
+		title="eea.workflow"
+		directory="profiles/default"
+		description="Various workflow enhancements for EEA Content"
+		provides="Products.GenericSetup.interfaces.EXTENSION"
+		/>
+
+	<adapter factory=".readiness.ValueProvider" />
+
+	<browser:view 
+		name="get_readiness" 
+		for="eea.workflow.interfaces.IHasMandatoryWorkflowFields"
+		permission="zope2.View"	
+		class=".readiness.ObjectReadiness"
+		/>
 
 </configure>
