@@ -16,7 +16,7 @@
 		provides="Products.GenericSetup.interfaces.EXTENSION"
 		/>
 
-	<adapter factory=".readiness.ValueProvider" />
+	<adapter factory=".readiness.ATFieldValueProvider" />
 
 	<browser:view 
 		name="get_readiness" 
