@@ -12,7 +12,7 @@ class ObjectReadiness(object):
         self.request = request
 
     def is_ready_for(self, state_name):
-        attr = 'required_for_' + state_name
+        ATTR = 'required_for_' + state_name
 
         _done           = 0 #the percentage of fields required for publication that are filled in
         _optional       = 0 #fields that are not required for publication that are not filled in
@@ -23,9 +23,10 @@ class ObjectReadiness(object):
         for field in self.context.schema.fields():  #we assume AT here
             _total += 1
 
-            has_value = getMultiAdapter([self.context, field], interface=IValueProvider).has_value()         #
+            info = getMultiAdapter([self.context, field], interface=IValueProvider)
+            has_value = info.has_value()
 
-            if getattr(field, attr, False):
+            if getattr(field, ATTR, False):
                 _total_required += 1
                 if has_value:
                     _required += 1
@@ -33,7 +34,7 @@ class ObjectReadiness(object):
                 if not has_value:
                     _optional += 1
 
-        _total_required = 1 or _total_required  #avoid division by 0
+        _total_required = _total_required or 1  #avoid division by 0
         _done = int(float(_required) / float(_total_required) * 100.0)
 
         return {
