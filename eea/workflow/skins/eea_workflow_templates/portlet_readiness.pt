@@ -5,7 +5,7 @@
 	<body>
 		<dl metal:define-macro="portlet" class="portlet" 
 			tal:define="api nocall:context/@@get_readiness;
-								  info python:api.get_readiness_for('published'); ">
+								  info python:api.is_ready_for('published'); ">
 
 			<dt class="portletHeader">
 				<a href="" 
@@ -33,7 +33,6 @@
 					<span i18n:translate="edit">Edit</span>
 				</a>
 			</dd>
-
 		</dl>
 	</body>
 </html>

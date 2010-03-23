@@ -1,0 +1,1 @@
+product_globals = globals()

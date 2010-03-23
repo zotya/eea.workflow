@@ -1,6 +1,7 @@
-from zope.component import adapts
-from zope.interface import Interface, implements
+from Products.Archetypes.Field import Field
 from eea.workflow.interfaces import IValueProvider
+from zope.component import adapts, getMultiAdapter
+from zope.interface import Interface, implements
 
 
 class ObjectReadiness(object):
@@ -19,9 +20,10 @@ class ObjectReadiness(object):
         _total_required = 0 #the number of fields that are required for publication
         _total          = 0 #the grand total of fields
 
-        for field in self.schema.fields():
+        for field in self.context.schema.fields():  #we assume AT here
             _total += 1
-            has_value = IValueProvider(field).has_value()         #
+
+            has_value = getMultiAdapter([self.context, field], interface=IValueProvider).has_value()         #
 
             if getattr(field, attr, False):
                 _total_required += 1
@@ -31,6 +33,7 @@ class ObjectReadiness(object):
                 if not has_value:
                     _optional += 1
 
+        _total_required = 1 or _total_required  #avoid division by 0
         _done = int(float(_required) / float(_total_required) * 100.0)
 
         return {
@@ -43,12 +46,17 @@ class ObjectReadiness(object):
 
 
 class ATFieldValueProvider(object):
-    """An IValueProvider adapter for AT Fields"""
+    """An IValueProvider implementation for AT Fields"""
+
     implements(IValueProvider)
-    adapts(Interface)
+    adapts(Interface, Field)
+
+    def __init__(self, context, field):
+        self.context = context
+        self.field = field
 
     def has_value(self):
-        return bool(self.get_value())  #we assume that the return value is something not empty
+        return bool(self.get_value())  #may trigger false positives
 
     def get_value(self):
-        return self.context.getAccessor(self)()
+        return self.field.getAccessor(self.context)()
