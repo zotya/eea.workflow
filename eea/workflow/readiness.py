@@ -11,7 +11,7 @@ class ObjectReadiness(object):
         self.context = context
         self.request = request
 
-    def is_ready_for(self, state_name):
+    def get_info_for(self, state_name):
         ATTR = 'required_for_' + state_name
 
         _done           = 0 #the percentage of fields required for publication that are filled in

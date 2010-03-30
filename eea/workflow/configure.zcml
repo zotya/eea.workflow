@@ -23,7 +23,7 @@
 		for="eea.workflow.interfaces.IHasMandatoryWorkflowFields"
 		permission="zope2.View"	
 		class=".readiness.ObjectReadiness"
-		allowed_attributes="is_ready_for"
+		allowed_attributes="get_info_for"
 		/>
 
 </configure>
