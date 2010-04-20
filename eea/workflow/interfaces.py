@@ -18,3 +18,13 @@ class IValueProvider(Interface):
 
     def get_value():
         """Returns the value of this object"""
+
+
+class IObjectReadiness(Interface):
+    """Returns info on how ready is an object to be moved to a certain workflow state"""
+
+    def get_info_for(state_name):
+        """Returns a mapping containing statistics on object readiness for a certain state"""
+
+    def is_ready_for(state_name):
+        """Returns a bool that tells is the object is ready to be transitioned to the named state"""
