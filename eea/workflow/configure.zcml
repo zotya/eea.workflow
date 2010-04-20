@@ -16,14 +16,14 @@
 		provides="Products.GenericSetup.interfaces.EXTENSION"
 		/>
 
-	<adapter factory=".readiness.ATFieldValueProvider" />
+	<adapter factory=".utils.ATFieldValueProvider" />
 
 	<browser:page 
 		name="get_readiness" 
 		for="eea.workflow.interfaces.IHasMandatoryWorkflowFields"
 		permission="zope2.View"	
 		class=".readiness.ObjectReadiness"
-		allowed_attributes="get_info_for"
+		allowed_interface="interfaces.IObjectReadiness"
 		/>
 
 </configure>

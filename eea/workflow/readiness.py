@@ -46,6 +46,7 @@ class ObjectReadiness(object):
                 }
 
     def is_ready_for(self, state_name):
+        import pdb; pdb.set_trace()
         info = self.get_info_for(state_name)
         if info['required'] == info['publishing']:
             return True
