@@ -47,6 +47,6 @@ class ObjectReadiness(object):
 
     def is_ready_for(self, state_name):
         info = self.get_info_for(state_name)
-        if info['done'] == info['publishing']:
+        if info['required'] == info['publishing']:
             return True
         return False
