@@ -1,6 +1,7 @@
 from eea.workflow.interfaces import IValueProvider, IObjectReadiness
 from zope.component import getMultiAdapter
 from zope.interface import implements
+import logging
 
 
 class ObjectReadiness(object):
@@ -46,7 +47,6 @@ class ObjectReadiness(object):
                 }
 
     def is_ready_for(self, state_name):
-        import pdb; pdb.set_trace()
         info = self.get_info_for(state_name)
         if info['required'] == info['publishing']:
             return True
