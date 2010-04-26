@@ -18,12 +18,12 @@
 
 	<adapter factory=".utils.ATFieldValueProvider" />
 
-	<browser:page 
-		name="get_readiness" 
+	<browser:page
+		name="get_readiness"
 		for="eea.workflow.interfaces.IHasMandatoryWorkflowFields"
-		permission="zope2.View"	
+		permission="zope2.View"
 		class=".readiness.ObjectReadiness"
-		allowed_interface="interfaces.IObjectReadiness"
+		allowed_interface=".interfaces.IObjectReadiness"
 		/>
 
 </configure>
