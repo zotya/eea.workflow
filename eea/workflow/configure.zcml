@@ -17,6 +17,7 @@
 		/>
 
 	<adapter factory=".utils.ATFieldValueProvider" />
+	<adapter factory=".utils.ATFieldRequiredFor" />
 
 	<browser:page
 		name="get_readiness"

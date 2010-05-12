@@ -6,7 +6,7 @@ class IHasMandatoryWorkflowFields(Interface):
 
 class IValueProvider(Interface):
     """Objects of this type provide values
-    
+
     The use case is this: we want to be able to interrogate various AT fields contained
     in objects if they have value; we don't want to hardcode the logic that achieves
     this, so we make it extendible by adaptation. This package also provides a default
@@ -19,6 +19,18 @@ class IValueProvider(Interface):
     def get_value():
         """Returns the value of this object"""
 
+class IRequiredFor(Interface):
+    """Objects of this type provide required for state
+
+    The use case is this: we want to be able to interrogate various AT fields contained
+    in objects if they are required for a specific state;
+    we don't want to hardcode the logic that achieves this, so we make it
+    extendible by adaptation. This package also provides a default
+    implementation for a component that adapts AT fields -> IRequiredFor
+    """
+    def __call__(state):
+        """ Is required for state?
+        """
 
 class IObjectReadiness(Interface):
     """Returns info on how ready is an object to be moved to a certain workflow state"""

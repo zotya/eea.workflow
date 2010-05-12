@@ -1,16 +1,14 @@
-from eea.workflow.interfaces import IValueProvider, IObjectReadiness
+from eea.workflow.interfaces import IValueProvider, IObjectReadiness, IRequiredFor
 from zope.component import getMultiAdapter
 from zope.interface import implements
-import logging
-
 
 class ObjectReadiness(object):
-    """Provides information about the readiness for doing a certain transition 
-    
-    An object can have field that are required to be filled in before a workflow transition 
+    """Provides information about the readiness for doing a certain transition
+
+    An object can have field that are required to be filled in before a workflow transition
     is available for it. To implement this we look for a 'required_for_YYY' boolean,
-    where YYY is the workflow state to which we want to transition. 
-    In addition, if this attribute is missing, we try to call a method "required_for" 
+    where YYY is the workflow state to which we want to transition.
+    In addition, if this attribute is missing, we try to call a method "required_for"
     on the field, which receives the object instance and state name as parameters.
     """
 
@@ -21,8 +19,6 @@ class ObjectReadiness(object):
         self.request = request
 
     def get_info_for(self, state_name):
-        ATTR = 'required_for_' + state_name
-
         _done           = 0 #the percentage of fields required for publication that are filled in
         _optional       = 0 #fields that are not required for publication that are not filled in
         _required       = 0 #the fields required for publication that are filled in
@@ -35,12 +31,8 @@ class ObjectReadiness(object):
             info = getMultiAdapter([self.context, field], interface=IValueProvider)
             has_value = info.has_value()
 
-            if hasattr(field, ATTR):
-                is_needed = getattr(field, ATTR)
-            elif hasattr(field, 'required_for'):
-                is_needed = field.required_for(self.context, state_name)
-            else:
-                is_needed = False
+            required_for = getMultiAdapter((self.context, field), interface=IRequiredFor)
+            is_needed = required_for(state_name)
 
             if is_needed:
                 _total_required += 1
