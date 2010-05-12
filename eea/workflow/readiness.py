@@ -24,8 +24,12 @@ class ObjectReadiness(object):
         _required       = 0 #the fields required for publication that are filled in
         _total_required = 0 #the number of fields that are required to be filled in for the `state_name`
         _total          = 0 #the grand total of fields
+        _optional_with_value = []    #optional fields that have a value
 
         for field in self.context.schema.fields():  #we assume AT here
+            if field.isMetadata:
+                continue
+            print field
             _total += 1
 
             info = getMultiAdapter([self.context, field], interface=IValueProvider)
@@ -41,6 +45,8 @@ class ObjectReadiness(object):
             else:
                 if not has_value:
                     _optional += 1
+                else:
+                    _optional_with_value.append((field, info.get_value()))
 
         _total_required = _total_required or 1  #avoid division by 0
         _done = int(float(_required) / float(_total_required) * 100.0)
@@ -51,6 +57,7 @@ class ObjectReadiness(object):
                 'publishing':_total_required,   #TODO:rename this to "required_for_state"
                 'optional':_optional,
                 'total':_total,
+                '_optional_with_value':_optional_with_value
                 }
 
     def is_ready_for(self, state_name):

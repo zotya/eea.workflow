@@ -15,10 +15,10 @@ class ATFieldValueProvider(object):
         self.context = context
         self.field = field
 
-    def has_value(self):
+    def has_value(self, **kwargs):
         return bool(self.get_value())  #may trigger false positives
 
-    def get_value(self):
+    def get_value(self, **kwargs):
         return self.field.getAccessor(self.context)()
 
 

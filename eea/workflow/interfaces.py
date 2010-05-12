@@ -13,11 +13,12 @@ class IValueProvider(Interface):
     implementation for a component that adapts AT fields -> IValueProvider
     """
 
-    def has_value():
+    def has_value(kwargs):
         """Returns True if the object has a value"""
 
-    def get_value():
+    def get_value(kwargs):
         """Returns the value of this object"""
+
 
 class IRequiredFor(Interface):
     """Objects of this type provide required for state
