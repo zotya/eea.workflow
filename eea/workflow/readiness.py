@@ -5,7 +5,15 @@ import logging
 
 
 class ObjectReadiness(object):
-    """Provides information about the readiness for doing a certain transition """
+    """Provides information about the readiness for doing a certain transition 
+    
+    An object can have field that are required to be filled in before a workflow transition 
+    is available for it. To implement this we look for a 'required_for_YYY' boolean,
+    where YYY is the workflow state to which we want to transition. 
+    In addition, if this attribute is missing, we try to call a method "required_for" 
+    on the field, which receives the object instance and state name as parameters.
+    """
+
     implements(IObjectReadiness)
 
     def __init__(self, context, request):
@@ -27,7 +35,14 @@ class ObjectReadiness(object):
             info = getMultiAdapter([self.context, field], interface=IValueProvider)
             has_value = info.has_value()
 
-            if getattr(field, ATTR, False):
+            if hasattr(field, ATTR):
+                is_needed = getattr(field, ATTR)
+            elif hasattr(field, 'required_for'):
+                is_needed = field.required_for(self.context, state)
+            else:
+                is_needed = False
+
+            if is_needed:
                 _total_required += 1
                 if has_value:
                     _required += 1
