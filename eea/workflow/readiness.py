@@ -38,7 +38,7 @@ class ObjectReadiness(object):
             if hasattr(field, ATTR):
                 is_needed = getattr(field, ATTR)
             elif hasattr(field, 'required_for'):
-                is_needed = field.required_for(self.context, state)
+                is_needed = field.required_for(self.context, state_name)
             else:
                 is_needed = False
 
