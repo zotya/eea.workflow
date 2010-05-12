@@ -29,11 +29,10 @@ class ObjectReadiness(object):
         for field in self.context.schema.fields():  #we assume AT here
             if field.isMetadata:
                 continue
-            print field
             _total += 1
 
             info = getMultiAdapter([self.context, field], interface=IValueProvider)
-            has_value = info.has_value()
+            has_value = info.has_value(state=state_name)
 
             required_for = getMultiAdapter((self.context, field), interface=IRequiredFor)
             is_needed = required_for(state_name)
