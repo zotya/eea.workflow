@@ -34,4 +34,4 @@ class ATFieldRequiredFor(object):
 
     def __call__(self, state, **kwargs):
         ATTR = 'required_for_' + state
-        return getattr(field, ATTR, False)
+        return getattr(self.field, ATTR, False)
