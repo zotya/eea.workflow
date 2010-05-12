@@ -2,6 +2,12 @@ from eea.workflow.interfaces import IValueProvider, IObjectReadiness, IRequiredF
 from zope.component import getMultiAdapter
 from zope.interface import implements
 
+OTHER_METADATA_FIELDS = (
+        'locallyAllowedTypes',
+        'immediatelyAddableTypes',
+        'id'
+        )
+
 class ObjectReadiness(object):
     """Provides information about the readiness for doing a certain transition
 
@@ -27,8 +33,10 @@ class ObjectReadiness(object):
         _optional_with_value = []    #optional fields that have a value
 
         for field in self.context.schema.fields():  #we assume AT here
-            if field.isMetadata:
+
+            if field.isMetadata or field.getName() in OTHER_METADATA_FIELDS:
                 continue
+
             _total += 1
 
             info = getMultiAdapter([self.context, field], interface=IValueProvider)
@@ -56,7 +64,7 @@ class ObjectReadiness(object):
                 'publishing':_total_required,   #TODO:rename this to "required_for_state"
                 'optional':_optional,
                 'total':_total,
-                '_optional_with_value':_optional_with_value
+                #'_optional_with_value':_optional_with_value
                 }
 
     def is_ready_for(self, state_name):
