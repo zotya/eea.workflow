@@ -38,7 +38,7 @@ class ATFieldRequiredFor(object):
         return getattr(self.field, ATTR, False)
 
 
-class TextFieldValueProfider(ATFieldValueProvider):
+class TextFieldValueProvider(ATFieldValueProvider):
     """An IValueProvider implementation for Text Fields"""
 
     adapts(Interface, TextField)
