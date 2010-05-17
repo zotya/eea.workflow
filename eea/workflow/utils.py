@@ -1,6 +1,7 @@
-from Products.Archetypes.Field import Field
-from eea.workflow.interfaces import IValueProvider
+from Products.Archetypes.Field import Field, TextField
+from Products.CMFCore.utils import getToolByName
 from eea.workflow.interfaces import IRequiredFor
+from eea.workflow.interfaces import IValueProvider
 from zope.component import adapts
 from zope.interface import Interface, implements
 
@@ -35,3 +36,14 @@ class ATFieldRequiredFor(object):
     def __call__(self, state, **kwargs):
         ATTR = 'required_for_' + state
         return getattr(self.field, ATTR, False)
+
+
+class TextFieldValueProfider(ATFieldValueProvider):
+    """An IValueProvider implementation for Text Fields"""
+
+    adapts(Interface, TextField)
+
+    def has_value(self, **kwargs):
+        convert = getToolByName(self.context, 'portal_transforms').convert
+        value = self.field.schema.getAccessor(self.context)()
+        return bool(convert('html_to_text', value).getData().strip())

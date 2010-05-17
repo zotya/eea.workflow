@@ -33,6 +33,7 @@ class ObjectReadiness(object):
         _optional_with_value = []    #optional fields that have a value
 
         for field in self.context.schema.fields():  #we assume AT here
+            #print field
 
             if field.isMetadata or field.getName() in OTHER_METADATA_FIELDS:
                 continue
@@ -40,6 +41,7 @@ class ObjectReadiness(object):
             _total += 1
 
             info = getMultiAdapter([self.context, field], interface=IValueProvider)
+            #print info.get_value(state=state_name)
             has_value = info.has_value(state=state_name)
 
             required_for = getMultiAdapter((self.context, field), interface=IRequiredFor)
