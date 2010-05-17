@@ -45,5 +45,5 @@ class TextFieldValueProvider(ATFieldValueProvider):
 
     def has_value(self, **kwargs):
         convert = getToolByName(self.context, 'portal_transforms').convert
-        value = self.field.schema.getAccessor(self.context)()
+        value = self.field.getAccessor(self.context)()
         return bool(convert('html_to_text', value).getData().strip())
