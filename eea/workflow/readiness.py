@@ -33,7 +33,6 @@ class ObjectReadiness(object):
         _optional_with_value = []    #optional fields that have a value
 
         for field in self.context.schema.fields():  #we assume AT here
-            #print field
 
             if field.isMetadata or field.getName() in OTHER_METADATA_FIELDS:
                 continue
@@ -41,6 +40,7 @@ class ObjectReadiness(object):
             _total += 1
 
             info = getMultiAdapter([self.context, field], interface=IValueProvider)
+            #print field
             #print info.get_value(state=state_name)
             has_value = info.has_value(state=state_name)
 
@@ -66,7 +66,8 @@ class ObjectReadiness(object):
                 'publishing':_total_required,   #TODO:rename this to "required_for_state"
                 'optional':_optional,
                 'total':_total,
-                #'_optional_with_value':_optional_with_value
+                'extra':[]  #extra messages that will be displayed in the portlet, in the form of tuples
+                            #(cssclass, text)
                 }
 
     def is_ready_for(self, state_name):

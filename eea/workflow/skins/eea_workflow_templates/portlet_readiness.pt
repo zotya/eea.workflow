@@ -5,23 +5,32 @@
 	<body>
 		<metal:macro metal:define-macro="portlet">
 			<tal:defs tal:define="api nocall:context/@@get_readiness | nothing; " tal:condition="api" >
-				<dl class="portlet" id="readiness-status" tal:define="info python:api.get_info_for('published');">
+				<dl class="portlet" id="readiness-status" 
+					tal:define="info python:api.get_info_for('published');
+											extra info/extra">
 					<dt class="portletHeader">
 						<a href="" 
 							tal:attributes="href string:${context/absolute_url}/edit" 
 							class="tile">Editing progress</a>
 					</dt>
 
-					<dt class="portletItem" class="percentageDone">
+					<dt class="portletItem percentageDone">
 						<span tal:content="info/done" class="percentage" />% percentage done.
 					</dt>
 					
-					<dt class="portletItem" class="missingRequired" >
+					<dt class="portletItem missingRequired">
 						<span class="missingRequiredNr" tal:content="python:info['publishing'] - info['required']" /> of <span tal:content="python:info['publishing']" /> required fields are missing. 
 					</dt>
 					
 					<dt class="portletItem discreet">
 						There are <span tal:content="info/total" /> fields in this content item.
+					</dt>
+
+					<dt class="portletItem extra" tal:condition="extra">
+						<tal:rep repeat="entry info/extra">
+							<div tal:attributes="class python:entry[0]" 
+								tal:content="python:entry[1]">Something here</div> 
+						</tal:rep>
 					</dt>
 					
 					<dd class="portletFooter">
