@@ -4,30 +4,28 @@ Workflow guards and readiness checking
 We have the following use case:
 
  * objects of type "Specification" have several requirements that need to be
- * met before they can be published. 
-	For example, some of their fields are not required in Archetypes sense, but
-	they should be filled in before the object can be published. Also, several
-	relations need to be created between a Specification and several other
-	content types, in order to allow the transition to published.
+ met before they can be published. For example, some of their fields are not
+ required in Archetypes sense, but they should be filled in before the object
+ can be published. Also, several relations need to be created between a
+ Specification and several other content types, in order to allow the
+ transition to published.
 
 We have implemented the following facilities that allow the above requirements
 to be filled in:
 
  * now you can (should) add a boolean attribute called "required_for_zzz" field
-   schema definitions, where zzz is the name of a workflow state. There is no 
-	 code to enable this, because you can already
-	 pass arbitrary parameters to AT Field definitions and they'll be stored in
-	 the field.
+   schema definitions, where zzz is the name of a workflow state. There is no
+   code to enable this, because you can already pass arbitrary parameters to AT
+   Field definitions and they'll be stored in the field.
  * we have a view called ``get_readiness``, registered for objects implementing 
-	 ``eea.workflow.interfaces.IHasMandatoryWorkflowFields``. You can call this
-	 view in a TALES expression like this: 
-	 ``python:not path('here/@@get_readiness').is_ready_for('published')``
-	 This view offers two methods: ``is_ready_for`` and ``get_info_for``. They
-	 both accept a single parameter, the state name, and return a boolean or a
-	 mapping with information. See code for this.
+   ``eea.workflow.interfaces.IHasMandatoryWorkflowFields``. You can call this
+   view in a TALES expression like this: ``python:not
+   path('here/@@get_readiness').is_ready_for('published')`` This view offers
+   two methods: ``is_ready_for`` and ``get_info_for``. They both accept a
+   single parameter, the state name, and return a boolean or a mapping with
+   information. See code for this.
  * we have a portlet called portlet_readiness. Attach it to your objects and it
-   will present the info that results from calling
-	 ObjectReadiness.get_info_for()
+   will present the info that results from calling ObjectReadiness.get_info_for()
 
 The ObjectReadiness.is_ready_for() method can be used in workflow transitions
 in the following fashion: let's assume that we want to guard the "published"
