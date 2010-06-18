@@ -5,7 +5,7 @@
 	<body>
 		<metal:macro metal:define-macro="portlet">
 			<tal:defs tal:define="api nocall:context/@@get_readiness | nothing; 
-													 has_permission python:mtool.checkPermission('Modify portal content', context)" tal:condition="python:api and has_permission" >
+													 has_permission python:context.portal_membership.checkPermission('Modify portal content', context)" tal:condition="python:api and has_permission" >
 				<dl class="portlet" id="readiness-status" 
 					tal:define="info python:api.get_info_for('published');
 											extra info/extra">
