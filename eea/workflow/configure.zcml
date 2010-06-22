@@ -18,14 +18,17 @@
 
 	<adapter factory=".utils.ATFieldValueProvider" />
 	<adapter factory=".utils.TextFieldValueProvider" />
-	<adapter factory=".utils.ATFieldRequiredFor" />
+	<adapter factory=".utils.ATFieldIsRequiredForState" />
 
 	<browser:page
 		name="get_readiness"
 		for="eea.workflow.interfaces.IHasMandatoryWorkflowFields"
 		permission="zope2.View"
-		class=".readiness.ObjectReadiness"
+		class=".readiness.ObjectReadinessView"
 		allowed_interface=".interfaces.IObjectReadiness"
 		/>
+
+	<adapter factory=".readiness.ObjectReadiness" 
+		for="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
 
 </configure>

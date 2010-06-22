@@ -20,7 +20,8 @@ class IValueProvider(Interface):
         """Returns the value of this object"""
 
 
-class IRequiredFor(Interface):
+class IFieldIsRequiredForState(Interface):
+    #TODO: the naming of this interface should be changed, it's too specific;
     """Objects of this type provide required for state
 
     The use case is this: we want to be able to interrogate various AT fields contained
@@ -32,6 +33,7 @@ class IRequiredFor(Interface):
     def __call__(state):
         """ Is required for state?
         """
+
 
 class IObjectReadiness(Interface):
     """Returns info on how ready is an object to be moved to a certain workflow state"""

@@ -27,7 +27,7 @@ to be filled in:
  * we have a portlet called portlet_readiness. Attach it to your objects and it
    will present the info that results from calling ObjectReadiness.get_info_for()
 
-The ObjectReadiness.is_ready_for() method can be used in workflow transitions
+The ObjectReadinessView.is_ready_for() method can be used in workflow transitions
 in the following fashion: let's assume that we want to guard the "published"
 state with checks based on the required_for_published parameters passed to some
 of the fields. Now we can add this expression as guard for the publish 

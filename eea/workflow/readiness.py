@@ -1,4 +1,4 @@
-from eea.workflow.interfaces import IValueProvider, IObjectReadiness, IRequiredFor
+from eea.workflow.interfaces import IValueProvider, IObjectReadiness, IFieldIsRequiredForState
 from zope.component import getMultiAdapter
 from zope.interface import implements
 
@@ -7,6 +7,7 @@ OTHER_METADATA_FIELDS = (
         'immediatelyAddableTypes',
         'id'
         )
+
 
 class ObjectReadiness(object):
     """Provides information about the readiness for doing a certain transition
@@ -20,9 +21,8 @@ class ObjectReadiness(object):
 
     implements(IObjectReadiness)
 
-    def __init__(self, context, request):
+    def __init__(self, context):
         self.context = context
-        self.request = request
 
     def get_info_for(self, state_name):
         _done           = 0 #the percentage of fields required for publication that are filled in
@@ -40,11 +40,9 @@ class ObjectReadiness(object):
             _total += 1
 
             info = getMultiAdapter([self.context, field], interface=IValueProvider)
-            #print field
-            #print info.get_value(state=state_name)
             has_value = info.has_value(state=state_name)
 
-            required_for = getMultiAdapter((self.context, field), interface=IRequiredFor)
+            required_for = getMultiAdapter((self.context, field), interface=IFieldIsRequiredForState)
             is_needed = required_for(state_name)
 
             if is_needed:
@@ -75,3 +73,11 @@ class ObjectReadiness(object):
         if info['required'] == info['publishing']:
             return True
         return False
+
+
+class ObjectReadinessView(ObjectReadiness):
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
