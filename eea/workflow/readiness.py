@@ -25,19 +25,23 @@ class ObjectReadiness(object):
         self.context = context
 
     def get_info_for(self, state_name):
-        _done           = 0 #the percentage of fields required for publication that are filled in
-        _optional       = 0 #fields that are not required for publication that are not filled in
-        _required       = 0 #the fields required for publication that are filled in
-        _total_required = 0 #the number of fields that are required to be filled in for the `state_name`
-        _total          = 0 #the grand total of fields
-        _optional_with_value = []    #optional fields that have a value
+
+        #Terminology: RFS = required for state ZZZ
+
+        rfs_required   = 0 #the number of fields that are RFS
+        rfs_with_value = 0 #the fields RFS that are filled in
+        optional_empty = 0 #fields that are not RFS and are not filled in
+        total_fields   = 0 #the grand total of fields
+        rfs_done       = 0 #the percentage of fields RFS that are filled in
+        rfs_field_names = []    #the names of fields thare are RFS
+        optional_with_value = []    #optional fields that have a value
 
         for field in self.context.schema.fields():  #we assume AT here
 
-            if field.isMetadata or field.getName() in OTHER_METADATA_FIELDS:
+            if field.isMetadata or (field.getName() in OTHER_METADATA_FIELDS):
                 continue
 
-            _total += 1
+            total_fields += 1
 
             info = getMultiAdapter([self.context, field], interface=IValueProvider)
             has_value = info.has_value(state=state_name)
@@ -46,31 +50,35 @@ class ObjectReadiness(object):
             is_needed = required_for(state_name)
 
             if is_needed:
-                _total_required += 1
+                rfs_required += 1
                 if has_value:
-                    _required += 1
+                    rfs_with_value += 1
+                else:
+                    rfs_field_names.append((field.getName(), field.widget.label))
             else:
                 if not has_value:
-                    _optional += 1
+                    optional_empty += 1
                 else:
-                    _optional_with_value.append((field, info.get_value()))
+                    optional_with_value.append((field, info.get_value()))
 
-        _total_required = _total_required or 1  #avoid division by 0
-        _done = int(float(_required) / float(_total_required) * 100.0)
+        rfs_required = rfs_required or 1  #avoid division by 0
+        rfs_done = int(float(rfs_with_value) / float(rfs_required) * 100.0)
 
         return {
-                'done':_done,
-                'required':_required,
-                'publishing':_total_required,   #TODO:rename this to "required_for_state"
-                'optional':_optional,
-                'total':_total,
+                'rfs_done':rfs_done,    #ex done
+                'rfs_with_value':rfs_with_value, #ex required
+                'rfs_required':rfs_required,   #ex publishing
+                'optional_empty':optional_empty,  #ex optional
+                'total_fields':total_fields,    #ex total
+                'rfs_field_names':rfs_field_names,
+                'optional_with_value':optional_with_value,
                 'extra':[]  #extra messages that will be displayed in the portlet, in the form of tuples
                             #(cssclass, text)
                 }
 
     def is_ready_for(self, state_name):
         info = self.get_info_for(state_name)
-        if info['required'] == info['publishing']:
+        if info['rfs_required'] == info['rfs_with_value']:
             return True
         return False
 
