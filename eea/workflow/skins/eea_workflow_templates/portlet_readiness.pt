@@ -30,7 +30,7 @@
           <dt class="portletItem missingFields" tal:condition="info/rfs_field_names">
             <ul>
               <li tal:repeat="field info/rfs_field_names" >
-                <a href="#rfs_title" tal:attributes="href string:#rfs_${name}" 
+                <a href="#rfs_title" tal:attributes="href string:@@edit_aggregated#rfs_${name}" 
                   tal:content="label" tal:define="name python:field[0]; label python:field[1]">Field</a>
               </li>
             </ul>
