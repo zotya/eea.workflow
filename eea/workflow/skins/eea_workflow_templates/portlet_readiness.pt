@@ -20,8 +20,9 @@
             <span tal:content="info/rfs_done" class="percentage" />% percentage done.
           </dt>
 
-          <dt class="portletItem missingRequired">
-            <span class="missingRequiredNr" tal:content="python:info['rfs_required'] - info['rfs_with_value']" /> 
+          <dt class="portletItem missingRequired" tal:define="totmiss python:info['rfs_required'] - info['rfs_with_value']"
+              tal:condition="totmiss">
+            <span class="missingRequiredNr" tal:content="totmiss" /> 
             of 
             <span tal:content="python:info['rfs_required']" /> 
             required fields are missing. 
