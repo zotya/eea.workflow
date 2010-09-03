@@ -7,6 +7,7 @@ Changelog
 ------------------
  * Change: Show only 'missing required fields' message if there are missing. [demarant]
  * Feature: show links in portlet_readiness to unfilled fields [tiberich 3598]
+ * Change:  format extra messages as structured in the portlet_readiness [tiberich 3603]
 
 1.0 - (2010-07-01)
 ------------------

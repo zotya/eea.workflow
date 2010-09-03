@@ -44,7 +44,7 @@
           <dt class="portletItem extra" tal:condition="extra">
             <tal:rep repeat="entry info/extra">
               <div tal:attributes="class python:entry[0]" 
-                tal:content="python:entry[1]">Something here</div> 
+                tal:content="structure python:entry[1]">Something here</div> 
             </tal:rep>
           </dt>
 
