@@ -25,7 +25,7 @@
             <span class="missingRequiredNr" tal:content="totmiss" /> 
             of 
             <span tal:content="python:info['rfs_required']" /> 
-            required fields are missing. 
+            required fields are missing:
           </dt>
 
           <dt class="portletItem missingFields" tal:condition="info/rfs_field_names">
