@@ -2,8 +2,9 @@ Changelog
 =========
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
 [Tiberiu Ichim - tiberiu.ichim@eaudeweb.ro]
+[Antonio De Marinis - demarinis@eea.europa.eu]
 
-1.1 - (Unreleased)
+1.1 - (2010-09-06)
 ------------------
  * Change: Show only 'missing required fields' message if there are missing. [demarant]
  * Feature: show links in portlet_readiness to unfilled fields [tiberich 3598]
