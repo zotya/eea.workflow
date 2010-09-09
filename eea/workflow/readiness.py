@@ -61,15 +61,15 @@ class ObjectReadiness(object):
                 else:
                     optional_with_value.append((field, info.get_value()))
 
-        rfs_required = rfs_required or 1  #avoid division by 0
-        rfs_done = int(float(rfs_with_value) / float(rfs_required) * 100.0)
+        #rfs_required = rfs_required or 1  #avoid division by 0
+        rfs_done = int(float(rfs_with_value) / float(rfs_required or 1) * 100.0)
 
         return {
-                'rfs_done':rfs_done,    #ex done
-                'rfs_with_value':rfs_with_value, #ex required
-                'rfs_required':rfs_required,   #ex publishing
-                'optional_empty':optional_empty,  #ex optional
-                'total_fields':total_fields,    #ex total
+                'rfs_done':rfs_done,
+                'rfs_with_value':rfs_with_value,
+                'rfs_required':rfs_required,
+                'optional_empty':optional_empty,
+                'total_fields':total_fields,
                 'rfs_field_names':rfs_field_names,
                 'optional_with_value':optional_with_value,
                 'extra':[]  #extra messages that will be displayed in the portlet, in the form of tuples

@@ -6,6 +6,7 @@ Changelog
 
 1.2 - (unreleased)
 ------------------
+ * Change: small cleanup in readiness code [tiberich]
 
 1.1 - (2010-09-06)
 ------------------
