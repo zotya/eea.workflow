@@ -1,7 +1,7 @@
 from Products.Archetypes.Field import Field, TextField
 from Products.CMFCore.utils import getToolByName
-from eea.workflow.interfaces import IFieldIsRequiredForState
-from eea.workflow.interfaces import IValueProvider
+from Products.PluginIndexes.TextIndex.Splitter import UnicodeSplitter
+from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from zope.component import adapts
 from zope.interface import Interface, implements
 
@@ -31,7 +31,10 @@ class TextFieldValueProvider(ATFieldValueProvider):
     def has_value(self, **kwargs):
         convert = getToolByName(self.context, 'portal_transforms').convert
         value = self.field.getAccessor(self.context)()
-        return bool(convert('html_to_text', value).getData().strip())
+        text = convert('html_to_text', value).getData().strip()
+        words = UnicodeSplitter.Splitter(text).split()
+        return len(words) > 1   #there should be at least 2 words, or 
+                                #the field is considered empty
 
 
 class ATFieldIsRequiredForState(object):
