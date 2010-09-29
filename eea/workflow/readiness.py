@@ -120,9 +120,15 @@ class ObjectReadiness(object):
         return False
 
 
-class ObjectReadinessView(ObjectReadiness):
+class ObjectReadinessView(object):
 
     def __init__(self, context, request):
         self.context = context
         self.request = request
+
+    def get_info_for(self, state_name):
+        return IObjectReadiness(self.context).get_info_for(state_name)
+
+    def is_ready_for(self, state_name):
+        return IObjectReadiness(self.context).is_ready_for(state_name)
 

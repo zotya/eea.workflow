@@ -4,8 +4,10 @@ Changelog
 [Tiberiu Ichim - tiberiu.ichim@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
-1.3 - Unreleased
-----------------
+1.3 - (unreleased)
+------------------
+ * Change: restructure ObjectReadinessView to remove necessity of redefining it if
+   the ObjectReadiness class is subclassed [tiberich #3694]
  * Feature: check object readiness against predefined checks [tiberich #3694]
  * Feature: consider stats for dependent objects when calculating object readiness [tiberich #3694]
  * Change: all text fields that are checked for readiness need to have at least 2 words
