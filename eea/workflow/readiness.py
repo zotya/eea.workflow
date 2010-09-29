@@ -45,7 +45,7 @@ class ObjectReadiness(object):
         optional_empty = 0 #fields that are not RFS and are not filled in
         total_fields   = 0 + len(checks) #the grand total of fields
         rfs_done       = 0 #the percentage of fields RFS that are filled in
-        rfs_field_names = []    #the names of fields thare are RFS
+        rfs_field_names = []    #the names of fields that are RFS but have no value
         optional_with_value = []    #optional fields that have a value
 
         for field in self.context.schema.fields():  #we assume AT here
