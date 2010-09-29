@@ -21,6 +21,14 @@ class ObjectReadiness(object):
 
     implements(IObjectReadiness)
 
+    checks = {
+            # #This is the format:
+            #'published':(
+            #   (lambda o:False, 'Some error message'),
+            #   )
+            }
+    depends_on = None
+
     def __init__(self, context):
         self.context = context
 
@@ -28,10 +36,14 @@ class ObjectReadiness(object):
 
         #Terminology: RFS = required for state ZZZ
 
-        rfs_required   = 0 #the number of fields that are RFS
+        depends_on = self.depends_on or []
+        extras = []
+        checks = self.checks.get(state_name, [])
+
+        rfs_required   = 0 + len(checks) #the number of fields that are RFS
         rfs_with_value = 0 #the fields RFS that are filled in
         optional_empty = 0 #fields that are not RFS and are not filled in
-        total_fields   = 0 #the grand total of fields
+        total_fields   = 0 + len(checks) #the grand total of fields
         rfs_done       = 0 #the percentage of fields RFS that are filled in
         rfs_field_names = []    #the names of fields thare are RFS
         optional_with_value = []    #optional fields that have a value
@@ -61,7 +73,31 @@ class ObjectReadiness(object):
                 else:
                     optional_with_value.append((field, info.get_value()))
 
-        #rfs_required = rfs_required or 1  #avoid division by 0
+        for checker, error in checks:
+            if checker(self.context):
+                extras.append(('error', error))
+            else:
+                rfs_with_value += 1
+
+        #We calculate the stats for the dependencies
+        _rfs_required = 0
+        _rfs_with_value = 0
+        _total_fields = 0
+        _rfs_field_names = []
+        for part in depends_on:
+            _info = IObjectReadiness(part).get_info_for(state_name)
+            _rfs_required +=_info['rfs_required']
+            _rfs_with_value += _info['rfs_with_value']
+            _total_fields += _info['total_fields']
+            _rfs_field_names += map(lambda t:(t[0] + "_" + part.getId(), t[1]), 
+                                    _info['rfs_field_names'])
+
+        rfs_required += _rfs_required
+        rfs_with_value += _rfs_with_value
+        total_fields += _total_fields
+        rfs_field_names += _rfs_field_names
+
+        #rfs_required or 1  #->avoids division by 0
         rfs_done = int(float(rfs_with_value) / float(rfs_required or 1) * 100.0)
 
         return {
@@ -80,6 +116,7 @@ class ObjectReadiness(object):
         info = self.get_info_for(state_name)
         if info['rfs_required'] == info['rfs_with_value']:
             return True
+
         return False
 
 

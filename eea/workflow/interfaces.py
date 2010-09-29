@@ -1,4 +1,6 @@
-from zope.interface import Interface
+from zope.interface import Interface, Attribute
+#from zope.schema import List, Dict, TextLine, Object
+
 
 class IHasMandatoryWorkflowFields(Interface):
     """Marker interface for objects with fields that are required for workflow transitions"""
@@ -37,6 +39,9 @@ class IFieldIsRequiredForState(Interface):
 
 class IObjectReadiness(Interface):
     """Returns info on how ready is an object to be moved to a certain workflow state"""
+
+    checks = Attribute("A mapping of workflow state to lists of checks that need to be executed")
+    depends_on = Attribute("A list of objects whose readiness should be considered")
 
     def get_info_for(state_name):
         """Returns a mapping containing statistics on object readiness for a certain state"""
