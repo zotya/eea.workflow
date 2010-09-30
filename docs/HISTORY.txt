@@ -4,7 +4,7 @@ Changelog
 [Tiberiu Ichim - tiberiu.ichim@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
-1.3 - (unreleased)
+1.3-dev - (unreleased)
 ------------------
  * Change: restructure ObjectReadinessView to remove necessity of redefining it if
    the ObjectReadiness class is subclassed [tiberich #3694]
