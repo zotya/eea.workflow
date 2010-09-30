@@ -4,6 +4,9 @@ Changelog
 [Tiberiu Ichim - tiberiu.ichim@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
+1.4-dev - (unreleased)
+----------------------
+
 1.3 - (2010-09-30)
 ------------------
  * Change: restructure ObjectReadinessView to remove necessity of redefining it if
