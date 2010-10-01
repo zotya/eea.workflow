@@ -20,8 +20,9 @@
             <span tal:content="info/rfs_done" class="percentage" />% percentage done.
           </dt>
 
-          <dt class="portletItem missingRequired" tal:define="totmiss python:info['rfs_required'] - info['rfs_with_value']"
-              tal:condition="totmiss">
+          <dt class="portletItem missingRequired" 
+            tal:define="totmiss python:info['rfs_required'] - info['rfs_with_value'] - len(info['extra'])"
+            tal:condition="totmiss">
             <span class="missingRequiredNr" tal:content="totmiss" /> 
             of 
             <span tal:content="python:info['rfs_required']" /> 
@@ -38,7 +39,8 @@
           </dt>
 
           <dt class="portletItem discreet">
-            There are <span tal:content="info/total_fields" /> fields in this content item.
+            There are <span tal:content="info/total_fields" /> fields and 
+            <span tal:content="info/conditions" /> conditions in this content item.
           </dt>
 
           <dt class="portletItem extra" tal:condition="extra">

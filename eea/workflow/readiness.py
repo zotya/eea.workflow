@@ -24,7 +24,7 @@ class ObjectReadiness(object):
     checks = {
             # #This is the format:
             #'published':(
-            #   (lambda o:False, 'Some error message'),
+            #   ('some title', lambda o:False, 'Some error message'),
             #   )
             }
     depends_on = None
@@ -43,7 +43,7 @@ class ObjectReadiness(object):
         rfs_required   = 0 + len(checks) #the number of fields that are RFS
         rfs_with_value = 0 #the fields RFS that are filled in
         optional_empty = 0 #fields that are not RFS and are not filled in
-        total_fields   = 0 + len(checks) #the grand total of fields
+        total_fields   = 0 #the grand total of fields
         rfs_done       = 0 #the percentage of fields RFS that are filled in
         rfs_field_names = []    #the names of fields that are RFS but have no value
         optional_with_value = []    #optional fields that have a value
@@ -108,8 +108,10 @@ class ObjectReadiness(object):
                 'total_fields':total_fields,
                 'rfs_field_names':rfs_field_names,
                 'optional_with_value':optional_with_value,
-                'extra':[]  #extra messages that will be displayed in the portlet, in the form of tuples
+                'extra':extras,  #extra messages that will be displayed in the portlet, in the form of tuples
                             #(cssclass, text)
+
+                'conditions':len(checks)
                 }
 
     def is_ready_for(self, state_name):
