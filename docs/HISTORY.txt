@@ -4,6 +4,9 @@ Changelog
 [Tiberiu Ichim - tiberiu.ichim@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
+1.5-dev - (unreleased)
+----------------------
+
 1.4 - (2010-10-01)
 ------------------
  * Bug fix: Fix extras display in portlet_readiness [tiberich #3735]
