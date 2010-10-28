@@ -27,7 +27,7 @@ class ObjectReadiness(object):
             #   ('some title', lambda o:False, 'Some error message'),
             #   )
             }
-    depends_on = None
+    depends_on = None   # a list of objects whose readiness should be taken into account
 
     def __init__(self, context):
         self.context = context
@@ -46,10 +46,10 @@ class ObjectReadiness(object):
         total_fields   = 0 #the grand total of fields
         rfs_done       = 0 #the percentage of fields RFS that are filled in
         rfs_field_names = []    #the names of fields that are RFS but have no value
+        rfs_done_field_names = []   #the names of fields that are RFS and have a value
         optional_with_value = []    #optional fields that have a value
 
         for field in self.context.schema.fields():  #we assume AT here
-
             if field.isMetadata or (field.getName() in OTHER_METADATA_FIELDS):
                 continue
 
@@ -65,6 +65,7 @@ class ObjectReadiness(object):
                 rfs_required += 1
                 if has_value:
                     rfs_with_value += 1
+                    rfs_done_field_names.append((field.getName(), field.widget.label))
                 else:
                     rfs_field_names.append((field.getName(), field.widget.label))
             else:
@@ -80,22 +81,15 @@ class ObjectReadiness(object):
                 rfs_with_value += 1
 
         #We calculate the stats for the dependencies
-        _rfs_required = 0
-        _rfs_with_value = 0
-        _total_fields = 0
-        _rfs_field_names = []
         for part in depends_on:
             _info = IObjectReadiness(part).get_info_for(state_name)
-            _rfs_required +=_info['rfs_required']
-            _rfs_with_value += _info['rfs_with_value']
-            _total_fields += _info['total_fields']
-            _rfs_field_names += map(lambda t:(t[0] + "_" + part.getId(), t[1]), 
+            rfs_required +=_info['rfs_required']
+            rfs_with_value += _info['rfs_with_value']
+            total_fields += _info['total_fields']
+            rfs_field_names += map(lambda t:(t[0] + "_" + part.getId(), t[1]), 
                                     _info['rfs_field_names'])
-
-        rfs_required += _rfs_required
-        rfs_with_value += _rfs_with_value
-        total_fields += _total_fields
-        rfs_field_names += _rfs_field_names
+            rfs_done_field_names += map(lambda t:(t[0] + "_" + part.getId(), t[1]), 
+                                    _info['rfs_done_field_names'])
 
         #rfs_required or 1  #->avoids division by 0
         rfs_done = int(float(rfs_with_value) / float(rfs_required or 1) * 100.0)
@@ -107,10 +101,9 @@ class ObjectReadiness(object):
                 'optional_empty':optional_empty,
                 'total_fields':total_fields,
                 'rfs_field_names':rfs_field_names,
+                'rfs_done_field_names':rfs_done_field_names,
                 'optional_with_value':optional_with_value,
                 'extra':extras,  #extra messages that will be displayed in the portlet, in the form of tuples
-                            #(cssclass, text)
-
                 'conditions':len(checks)
                 }
 

@@ -6,6 +6,7 @@ Changelog
 
 1.5-dev - (unreleased)
 ----------------------
+ * Improved portlet readiness display by showing field list in an accordion [tiberich #3766]
 
 1.4 - (2010-10-01)
 ------------------

@@ -10,9 +10,11 @@
         <dl class="portlet" id="readiness-status" 
           tal:define="info python:api.get_info_for('published');
           extra info/extra">
+
+
           <dt class="portletHeader">
-            <a href="" 
-              tal:attributes="href string:${context/absolute_url}/edit" 
+            <a href=""
+              tal:attributes="href string:${context/absolute_url}/edit"
               class="tile">Editing progress</a>
           </dt>
 
@@ -20,35 +22,51 @@
             <span tal:content="info/rfs_done" class="percentage" />% percentage done.
           </dt>
 
-          <dt class="portletItem missingRequired" 
+          <dt class="portletItem missingRequired"
             tal:define="totmiss python:info['rfs_required'] - info['rfs_with_value'] - len(info['extra'])"
             tal:condition="totmiss">
-            <span class="missingRequiredNr" tal:content="totmiss" /> 
-            of 
-            <span tal:content="python:info['rfs_required']" /> 
-            required fields are missing:
+            <span class="missingRequiredNr" tal:content="totmiss" />
+            of
+            <span tal:content="python:info['rfs_required']" />
+            required fields are missing
           </dt>
 
-          <dt class="portletItem missingFields" tal:condition="info/rfs_field_names">
-            <ul>
-              <li tal:repeat="field info/rfs_field_names" >
-                <a href="#rfs_title" tal:attributes="href string:@@edit_aggregated#rfs_${name}" 
-                  tal:content="label" tal:define="name python:field[0]; label python:field[1]">Field</a>
-              </li>
-            </ul>
-          </dt>
+          <div class="readiness_accordion" class="portletItem">
+            <div class="section_headline"><a href="#">Missing fields</a></div>
+            <div class="accordion_content">
+              <div tal:condition="info/rfs_field_names">
+                <ul class="unfinished">
+                  <li tal:repeat="field info/rfs_field_names" >
+                    <a href="#rfs_title" tal:attributes="href string:@@edit_aggregated#rfs_${name}"
+                      tal:content="label" tal:define="name python:field[0]; label python:field[1]">Field</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="extra" tal:condition="extra">
+                <tal:rep repeat="entry info/extra">
+                  <div tal:attributes="class python:entry[0]"
+                    tal:content="structure python:entry[1]">Something here</div>
+                </tal:rep>
+              </div>
+            </div>
 
-          <dt class="portletItem discreet">
-            There are <span tal:content="info/total_fields" /> fields and 
-            <span tal:content="info/conditions" /> conditions in this content item.
-          </dt>
+            <div class="section_headline"><a href="#">Done</a></div>
+            <div class="accordion_content">
+              <div class="missingFields" tal:condition="info/rfs_done_field_names">
+                <ul class="finished">
+                  <li tal:repeat="field info/rfs_done_field_names" >
+                    <a href="#rfs_title" tal:attributes="href string:@@edit_aggregated#rfs_${name}"
+                      tal:content="label" tal:define="name python:field[0]; label python:field[1]">Field</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
 
-          <dt class="portletItem extra" tal:condition="extra">
-            <tal:rep repeat="entry info/extra">
-              <div tal:attributes="class python:entry[0]" 
-                tal:content="structure python:entry[1]">Something here</div> 
-            </tal:rep>
-          </dt>
+          <!--<dt class="portletItem discreet">-->
+            <!--There are <span tal:content="info/total_fields" /> fields and -->
+            <!--<span tal:content="info/conditions" /> conditions in this content item.-->
+          <!--</dt>-->
 
           <dd class="portletFooter">
             <a href="" 
