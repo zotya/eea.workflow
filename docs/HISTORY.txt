@@ -4,8 +4,8 @@ Changelog
 [Tiberiu Ichim - tiberiu.ichim@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
-1.5-dev - (unreleased)
-----------------------
+1.5 - (2010-10-28)
+------------------
  * Improved portlet readiness display by showing field list in an accordion [tiberich #3766]
 
 1.4 - (2010-10-01)
