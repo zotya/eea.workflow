@@ -1,0 +1,24 @@
+.readiness_accordion  {
+    margin:1em 0;
+}
+.readiness_accordion .ui-accordion-header {
+    margin:0;
+}
+
+.readiness_accordion ul {
+    list-style-type:none;
+    line-height:inherit;
+    margin:0;
+    padding:5px 0;
+}
+.readiness_accordion ul.finished li {
+    background:transparent url('./accept.png');
+    background-repeat:no-repeat;
+    padding-left:20px;
+}
+.readiness_accordion ul.unfinished li {
+    background:transparent url('./cancel.png');
+    background-repeat:no-repeat;
+    padding-left:20px;
+}
+
