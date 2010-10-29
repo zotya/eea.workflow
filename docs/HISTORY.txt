@@ -4,8 +4,8 @@ Changelog
 [Tiberiu Ichim - tiberiu.ichim@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
-1.6 - (unreleased)
-------------------
+1.6-dev - (unreleased)
+----------------------
 
 1.5 - (2010-10-28)
 ------------------
