@@ -1,0 +1,24 @@
+<form method="POST" action="" tal:attributes="action string:${context/absolute_url}/content_status_modify">
+
+  <div class='questions'>
+    <div class="question">
+      <h3>Placeholder for question one</h3>
+      <input type="radio" name="cond1" value="yes" id="cond1-yes" checked="checked" /><label for="cond1-yes">Yes</label> 
+      <input type="radio" name="cond1" value="no" id="cond1-no" /><label for="cond1-no">No</label><br />
+      <label for="comments-cond1">Other comments</label><br />
+      <textarea name="comments-cond1" />
+    </div>
+
+    <div class="question">
+      <h3>Placeholder for question two</h3>
+      <input type="radio" name="cond2" value="yes" id="cond2-yes" checked="checked" /><label for="cond2-yes">Yes</label> 
+      <input type="radio" name="cond2" value="no" id="cond2-no" /><label for="cond2-no">No</label><br />
+      <label for="comments-cond2">Other comments</label><br />
+      <textarea name="comments-cond2" />
+    </div>
+  </div>
+
+  <input name="workflow_action" type="hidden" value="publish" />
+  <textarea name="comment" id="comment" style="display:none" />
+
+</form>

@@ -6,6 +6,8 @@ Changelog
 
 1.6-dev - (unreleased)
 ----------------------
+ * Change: show text in the accordion when everything is ok [tiberich #3766]
+ * Feature: Show a dialog popup that prompts for quality asurance information when doing a publish [tiberich #3822]
 
 1.5 - (2010-10-28)
 ------------------

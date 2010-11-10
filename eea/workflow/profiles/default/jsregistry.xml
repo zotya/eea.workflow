@@ -9,4 +9,15 @@
         id="readiness.js"
         inline="False"/>
 
+    The following script is disabled by default. Change the condition to enable it, per content type. 
+    One example would be: python:object.meta_type in ['Specification', 'Assessment', 'IndicatorFactSheet']
+
+    <javascript cacheable="True"
+        compression="safe"
+        cookable="True"
+        enabled="True"
+        expression="python:False"
+        id="publish_dialog.js"
+        inline="False"/>
+
 </object>

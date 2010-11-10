@@ -48,6 +48,9 @@
                     tal:content="structure python:entry[1]">Something here</div>
                 </tal:rep>
               </div>
+              <p tal:condition="python: not extra and not info['rfs_field_names']">
+                Everything is done.
+              </p>
             </div>
 
             <div class="section_headline"><a href="#">Done</a></div>
@@ -60,13 +63,16 @@
                   </li>
                 </ul>
               </div>
+              <p class="missingFields" tal:condition="not: info/rfs_done_field_names">
+                Nothing done yet.
+              </p>
             </div>
           </div>
 
           <!--<dt class="portletItem discreet">-->
             <!--There are <span tal:content="info/total_fields" /> fields and -->
             <!--<span tal:content="info/conditions" /> conditions in this content item.-->
-          <!--</dt>-->
+            <!--</dt>-->
 
           <dd class="portletFooter">
             <a href="" 
