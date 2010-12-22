@@ -1,7 +1,6 @@
 function make_publish_text(questions){
     var text = "";
     $(".question", questions).each(function(){
-        console.log(this);
         var title = $("h3", this).text();
         var answer = $(":radio[checked='true']", this).val();
         var comment = $("textarea", this).val();
@@ -27,7 +26,6 @@ function set_publish_dialog(){
                 "Ok":function(){
                     var questions = $(".questions", target);
                     var text = make_publish_text(questions);
-                    console.log($("textarea#comment", target));
                     $("textarea#comment", target).val(text);
                     $(questions).remove();
                     $("form", target).submit();
@@ -39,8 +37,10 @@ function set_publish_dialog(){
                 }
             },
             open:function(ui){
-                     console.log(document.baseURI);
-                     var url = (document.baseURI || document.location.href) + "/publish_dialog";
+                    var base = $("base").attr('href');
+                    if !(base) base = document.baseURI;
+                    if !(base) base = window.location.href.split("?")[0];
+                     var url = base + "/publish_dialog";
                      $(this).load(url);
                      return false;
              }
