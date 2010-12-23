@@ -1,6 +1,8 @@
 <form method="POST" action="" tal:attributes="action string:${context/absolute_url}/content_status_modify">
- <p>Indicators have different procedures and approvals before publishing, depending if they are CSI or not. Please see <a href="http://svn.eionet.europa.eu/projects/Zope/wiki/IndicatorsUserGuide/Procedures" 
-target="_new">indicators procedures for more details.</a></p> 
+  <p>Indicators have different procedures and approvals before publishing, depending 
+    if they are CSI or not. Please see <a href="http://svn.eionet.europa.eu/projects/Zope/wiki/IndicatorsUserGuide/Procedures" 
+      target="_new">indicators procedures for more details.</a>
+  </p> 
 
   <div class='questions'>
     <div class="question">
@@ -8,7 +10,7 @@ target="_new">indicators procedures for more details.</a></p>
       <input type="radio" name="cond1" value="yes" id="cond1-yes" checked="checked" /><label for="cond1-yes">Yes</label> 
       <input type="radio" name="cond1" value="no" id="cond1-no" /><label for="cond1-no">No</label><br />
       <label for="comments-cond1">If not, please provide further justification</label><br />
-      <textarea name="comments-cond1" />
+      <textarea name="comments-cond1" ></textarea>
     </div>
 
     <div class="question">
@@ -16,11 +18,20 @@ target="_new">indicators procedures for more details.</a></p>
       <input type="radio" name="cond2" value="yes" id="cond2-yes" checked="checked" /><label for="cond2-yes">Yes</label> 
       <input type="radio" name="cond2" value="no" id="cond2-no" /><label for="cond2-no">No</label><br />
       <label for="comments-cond2">Comments</label><br />
-      <textarea name="comments-cond2" />
+      <textarea name="comments-cond2" ></textarea>
     </div>
   </div>
 
   <input name="workflow_action" type="hidden" value="publish" />
-  <textarea name="comment" id="comment" style="display:none" />
+  <textarea name="comment" id="comment" style="display:none"></textarea>
+
+  <tal:def tal:define="wEmails context/@@workflowEmails|nothing; 
+    transition_id string:publish;
+    emails wEmails/?transition_id|nothing">
+    <div class="emails" >
+      Action emails: <span class="discreet" tal:content="emails/action|string:none or old way">emails</span><br />				     
+      Confirmatiion emails: <span class="discreet"  tal:content="emails/confirmation|string:none or old way">emails</span><br />				     
+    </div>
+  </tal:def>
 
 </form>

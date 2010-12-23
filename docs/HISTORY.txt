@@ -6,6 +6,7 @@ Changelog
 
 1.7-dev - (unreleased)
 ----------------------
+ * Feature: show action and confirmation emails in the publishing dialog [tiberich #4002]
 
 1.6 - (2010-12-16)
 ------------------

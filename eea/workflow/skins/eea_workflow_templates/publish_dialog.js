@@ -40,9 +40,9 @@ function set_publish_dialog(){
                     var base = $("base").attr('href');
                     if !(base) base = document.baseURI;
                     if !(base) base = window.location.href.split("?")[0];
-                     var url = base + "/publish_dialog";
-                     $(this).load(url);
-                     return false;
+                    var url = base + "/publish_dialog";
+                    $(this).load(url);
+                    return false;
              }
         });
         return false;
