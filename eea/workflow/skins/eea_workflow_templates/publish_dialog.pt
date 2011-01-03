@@ -5,7 +5,7 @@
   </p> 
 
   <div class='questions'>
-    <div class="question">
+    <div class="question required">
       <h3>Have you done the Eionet review and incorporated the necessary feedback?</h3>
       <input type="radio" name="cond1" value="yes" id="cond1-yes" checked="checked" /><label for="cond1-yes">Yes</label> 
       <input type="radio" name="cond1" value="no" id="cond1-no" /><label for="cond1-no">No</label><br />

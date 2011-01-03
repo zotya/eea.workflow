@@ -7,6 +7,7 @@ Changelog
 1.7-dev - (unreleased)
 ----------------------
  * Feature: show action and confirmation emails in the publishing dialog [tiberich #4002]
+ * Feature: make it possible to specify required questions in publishing dialog [tiberich #4004]
 
 1.6 - (2010-12-16)
 ------------------

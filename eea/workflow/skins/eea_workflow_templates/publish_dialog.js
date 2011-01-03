@@ -24,8 +24,21 @@ function set_publish_dialog(){
             height:400,
             buttons:{
                 "Ok":function(){
-                    var questions = $(".questions", target);
-                    var text = make_publish_text(questions);
+                    var questions_area = $(".questions", target);
+                    // check if all required questions have been answered positively
+                    $(".question", target).each(function(){
+                        var q = this;
+                        if ($(q).hasClass('required')){
+                            var radio = $("input[value='yes']", q).get(0);
+                            if (radio.checked !== true) {
+                                $("h3", q).after("<div class='notice' style='color:red'>You need to answer with Yes on this question</div>");
+                                $(".notice", q).effect("pulsate", {times:3}, 2000, function(){$('.notice', q).remove()});
+                                return false;
+                            }
+                        }
+                    });
+
+                    var text = make_publish_text(questions_area);
                     $("textarea#comment", target).val(text);
                     $(questions).remove();
                     $("form", target).submit();
@@ -37,9 +50,7 @@ function set_publish_dialog(){
                 }
             },
             open:function(ui){
-                    var base = $("base").attr('href');
-                    if !(base) base = document.baseURI;
-                    if !(base) base = window.location.href.split("?")[0];
+                    var base = $("base").attr('href') || document.baseURI || window.location.href.split("?")[0];
                     var url = base + "/publish_dialog";
                     $(this).load(url);
                     return false;
