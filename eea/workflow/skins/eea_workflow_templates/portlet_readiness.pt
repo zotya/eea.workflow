@@ -11,7 +11,6 @@
           tal:define="info python:api.get_info_for('published');
           extra info/extra">
 
-
           <dt class="portletHeader">
             <a href=""
               tal:attributes="href string:${context/absolute_url}/edit"

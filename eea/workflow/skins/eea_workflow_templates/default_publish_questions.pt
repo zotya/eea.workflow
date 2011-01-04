@@ -8,7 +8,7 @@
   <div class="question required" tal:repeat="info questions" tal:attributes="class python:info[1] and 'question required' or 'question'">
     <tal:def define="index python:repeat['info'].index" >
       <h3 tal:content="python:info[0]">Have you done the Eionet review and incorporated the necessary feedback?</h3>
-      <input type="radio" name="cond1" value="yes" id="cond1-yes" checked="checked" 
+      <input type="radio" name="cond1" value="yes" id="cond1-yes"  
         tal:attributes="
         name string:cond${index};
         id string:cond${index}-yes"
