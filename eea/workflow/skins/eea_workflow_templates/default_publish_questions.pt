@@ -1,0 +1,17 @@
+<div class='questions'>
+  <div class="question required">
+    <h3>Have you done the Eionet review and incorporated the necessary feedback?</h3>
+    <input type="radio" name="cond1" value="yes" id="cond1-yes" checked="checked" /><label for="cond1-yes">Yes</label> 
+    <input type="radio" name="cond1" value="no" id="cond1-no" /><label for="cond1-no">No</label><br />
+    <label for="comments-cond1">If not, please provide further justification</label><br />
+    <textarea name="comments-cond1" ></textarea>
+  </div>
+
+  <div class="question">
+    <h3>Is the publishing approved by your programme manager (PGM)?</h3>
+    <input type="radio" name="cond2" value="yes" id="cond2-yes" checked="checked" /><label for="cond2-yes">Yes</label> 
+    <input type="radio" name="cond2" value="no" id="cond2-no" /><label for="cond2-no">No</label><br />
+    <label for="comments-cond2">Comments</label><br />
+    <textarea name="comments-cond2" ></textarea>
+  </div>
+</div>
