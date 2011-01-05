@@ -4,8 +4,8 @@ Changelog
 [Tiberiu Ichim - tiberiu.ichim@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
-1.7-dev - (unreleased)
-----------------------
+1.7 - (2011-01-05)
+------------------
  * Change: use the some format for optional_with_value fields as the rest in readiness info API [tiberich]
  * Feature: only activate Ok button on dialog when all questions are answered [tiberich #4003]
  * Feature: now it is possible to have different questions, per content type [tiberich #4005]
