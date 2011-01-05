@@ -72,7 +72,7 @@ class ObjectReadiness(object):
                 if not has_value:
                     optional_empty += 1
                 else:
-                    optional_with_value.append((field, info.get_value()))
+                    optional_with_value.append((field.getName(), field.widget.label))
 
         for checker, error in checks:
             if checker(self.context):

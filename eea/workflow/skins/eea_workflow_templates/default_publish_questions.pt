@@ -2,7 +2,7 @@
   The questions are defined as a tuple of ('question title', True if is required to be answered with Yes, False otherwise)
 </div>
 <div class='questions' tal:define="questions python:[
-  ('Have you done the Eionet review and incorporated the necessary feedback?', True),
+  ('Have you done the Eionet review and incorporated the necessary feedback?', False),
   ('Is the publishing approved by your programme manager (PGM)?', True),
   ]">
   <div class="question required" tal:repeat="info questions" tal:attributes="class python:info[1] and 'question required' or 'question'">

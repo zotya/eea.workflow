@@ -6,6 +6,7 @@ Changelog
 
 1.7-dev - (unreleased)
 ----------------------
+ * Change: use the some format for optional_with_value fields as the rest in readiness info API [tiberich]
  * Feature: only activate Ok button on dialog when all questions are answered [tiberich #4003]
  * Feature: now it is possible to have different questions, per content type [tiberich #4005]
  * Feature: show action and confirmation emails in the publishing dialog [tiberich #4002]
