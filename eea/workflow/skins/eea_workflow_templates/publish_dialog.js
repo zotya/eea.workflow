@@ -19,7 +19,7 @@ function make_publish_text(questions){
         if (comment.length) {
             comment += "\n";
         }
-        text += title + ": " + answer + "\n" + comment + "\n";
+        text += title + ": " + answer + "\n\n" + comment + "\n\n";
     });
     return text;
 }
@@ -48,7 +48,7 @@ function set_publish_dialog(){
                             var radio = $("input[value='yes']", q).get(0);
                             if (radio.checked !== true) {
                                 $("h3", q).after("<div class='notice' style='color:Black; background-color:#FFE291; " + 
-                                                 "padding:3px'>Required</div>");
+                                                 "padding:3px'>You need to answer with Yes</div>");
                                 $(".notice", q).effect("pulsate", {times:3}, 2000, function(){$('.notice', q).remove();});
                                 go = false;
                                 return false;
