@@ -3,23 +3,26 @@
   questions_template python:'%s_publish_questions' % portal_type;
   questions python:path('context/%s | context/default_publish_questions' % questions_template)">
 
-  <p>Indicators have different procedures and approvals before publishing, depending 
-    if they are CSI or not. Please see <a href="http://svn.eionet.europa.eu/projects/Zope/wiki/IndicatorsUserGuide/Procedures" 
-      target="_new">indicators procedures for more details.</a>
-  </p> 
+  <div tal:define="readiness_view nocall:context/@@get_readiness | nothing" >
+    <div tal:condition="python:(not readiness_view) or readiness_view.is_ready_for('published')" tal:omit-tag="">
+      <div tal:replace="structure questions" />
 
-  <div tal:replace="structure questions" />
+      <tal:def tal:define="wEmails context/@@workflowEmails|nothing; 
+        transition_id string:publish;
+        emails wEmails/?transition_id|nothing">
+        <div class="emails" >
+          Action emails: <span class="discreet" tal:content="emails/action|string:none or old way">emails</span><br />				     
+          Confirmatiion emails: <span class="discreet"  tal:content="emails/confirmation|string:none or old way">emails</span><br />				     
+        </div>
+      </tal:def>
+
+    </div>
+    <p tal:condition="python:readiness_view and not readiness_view.is_ready_for('published')" >
+      This item is not yet ready to be published!
+    </p>
+  </div>
 
   <input name="workflow_action" type="hidden" value="publish" />
   <textarea name="comment" id="comment" style="display:none"></textarea>
-
-  <tal:def tal:define="wEmails context/@@workflowEmails|nothing; 
-    transition_id string:publish;
-    emails wEmails/?transition_id|nothing">
-    <div class="emails" >
-      Action emails: <span class="discreet" tal:content="emails/action|string:none or old way">emails</span><br />				     
-      Confirmatiion emails: <span class="discreet"  tal:content="emails/confirmation|string:none or old way">emails</span><br />				     
-    </div>
-  </tal:def>
 
 </form>

@@ -1,6 +1,12 @@
 <div tal:replace="nothing">
-  The questions are defined as a tuple of ('question title', True if is required to be answered with Yes, False otherwise)
+  <!--The questions are defined as a tuple of ('question title', True if is required to be answered with Yes, False otherwise)-->
 </div>
+
+<p>Indicators have different procedures and approvals before publishing, depending 
+  if they are CSI or not. Please see <a href="http://svn.eionet.europa.eu/projects/Zope/wiki/IndicatorsUserGuide/Procedures" 
+    target="_new">indicators procedures for more details.</a>
+</p> 
+
 <div class='questions' tal:define="questions python:[
   ('Have you done the Eionet review and incorporated the necessary feedback?', False),
   ('Is the publishing approved by your programme manager (PGM)?', True),
