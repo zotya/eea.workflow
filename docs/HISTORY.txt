@@ -6,6 +6,7 @@ Changelog
 
 1.8-dev - (unreleased)
 ----------------------
+ * Bug fix: Fixed dialog publishing javascript [tiberich #4003]
 
 1.7 - (2011-01-05)
 ------------------
