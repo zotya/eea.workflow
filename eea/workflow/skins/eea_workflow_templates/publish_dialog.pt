@@ -5,16 +5,22 @@
 
   <div tal:define="readiness_view nocall:context/@@get_readiness | nothing" >
     <div tal:condition="python:(not readiness_view) or readiness_view.is_ready_for('published')" tal:omit-tag="">
+
       <div tal:replace="structure questions" />
 
-      <tal:def tal:define="wEmails context/@@workflowEmails|nothing; 
+      <div style="padding-top:20px;" tal:define="wEmails context/@@workflowEmails|nothing; 
         transition_id string:publish;
         emails wEmails/?transition_id|nothing">
-        <div class="emails" >
-          Action emails: <span class="discreet" tal:content="emails/action|string:none or old way">emails</span><br />				     
-          Confirmatiion emails: <span class="discreet"  tal:content="emails/confirmation|string:none or old way">emails</span><br />				     
-        </div>
-      </tal:def>
+        <dl class="collapsible inline collapsedInlineCollapsible" id="notice_emails">
+          <dt class="collapsibleHeader" style="background-color:White; color:#2D749C; font-size:1.2em;">
+            The following people will be notified by email...
+          </dt>
+          <dd class="collapsibleContent">
+            Action emails: <span class="discreet" tal:content="emails/action|string:none or old way">emails</span><br />				     
+            Confirmatiion emails: <span class="discreet"  tal:content="emails/confirmation|string:none or old way">emails</span><br />				     
+          </dd>
+        </dl>
+      </div>
 
     </div>
     <p tal:condition="python:readiness_view and not readiness_view.is_ready_for('published')" >
