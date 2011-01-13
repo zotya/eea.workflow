@@ -7,23 +7,23 @@
     target="_new">indicators procedures for more details.</a>
 </p> 
 
-  <div class='questions' tal:define="questions python:[
-    ('Have you done the Eionet review and incorporated the necessary feedback?', False),
-    ('Is the publishing approved by your programme manager (PGM)?', True),
-    ]" >
-    <div class="question required" tal:repeat="info questions" tal:attributes="class python:info[1] and 'question required' or 'question'">
-      <tal:def define="index python:repeat['info'].index" >
-        <h3 tal:content="python:info[0]">Have you done the Eionet review and incorporated the necessary feedback?</h3>
+<div class='questions' tal:define="questions python:[
+  ('Have you done the Eionet review and incorporated the necessary feedback?', False),
+  ('Is the publishing approved by your programme manager (PGM)?', True),
+  ]" >
+  <div class="question required" tal:repeat="info questions" tal:attributes="class python:info[1] and 'question required' or 'question'">
+    <tal:def define="index python:repeat['info'].index" >
+      <h3 tal:content="python:info[0]">Have you done the Eionet review and incorporated the necessary feedback?</h3>
 
-        <input type="radio" value="yes" tal:attributes="name string:cond${index}; id string:cond${index}-yes" />
-        <label for="cond1-yes" attributes="for string:cond${index}-yes">Yes</label> 
-        <input type="radio" value="no" tal:attributes="name string:cond${index}; id string:cond${index}-no" />
-        <label for="cond1-no" attributes="for string:cond${index}-no">No</label><br />
+      <input type="radio" value="yes" tal:attributes="name string:cond${index}; id string:cond${index}-yes" />
+      <label for="cond1-yes" attributes="for string:cond${index}-yes">Yes</label> 
+      <input type="radio" value="no" tal:attributes="name string:cond${index}; id string:cond${index}-no" />
+      <label for="cond1-no" attributes="for string:cond${index}-no">No</label><br />
 
-        <label for="comments-cond1" tal:attributes="for string:comments-cond${index}">
-          If not, please provide further justification
-        </label><br />
-        <textarea name="comments-cond1" tal:attributes="name string:comments-cond${index}" ></textarea>
-      </tal:def>
-    </div>
+      <label for="comments-cond1" tal:attributes="for string:comments-cond${index}">
+        If not, please provide further justification
+      </label><br />
+      <textarea name="comments-cond1" tal:attributes="name string:comments-cond${index}" ></textarea>
+    </tal:def>
   </div>
+</div>
