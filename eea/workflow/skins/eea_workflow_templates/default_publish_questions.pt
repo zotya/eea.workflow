@@ -7,11 +7,10 @@
     target="_new">indicators procedures for more details.</a>
 </p> 
 
-<div tal:define="versions nocall:context/@@getVersions; has_newer versions/newest" tal:omit-tag="">
   <div class='questions' tal:define="questions python:[
     ('Have you done the Eionet review and incorporated the necessary feedback?', False),
     ('Is the publishing approved by your programme manager (PGM)?', True),
-    ]" tal:condition="not: has_newer">
+    ]" >
     <div class="question required" tal:repeat="info questions" tal:attributes="class python:info[1] and 'question required' or 'question'">
       <tal:def define="index python:repeat['info'].index" >
         <h3 tal:content="python:info[0]">Have you done the Eionet review and incorporated the necessary feedback?</h3>
@@ -28,15 +27,3 @@
       </tal:def>
     </div>
   </div>
-  <div tal:condition="has_newer" tal:omit-tag="">
-    <p>
-      This Indicator has already been published in a later version. You need to contact the 
-      <a href="mailto:admin" 
-        tal:define="portal python:context.portal_url.getPortalObject(); 
-        email_address python:portal.getProperty('email_from_address'); 
-        email_from python:portal.getProperty('email_from_name')" 
-        tal:attributes="href string:mailto:$email_address" tal:content="email_from">admin</a> 
-      to solve this issue.
-    </p>
-  </div>
-</div>

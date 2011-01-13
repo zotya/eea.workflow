@@ -3,7 +3,9 @@
   questions_template python:'%s_publish_questions' % portal_type;
   questions python:path('context/%s | context/default_publish_questions' % questions_template)">
 
-  <div tal:define="readiness_view nocall:context/@@get_readiness | nothing" >
+<tal:ver tal:define="versions nocall:context/@@getVersions; has_newer versions/newest" tal:omit-tag="">
+
+  <div tal:define="readiness_view nocall:context/@@get_readiness | nothing" tal:condition="not:has_newer">
     <div tal:condition="python:(not readiness_view) or readiness_view.is_ready_for('published')" tal:omit-tag="">
 
       <div tal:replace="structure questions" />
@@ -27,6 +29,20 @@
       This item is not yet ready to be published!
     </p>
   </div>
+
+  <div tal:condition="has_newer" tal:omit-tag="">
+    <p>
+      This item has already been published in a later version. You need to contact the 
+      <a href="mailto:admin" 
+        tal:define="portal python:context.portal_url.getPortalObject(); 
+        email_address python:portal.getProperty('email_from_address'); 
+        email_from python:portal.getProperty('email_from_name')" 
+        tal:attributes="href string:mailto:$email_address" tal:content="email_from">admin</a> 
+      to solve this issue.
+    </p>
+  </div>
+
+</tal:ver>
 
   <input name="workflow_action" type="hidden" value="publish" />
   <textarea name="comment" id="comment" style="display:none"></textarea>
