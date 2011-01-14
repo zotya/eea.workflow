@@ -4,6 +4,9 @@ Changelog
 [Tiberiu Ichim - tiberiu.ichim@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
+1.9-dev - (unreleased)
+----------------------
+
 1.8 - (2011-01-14)
 ------------------
  * Feature: when an item has a newer version, don't allow publishing [tiberich #4003]
