@@ -58,7 +58,7 @@ function set_publish_dialog(){
                             }
                         }
                     });
-                    if (go === false) return false;
+                    if (go === false){ return false; }
 
                     var text = make_publish_text(questions_area);
                     var form = $("form", target);
