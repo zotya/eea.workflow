@@ -33,22 +33,22 @@
 
 
     <subscriber
-        for="Products.Archetypes.interfaces.IBaseObject
+        for="Products.Archetypes.interfaces.IBaseContent
              eea.workflow.events.IInitialStateCreatedEvent"
         handler="eea.workflow.events.handle_workflow_initial_state_created" />
 
     <subscriber
-        for="Products.Archetypes.interfaces.IBaseObject
+        for="Products.Archetypes.interfaces.IBaseContent
              eea.versions.interfaces.IVersionCreatedEvent"
         handler="eea.workflow.events.handle_version_created" />
 
     <subscriber
-        for="Products.Archetypes.interfaces.IBaseObject
+        for="Products.Archetypes.interfaces.IBaseContent
              zope.app.event.interfaces.IObjectCopiedEvent"
         handler="eea.workflow.events.handle_object_copied" />
 
     <subscriber
-        for="Products.Archetypes.interfaces.IBaseObject
+        for="Products.Archetypes.interfaces.IBaseContent
              OFS.interfaces.IObjectClonedEvent"
         handler="eea.workflow.events.handle_object_cloned" />
 

@@ -1,4 +1,3 @@
-#from zope.component import getUtility, getMultiAdapter
 from eea.versions.versions import create_version
 from eea.workflow.events import COPIED
 from eea.workflow.events import INITIAL_ITEM_CREATION

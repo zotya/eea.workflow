@@ -1,8 +1,8 @@
-#from DateTime import DateTime
-#from Products.CMFPlone.utils import getToolByName
+from Products.Archetypes.utils import shasattr
 from zope.app.event.interfaces import IObjectEvent
 from zope.app.event.objectevent import ObjectEvent
-from zope.interface import implements   #, Interface
+from zope.interface import implements
+
 
 #Order of events triggering when an object is versioned:
 #initial state creation -> object copied -> object cloned -> object versioned
@@ -24,6 +24,9 @@ COPIED                = "Copied"
 
 def handle_workflow_initial_state_created(object, event):
     """Handler for the IInitialStateCreatedEvent"""
+
+    if not shasattr(object, 'workflow_history'):
+        return
 
     history = object.workflow_history   #this is a persistent mapping
 
@@ -54,6 +57,9 @@ def handle_object_copied(object, event):
 def handle_object_cloned(object, event):
     """Handler for object cloned event"""
 
+    if not shasattr(object, 'workflow_history'):
+        return
+
     history = object.workflow_history   #this is a persistent mapping
 
     for name, wf_entries in history.items():    
@@ -67,6 +73,9 @@ def handle_object_cloned(object, event):
 
 def handle_version_created(object, event):
     """ Handler for IVersionCreatedEvent """
+
+    if not shasattr(object, 'workflow_history'):
+        return
 
     history = object.workflow_history   #this is a persistent mapping
 
