@@ -19,7 +19,7 @@
             </dt>
             <dd class="collapsibleContent">
               Action emails: <span class="discreet" tal:content="emails/action|string:none or old way">emails</span><br />				     
-              Confirmatiion emails: <span class="discreet"  tal:content="emails/confirmation|string:none or old way">emails</span><br />				     
+              Confirmatiion emails: <span class="discreet" tal:content="emails/confirmation|string:none or old way">emails</span><br />				     
             </dd>
           </dl>
         </div>

@@ -31,4 +31,25 @@
 	<adapter factory=".readiness.ObjectReadiness" 
 		for="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
 
+
+    <subscriber
+        for="Products.Archetypes.interfaces.IBaseObject
+             eea.workflow.events.IInitialStateCreatedEvent"
+        handler="eea.workflow.events.handle_workflow_initial_state_created" />
+
+    <subscriber
+        for="Products.Archetypes.interfaces.IBaseObject
+             eea.versions.interfaces.IVersionCreatedEvent"
+        handler="eea.workflow.events.handle_version_created" />
+
+    <subscriber
+        for="Products.Archetypes.interfaces.IBaseObject
+             zope.app.event.interfaces.IObjectCopiedEvent"
+        handler="eea.workflow.events.handle_object_copied" />
+
+    <subscriber
+        for="Products.Archetypes.interfaces.IBaseObject
+             OFS.interfaces.IObjectClonedEvent"
+        handler="eea.workflow.events.handle_object_cloned" />
+
 </configure>
