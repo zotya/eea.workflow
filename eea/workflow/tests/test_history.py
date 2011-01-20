@@ -15,6 +15,7 @@ class TestHistory(TestCase):
         id = self.portal.invokeFactory("Folder", 'f1')
         folder = self.portal[id]
         history = folder.workflow_history['folder_workflow']
+
         assert len(history) == 1
         assert history[0]['action'] == INITIAL_ITEM_CREATION
 
@@ -23,26 +24,37 @@ class TestHistory(TestCase):
         id     = portal.invokeFactory("Folder", 'f1')
         folder = self.portal[id]
 
+        wftool = portal.portal_workflow
+        wftool.doActionFor(folder, 'publish')
+
         clipb  = portal.manage_copyObjects(ids = [id])
         res    = portal.manage_pasteObjects(clipb)
         new_id = res[0]['new_id']
         foldercopy = portal[new_id]
 
         history = foldercopy.workflow_history['folder_workflow']
-        assert len(history) == 2
+
+        assert len(history) == 3
         assert history[0]['action'] == INITIAL_ITEM_CREATION
-        assert history[1]['action'] == COPIED
+        assert history[1]['action'] == 'publish'
+        assert history[2]['action'] == COPIED
+        assert history[2]['review_state'] == history[0]['review_state']
 
     def test_history_version(self):
         portal = self.portal
         id     = portal.invokeFactory("Folder", 'f1')
         folder = self.portal[id]
+        wftool = portal.portal_workflow
+        wftool.doActionFor(folder, 'publish')
 
         version = create_version(folder)
         history = version.workflow_history['folder_workflow']
-        assert len(history) == 2
+
+        assert len(history) == 3
         assert history[0]['action'] == INITIAL_ITEM_CREATION
-        assert history[1]['action'] == NEW_VERSION
+        assert history[1]['action'] == 'publish'
+        assert history[2]['action'] == NEW_VERSION
+        assert history[2]['review_state'] == history[0]['review_state']
 
 
 def test_suite():
