@@ -34,7 +34,8 @@ def handle_workflow_initial_state_created(object, event):
         wf_entries = list(wf_entries)
 
         #initial creation entry has no action id
-        assert wf_entries[-1]['action'] == None     
+        if wf_entries[-1]['action'] != None:
+            return
 
         wf_entries[-1]['action'] = INITIAL_ITEM_CREATION
         history[name] = tuple(wf_entries)
@@ -83,7 +84,8 @@ def handle_version_created(object, event):
         wf_entries = list(wf_entries)
 
         #before the version event is triggered, the object appears as copied
-        assert wf_entries[-1]['action'] == COPIED
+        if wf_entries[-1]['action'] != COPIED:
+            return
 
         wf_entries[-1]['action'] = NEW_VERSION
         wf_entries[-1]['comments'] = "New version created based on (uid:%s)" \
