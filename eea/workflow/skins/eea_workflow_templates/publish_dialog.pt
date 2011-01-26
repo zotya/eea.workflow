@@ -1,46 +1,79 @@
+<metal:block use-macro="here/global_defines/macros/defines" />
+
 <form method="POST" action="" tal:attributes="action string:${context/absolute_url}/content_status_modify"
   tal:define="portal_type python:here.getPortalTypeName().lower().replace(' ', '_');
   questions_template python:'%s_publish_questions' % portal_type;
   questions python:path('context/%s | context/default_publish_questions' % questions_template)">
 
-  <tal:ver tal:define="versions nocall:context/@@getVersions; has_newer versions/newest" tal:omit-tag="">
+  <tal:ver tal:omit-tag="" tal:define="
+    versions nocall:context/@@getVersions; 
+    newer versions/newest;
+    readiness_view nocall:context/@@get_readiness | nothing" >
 
-    <div tal:define="readiness_view nocall:context/@@get_readiness | nothing" tal:condition="not:has_newer">
-      <div tal:condition="python:(not readiness_view) or readiness_view.is_ready_for('published')" tal:omit-tag="">
+    <div tal:condition="python:(not readiness_view) or readiness_view.is_ready_for('published')" tal:omit-tag="">
 
-        <div tal:replace="structure questions" />
+      <div tal:replace="structure questions" />
 
-        <div style="padding-top:20px;" tal:define="wEmails context/@@workflowEmails|nothing; 
-          transition_id string:publish;
-          emails wEmails/?transition_id|nothing">
-          <dl class="collapsible inline collapsedInlineCollapsible" id="notice_emails">
-            <dt class="collapsibleHeader" style="background-color:White; color:#2D749C; font-size:1.2em;">
-              The following people will be notified by email...
-            </dt>
-            <dd class="collapsibleContent">
-              Action emails: <span class="discreet" tal:content="emails/action|string:none or old way">emails</span><br />				     
-              Confirmatiion emails: <span class="discreet" tal:content="emails/confirmation|string:none or old way">emails</span><br />				     
-            </dd>
-          </dl>
-        </div>
+      <input type="hidden" name="effective_date" tal:condition="not:newer" 
+        tal:attributes="value modules/DateTime/DateTime" />
 
+      <div style="padding-top:20px;" tal:define="wEmails context/@@workflowEmails|nothing; 
+        transition_id string:publish;
+        emails wEmails/?transition_id|nothing">
+        <dl class="collapsible inline collapsedInlineCollapsible" id="notice_emails">
+          <dt class="collapsibleHeader" style="background-color:White; color:#2D749C; font-size:1.2em;">
+            The following people will be notified by email...
+          </dt>
+          <dd class="collapsibleContent">
+            Action emails: <span class="discreet" tal:content="emails/action|string:none or old way">emails</span><br />				     
+            Confirmatiion emails: <span class="discreet" tal:content="emails/confirmation|string:none or old way">emails</span><br />				     
+          </dd>
+        </dl>
       </div>
-      <p tal:condition="python:readiness_view and not readiness_view.is_ready_for('published')" >
-        This item is not yet ready to be published!
-      </p>
+
+      <tal:new tal:condition="newer" tal:omit-tag="">
+        <h2>Set the publishing date</h2>
+        <p>This item has already been published in a newer version. You need to decide on a date,
+          in the past, when this item should have been published. The following
+          table of all versions should help you in deciding the actual date.
+          If you have questions, please contact the 
+          <a href="mailto:admin" 
+            tal:define="portal python:context.portal_url.getPortalObject(); 
+            email_address python:portal.getProperty('email_from_address'); 
+            email_from python:portal.getProperty('email_from_name')" 
+            tal:attributes="href string:mailto:$email_address" tal:content="email_from">admin</a>.
+        </p>
+        <table class="listing nosort">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>&nbsp;Creation date&nbsp;</th>
+              <th>&nbsp;Publication date&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr tal:repeat="ver python:versions().values()">
+              <td>
+                <a href="" tal:attributes="href ver/absolute_url" tal:content="ver/title_or_id">Item</a>
+              </td>
+              <td tal:content="python:ver.created().Date()" />
+              <td tal:content="python:ver.effective_date and ver.effective_date.Date() or ''" />
+            </tr>
+          </tbody>
+        </table>
+        
+        Choose manual publication date. We recommend something close to the date below, 
+        which is 30 days after the item was initially created.
+        <div tal:define="formname string:edit_form; inputname string:effective_date; inputvalue python:context.created() + 30">
+          <div metal:use-macro="here/calendar_macros/macros/calendarDatePickerBox" />
+        </div>
+      </tal:new>
+
     </div>
 
-    <div tal:condition="has_newer" tal:omit-tag="">
-      <p>
-        This item has already been published in a later version. You need to contact the 
-        <a href="mailto:admin" 
-          tal:define="portal python:context.portal_url.getPortalObject(); 
-          email_address python:portal.getProperty('email_from_address'); 
-          email_from python:portal.getProperty('email_from_name')" 
-          tal:attributes="href string:mailto:$email_address" tal:content="email_from">admin</a> 
-        to solve this issue.
-      </p>
-    </div>
+    <p tal:condition="python:readiness_view and not readiness_view.is_ready_for('published')" >
+      This item is not yet ready to be published!
+    </p>
 
   </tal:ver>
 

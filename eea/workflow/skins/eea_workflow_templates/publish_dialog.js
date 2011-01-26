@@ -65,12 +65,9 @@ function set_publish_dialog(){
                     $("textarea#comment", target).val(text);
                     $(".questions").remove();
 
-                    var now = new Date();
-                    now_str = now.getFullYear() + "/" + now.getMonth() + 1 + '/' + now.getDate();
-                    form.append($("<input type='hidden' name='effective_date'>").attr('value', now_str));
-                    //form.append($("<input type='hidden' name='effective_date_day'>").attr('value', now.getDate()));
-                    //form.append($("<input type='hidden' name='effective_date_year'>").attr('value', now.getFullYear()));
-                    //form.append($("<input type='hidden' name='effective_date_month'>").attr('value', now.getMonth() + 1));
+                    //var now = new Date();
+                    //now_str = now.getFullYear() + "/" + now.getMonth() + 1 + '/' + now.getDate();
+                    //form.append($("<input type='hidden' name='effective_date'>").attr('value', now_str));
 
                     $("input[name='workflow_action']", target).attr('value', transition);
                     form.submit();

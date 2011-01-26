@@ -6,6 +6,7 @@ Changelog
 
 1.9-dev - (unreleased)
 ----------------------
+ * Feature: show calendar widget in publishing dialog when an item should be published at a previous date [tiberich #4003]
 
 1.8 - (2011-01-14)
 ------------------
