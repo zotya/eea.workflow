@@ -22,13 +22,13 @@ NEW_VERSION           = "New version"
 COPIED                = "Copied"
 
 
-def handle_workflow_initial_state_created(object, event):
+def handle_workflow_initial_state_created(obj, event):
     """Handler for the IInitialStateCreatedEvent"""
 
-    if not shasattr(object, 'workflow_history'):
+    if not shasattr(obj, 'workflow_history'):
         return
 
-    history = object.workflow_history   #this is a persistent mapping
+    history = obj.workflow_history   #this is a persistent mapping
 
     for name, wf_entries in history.items():
         wf_entries = list(wf_entries)
@@ -41,7 +41,7 @@ def handle_workflow_initial_state_created(object, event):
         history[name] = tuple(wf_entries)
 
 
-def handle_object_copied(object, event):
+def handle_object_copied(obj, event):
     """Handler for object cloned event
     
     The object cloned event only received the resulting object,
@@ -52,33 +52,33 @@ def handle_object_copied(object, event):
     """
 
     original = event.original
-    object._v_original_uid = original.UID()
+    obj._v_original_uid = original.UID()
 
 
-def handle_object_cloned(object, event):
+def handle_object_cloned(obj, event):
     """Handler for object cloned event"""
 
-    if not shasattr(object, 'workflow_history'):
+    if not shasattr(obj, 'workflow_history'):
         return
 
-    history = object.workflow_history   #this is a persistent mapping
+    history = obj.workflow_history   #this is a persistent mapping
 
     for name, wf_entries in history.items():    
         wf_entries = list(wf_entries)
 
         wf_entries[-1]['action'] = COPIED
         wf_entries[-1]['comments'] = "Copied from (uid:%s)" % \
-                object._v_original_uid
+                obj._v_original_uid
         history[name] = tuple(wf_entries)
 
 
-def handle_version_created(object, event):
+def handle_version_created(obj, event):
     """ Handler for IVersionCreatedEvent """
 
-    if not shasattr(object, 'workflow_history'):
+    if not shasattr(obj, 'workflow_history'):
         return
 
-    history = object.workflow_history   #this is a persistent mapping
+    history = obj.workflow_history   #this is a persistent mapping
 
     for name, wf_entries in history.items():    
         wf_entries = list(wf_entries)

@@ -11,8 +11,8 @@ class TestHistory(TestCase):
         self.setRoles(('Manager', ))
 
     def test_history_creation(self):
-        id = self.portal.invokeFactory("Folder", 'f1')
-        folder = self.portal[id]
+        fid = self.portal.invokeFactory("Folder", 'f1')
+        folder = self.portal[fid]
         history = folder.workflow_history['folder_workflow']
 
         assert len(history) == 1
@@ -20,13 +20,13 @@ class TestHistory(TestCase):
 
     def test_history_copy(self):
         portal = self.portal
-        id     = portal.invokeFactory("Folder", 'f1')
-        folder = self.portal[id]
+        fid     = portal.invokeFactory("Folder", 'f1')
+        folder = self.portal[fid]
 
         wftool = portal.portal_workflow
         wftool.doActionFor(folder, 'publish')
 
-        clipb  = portal.manage_copyObjects(ids = [id])
+        clipb  = portal.manage_copyObjects(ids = [fid])
         res    = portal.manage_pasteObjects(clipb)
         new_id = res[0]['new_id']
         foldercopy = portal[new_id]
@@ -41,8 +41,8 @@ class TestHistory(TestCase):
 
     def test_history_version(self):
         portal = self.portal
-        id     = portal.invokeFactory("Folder", 'f1')
-        folder = self.portal[id]
+        fid     = portal.invokeFactory("Folder", 'f1')
+        folder = self.portal[fid]
         wftool = portal.portal_workflow
         wftool.doActionFor(folder, 'publish')
 

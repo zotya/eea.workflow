@@ -1,4 +1,4 @@
-from zope.component import getMultiAdapter
+#from zope.component import getMultiAdapter
 from Products.CMFPlone.utils import getToolByName
 
 def fake_transition(statechange, **kw):

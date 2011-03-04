@@ -83,7 +83,7 @@ class ObjectReadiness(object):
         #We calculate the stats for the dependencies
         for part in depends_on:
             _info = IObjectReadiness(part).get_info_for(state_name)
-            rfs_required +=_info['rfs_required']
+            rfs_required += _info['rfs_required']
             rfs_with_value += _info['rfs_with_value']
             total_fields += _info['total_fields']
             rfs_field_names += map(lambda t:(t[0] + "_" + part.getId(), t[1]), 

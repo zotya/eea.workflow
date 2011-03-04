@@ -19,7 +19,7 @@ def setup_site():
     try:
         import Products.FiveSite
         zcml.load_config('configure.zcml', Products.FiveSite)
-    except ImportError, err:
+    except ImportError:
         pass
 
     import eea.workflow

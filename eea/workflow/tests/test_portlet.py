@@ -1,4 +1,4 @@
-from zope.component import getUtility, getMultiAdapter
+#from zope.component import getUtility, getMultiAdapter
 from eea.workflow.tests.base import TestCase
 
 
