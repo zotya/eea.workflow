@@ -6,6 +6,7 @@ Changelog
 
 1.10-dev - (unreleased)
 -----------------------
+ * Change: fixed and surpressed medium and high pylint violations [ichimdav #4140]
 
 1.9 - (2011-02-01)
 ------------------

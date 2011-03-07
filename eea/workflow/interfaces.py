@@ -15,15 +15,15 @@ class IValueProvider(Interface):
     implementation for a component that adapts AT fields -> IValueProvider
     """
 
-    def has_value(kwargs):
+    def has_value(kwargs): #pyflakes, #pylint: disable-msg = E0213
         """Returns True if the object has a value"""
 
-    def get_value(kwargs):
+    def get_value(kwargs): #pyflakes, #pylint: disable-msg = E0213
         """Returns the value of this object"""
 
 
 class IFieldIsRequiredForState(Interface):
-    #TODO: the naming of this interface should be changed, it's too specific;
+    ###c the naming of this interface should be changed, it's too specific;
     """Objects of this type provide required for state
 
     The use case is this: we want to be able to interrogate various AT fields contained
@@ -32,7 +32,7 @@ class IFieldIsRequiredForState(Interface):
     extendible by adaptation. This package also provides a default
     implementation for a component that adapts AT fields -> IRequiredFor
     """
-    def __call__(state):
+    def __call__(state): #pyflakes, #pylint: disable-msg = E0213
         """ Is required for state?
         """
 
@@ -43,8 +43,8 @@ class IObjectReadiness(Interface):
     checks = Attribute("A mapping of workflow state to lists of checks that need to be executed")
     depends_on = Attribute("A list of objects whose readiness should be considered")
 
-    def get_info_for(state_name):
+    def get_info_for(state_name): #pyflakes, #pylint: disable-msg = E0213
         """Returns a mapping containing statistics on object readiness for a certain state"""
 
-    def is_ready_for(state_name):
+    def is_ready_for(state_name): #pyflakes, #pylint: disable-msg = E0213
         """Returns a bool that tells is the object is ready to be transitioned to the named state"""

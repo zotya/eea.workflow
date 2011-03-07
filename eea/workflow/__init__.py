@@ -20,4 +20,4 @@ def initialize(context):
 
 
 from eea.workflow import patches  #install patches
-patches         #pyflakes warning
+patches  #pyflakes, #pylint: disable-msg = W0104

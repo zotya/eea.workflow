@@ -32,7 +32,7 @@ class ObjectReadiness(object):
     def __init__(self, context):
         self.context = context
 
-    def get_info_for(self, state_name):
+    def get_info_for(self, state_name): #pyflakes, #pylint: disable-msg = R0914
 
         #Terminology: RFS = required for state ZZZ
 
@@ -86,10 +86,10 @@ class ObjectReadiness(object):
             rfs_required += _info['rfs_required']
             rfs_with_value += _info['rfs_with_value']
             total_fields += _info['total_fields']
-            rfs_field_names += map(lambda t:(t[0] + "_" + part.getId(), t[1]), 
-                                    _info['rfs_field_names'])
-            rfs_done_field_names += map(lambda t:(t[0] + "_" + part.getId(), t[1]), 
-                                    _info['rfs_done_field_names'])
+            rfs_field_names += map( #pyflakes, #pylint: disable-msg = W0141
+                    lambda t:(t[0] + "_" + part.getId(), t[1]), _info['rfs_field_names'])
+            rfs_done_field_names += map( #pyflakes, #pylint: disable-msg = W0141
+                    lambda t:(t[0] + "_" + part.getId(), t[1]), _info['rfs_done_field_names'])
 
         #rfs_required or 1  #->avoids division by 0
         rfs_done = int(float(rfs_with_value) / float(rfs_required or 1) * 100.0)

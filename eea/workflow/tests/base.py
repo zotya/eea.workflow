@@ -19,7 +19,7 @@ def setup_site():
     try:
         import Products.FiveSite
         zcml.load_config('configure.zcml', Products.FiveSite)
-    except ImportError:
+    except ImportError: #pyflakes, #pylint: disable-msg = W0704
         pass
 
     import eea.workflow
