@@ -4,8 +4,8 @@ Changelog
 [Tiberiu Ichim - tiberiu.ichim@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
-1.10-dev - (unreleased)
------------------------
+1.10 - (2011-03-09)
+-------------------
  * Change: fixed and surpressed medium and high pylint violations [ichimdav #4140]
 
 1.9 - (2011-02-01)
