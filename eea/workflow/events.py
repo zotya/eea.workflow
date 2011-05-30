@@ -1,6 +1,6 @@
 from Products.Archetypes.utils import shasattr
-from zope.app.event.interfaces import IObjectEvent
-from zope.app.event.objectevent import ObjectEvent
+from zope.component.interfaces import IObjectEvent
+from zope.component.interfaces import ObjectEvent
 from zope.interface import implements
 
 

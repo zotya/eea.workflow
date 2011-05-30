@@ -28,6 +28,7 @@ setup(name=name,
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'eea.versions',
       ],
       entry_points="""
       # -*- Entry points: -*-

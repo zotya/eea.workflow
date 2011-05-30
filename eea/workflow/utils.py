@@ -1,6 +1,6 @@
 from Products.Archetypes.Field import Field, TextField
 from Products.CMFCore.utils import getToolByName
-from Products.PluginIndexes.TextIndex.Splitter import UnicodeSplitter
+from Products.CMFPlone.UnicodeSplitter import process_unicode
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from zope.component import adapts
 from zope.interface import Interface, implements
@@ -32,7 +32,7 @@ class TextFieldValueProvider(ATFieldValueProvider):
         convert = getToolByName(self.context, 'portal_transforms').convert
         value = self.field.getAccessor(self.context)()
         text = convert('html_to_text', value).getData().strip()
-        words = UnicodeSplitter.Splitter(text).split()
+        words = process_unicode(text)
         return len(words) > 1   #there should be at least 2 words, or 
                                 #the field is considered empty
 

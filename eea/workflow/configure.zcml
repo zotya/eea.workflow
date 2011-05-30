@@ -2,11 +2,14 @@
 	xmlns="http://namespaces.zope.org/zope"
 	xmlns:browser="http://namespaces.zope.org/browser"
 	xmlns:five="http://namespaces.zope.org/five"
+	xmlns:cmf="http://namespaces.zope.org/cmf"
 	xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
 	xmlns:plone="http://namespaces.plone.org/plone"
 	i18n_domain="eea.workflow">
 
 	<five:registerPackage package="." initialize=".initialize" />
+
+    <cmf:registerDirectory name="eea_workflow_templates"/>
 
 	<genericsetup:registerProfile
 		name="default"
@@ -44,7 +47,7 @@
 
     <subscriber
         for="Products.Archetypes.interfaces.IBaseContent
-             zope.app.event.interfaces.IObjectCopiedEvent"
+             zope.lifecycleevent.interfaces.IObjectCopiedEvent"
         handler="eea.workflow.events.handle_object_copied" />
 
     <subscriber
