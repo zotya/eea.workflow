@@ -1,3 +1,5 @@
+""" Utils module
+"""
 from Products.Archetypes.Field import Field, TextField
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.UnicodeSplitter import process_unicode
@@ -17,9 +19,13 @@ class ATFieldValueProvider(object):
         self.field = field
 
     def has_value(self, **kwargs):
+        """ Has value 
+        """
         return bool(self.get_value())  #may trigger false positives
 
     def get_value(self, **kwargs):
+        """ Get value
+        """
         return self.field.getAccessor(self.context)()
 
 
@@ -29,6 +35,8 @@ class TextFieldValueProvider(ATFieldValueProvider):
     adapts(Interface, TextField)
 
     def has_value(self, **kwargs):
+        """ Returns true if text field has at least 2 words in it
+        """
         convert = getToolByName(self.context, 'portal_transforms').convert
         value = self.field.getAccessor(self.context)()
         text = convert('html_to_text', value).getData().strip()

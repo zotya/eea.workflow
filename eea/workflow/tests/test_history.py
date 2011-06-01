@@ -1,3 +1,5 @@
+""" Test history 
+"""
 from eea.versions.versions import create_version
 from eea.workflow.events import COPIED
 from eea.workflow.events import INITIAL_ITEM_CREATION
@@ -6,11 +8,17 @@ from eea.workflow.tests.base import TestCase
 
 
 class TestHistory(TestCase):
+    """ TestHistory TestCase class
+    """
 
     def afterSetUp(self):
+        """ After Setup
+        """
         self.setRoles(('Manager', ))
 
     def test_history_creation(self):
+        """ Test history creation
+        """
         fid = self.portal.invokeFactory("Folder", 'f1')
         folder = self.portal[fid]
         history = folder.workflow_history['folder_workflow']
@@ -19,6 +27,8 @@ class TestHistory(TestCase):
         assert history[0]['action'] == INITIAL_ITEM_CREATION
 
     def test_history_copy(self):
+        """ Test history copy
+        """
         portal = self.portal
         fid     = portal.invokeFactory("Folder", 'f1')
         folder = self.portal[fid]
@@ -40,6 +50,8 @@ class TestHistory(TestCase):
         assert history[2]['review_state'] == history[0]['review_state']
 
     def test_history_version(self):
+        """ Test history version
+        """
         portal = self.portal
         fid     = portal.invokeFactory("Folder", 'f1')
         folder = self.portal[fid]
@@ -57,6 +69,8 @@ class TestHistory(TestCase):
 
 
 def test_suite():
+    """ Test Suite
+    """
     from unittest import TestSuite, makeSuite
     suite = TestSuite()
     suite.addTest(makeSuite(TestHistory))

@@ -1,3 +1,6 @@
+""" Setup package
+"""
+
 import os
 from os.path import join
 from setuptools import setup, find_packages
@@ -11,7 +14,6 @@ setup(name=name,
       description="EEA Workflow extensions",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
-      # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Plone",
         "Programming Language :: Python",

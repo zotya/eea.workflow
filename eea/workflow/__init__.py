@@ -1,13 +1,13 @@
+""" Init
+"""
 from Products.CMFCore import DirectoryView
 from zope.i18nmessageid import MessageFactory
-from eea.workflow.config import product_globals
 
 PortletReadinessMessageFactory = MessageFactory('eea.workflow')
 
+from eea.workflow import patches  #install patches for Products.CMFCore
 
-def initialize(context):
-    """Initializer called when used as a Zope 2 product."""
-
-
-from eea.workflow import patches  #install patches
-patches  #pyflakes, #pylint: disable-msg = W0104
+__all__ = [
+        patches.__name__,
+        DirectoryView.__name__,
+]

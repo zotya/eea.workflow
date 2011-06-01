@@ -1,3 +1,5 @@
+""" Events for eea.workflow
+"""
 from Products.Archetypes.utils import shasattr
 from zope.component.interfaces import IObjectEvent
 from zope.component.interfaces import ObjectEvent
@@ -8,7 +10,9 @@ from zope.interface import implements
 #initial state creation -> object copied -> object cloned -> object versioned
 
 class IInitialStateCreatedEvent(IObjectEvent):
-    """Event triggered when an object is initially created with a default workflow state"""
+    """ Event triggered when an object is initially created with a default
+    workflow state
+    """
 
 
 class InitialStateCreatedEvent(ObjectEvent):

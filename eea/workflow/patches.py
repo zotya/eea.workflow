@@ -1,3 +1,5 @@
+""" Patches for Products.CMFCore
+"""
 from AccessControl import ClassSecurityInfo
 from Products.CMFCore.WorkflowTool import WorkflowTool
 from Products.CMFPlone.log import log

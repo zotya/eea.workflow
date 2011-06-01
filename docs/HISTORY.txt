@@ -1,11 +1,13 @@
 Changelog
 =========
 [Alexandru Ghica - alec.ghica@eaudeweb.ro]
+[David Ichim - david.ichim@eaudeweb.ro]
 [Tiberiu Ichim - tiberiu.ichim@eaudeweb.ro]
 [Antonio De Marinis - demarinis@eea.europa.eu]
 
-1.11-dev - (unreleased)
+4.0-dev - (unreleased)
 -----------------------
+ * Feature: ported package to plone4 [ichimdav #4305]
 
 1.10 - (2011-03-09)
 -------------------
