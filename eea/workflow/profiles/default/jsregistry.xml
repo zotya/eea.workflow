@@ -24,6 +24,14 @@
         compression="safe"
         cookable="True"
         enabled="True"
+        expression="python: True"
+        id="publish_dialog.js"
+        inline="False"/>
+
+    <javascript cacheable="True"
+        compression="safe"
+        cookable="True"
+        enabled="True"
         expression="python:True"
         id="resolveuid.js"
         inline="False"/>

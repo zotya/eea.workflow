@@ -26,7 +26,7 @@ function make_publish_text(questions){
 
 
 function set_publish_dialog(){
-    $(".actionMenuContent a[title='Publish']").click(function(e){
+    $(".actionMenuContent a[title='Publishing the item makes it visible to other users.']").click(function(e){
         // this assumes a link like http://.../content_status_modify?workflow_action=quickPublish
         var transition = $(this).attr('href').split('=')[1]; 
         var target = $("<div>").appendTo("body").attr('id', 'publish-dialog-target')[0];

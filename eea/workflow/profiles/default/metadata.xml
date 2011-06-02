@@ -1,4 +1,14 @@
 <?xml version="1.0"?>
 <metadata>
-    <version>1</version>
+   <description>EEA Workflow profile</description>
+   <version>1</version>
+   <dependencies>
+
+        <dependency>profile-eea.versions:default</dependency>
+        <dependency>profile-eea.jquery:02-ui</dependency>
+
+    </dependencies>
 </metadata>
+
+
+

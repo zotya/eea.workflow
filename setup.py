@@ -31,6 +31,7 @@ setup(name=name,
       install_requires=[
           'setuptools',
           'eea.versions',
+          'eea.jquery'
       ],
       entry_points="""
       # -*- Entry points: -*-

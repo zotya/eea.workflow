@@ -14,11 +14,11 @@ def setup_site():
     until the setup of the Plone site testing layer.
     """
     fiveconfigure.debug_mode = True
-    import Products.Five
-    zcml.load_config('meta.zcml', Products.Five)
 
     import eea.workflow
     zcml.load_config('configure.zcml', eea.workflow)
+    import eea.versions
+    zcml.load_config('configure.zcml', eea.versions)
     fiveconfigure.debug_mode = False
 
 
