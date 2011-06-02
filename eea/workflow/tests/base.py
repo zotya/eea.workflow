@@ -19,6 +19,8 @@ def setup_site():
     zcml.load_config('configure.zcml', eea.workflow)
     import eea.versions
     zcml.load_config('configure.zcml', eea.versions)
+    import eea.jquery
+    zcml.load_config('configure.zcml', eea.jquery)
     fiveconfigure.debug_mode = False
 
 

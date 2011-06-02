@@ -57,6 +57,9 @@ def handle_object_copied(obj, event):
 
     original = event.original
     obj._v_original_uid = original.UID()
+    # plone4 copied objects don't retain workflow_history
+    # so we need to copy it manually from the parent
+    obj.workflow_history = dict(original.workflow_history)
 
 
 def handle_object_cloned(obj, event):
@@ -66,8 +69,7 @@ def handle_object_cloned(obj, event):
         return
 
     history = obj.workflow_history   #this is a persistent mapping
-
-    for name, wf_entries in history.items():    
+    for name, wf_entries in history.items():
         wf_entries = list(wf_entries)
 
         wf_entries[-1]['action'] = COPIED
@@ -84,7 +86,7 @@ def handle_version_created(obj, event):
 
     history = obj.workflow_history   #this is a persistent mapping
 
-    for name, wf_entries in history.items():    
+    for name, wf_entries in history.items():
         wf_entries = list(wf_entries)
 
         #before the version event is triggered, the object appears as copied
