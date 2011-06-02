@@ -8,7 +8,8 @@ from zope.interface import implements
 OTHER_METADATA_FIELDS = (
         'locallyAllowedTypes',
         'immediatelyAddableTypes',
-        'id'
+        'id',
+        'constrainTypesMode',
         )
 
 
@@ -55,10 +56,13 @@ class ObjectReadiness(object):
         rfs_done_field_names = []   #the names of fields that are RFS and 
                                                                 #have a value
         optional_with_value = []    #optional fields that have a value
+        _debug_fieldnames = []
 
         for field in self.context.schema.fields():  #we assume AT here
             if field.isMetadata or (field.getName() in OTHER_METADATA_FIELDS):
                 continue
+
+            _debug_fieldnames.append(field.getName())
 
             total_fields += 1
 
@@ -119,7 +123,8 @@ class ObjectReadiness(object):
                 'optional_with_value':optional_with_value,
                 'extra':extras,  #extra messages that will be displayed in the
                                                 # portlet, in the form of tuples
-                'conditions':len(checks)
+                'conditions':len(checks),
+                '_debug_fieldnames':_debug_fieldnames,
                 }
 
     def is_ready_for(self, state_name):

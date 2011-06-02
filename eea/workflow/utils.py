@@ -40,8 +40,8 @@ class TextFieldValueProvider(ATFieldValueProvider):
         convert = getToolByName(self.context, 'portal_transforms').convert
         value = self.field.getAccessor(self.context)()
         text = convert('html_to_text', value).getData().strip()
-        words = process_unicode(text)
-        return len(words) > 1   #there should be at least 2 words, or 
+        words = process_unicode(unicode(text))
+        return len(list(words)) > 1   #there should be at least 2 words, or 
                                 #the field is considered empty
 
 
