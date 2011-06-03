@@ -8,6 +8,10 @@ Changelog
 4.0-dev - (unreleased)
 -----------------------
  * Feature: ported package to plone4 [ichimdav #4305]
+ * TODO:
+    -- Plone Calendar widget on the publishing jquery-ui pop-up
+    goes below the pop-up, while being hidden and placed incorectly
+    with the default javascript definition
 
 1.10 - (2011-03-09)
 -------------------
