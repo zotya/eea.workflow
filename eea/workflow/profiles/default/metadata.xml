@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <metadata>
    <description>EEA Workflow profile</description>
-   <version>1</version>
+   <version>4.0</version>
    <dependencies>
 
         <dependency>profile-eea.versions:default</dependency>
@@ -9,6 +9,3 @@
 
     </dependencies>
 </metadata>
-
-
-

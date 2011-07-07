@@ -16,7 +16,7 @@ class TestHistory(TestCase):
         """
         self.setRoles(('Manager', ))
 
-    def test_history_creation(self):
+    def test_history_a_creation(self):
         """ Test history creation
         """
         fid = self.portal.invokeFactory("Folder", 'f1')

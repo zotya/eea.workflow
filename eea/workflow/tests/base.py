@@ -15,6 +15,8 @@ def setup_site():
     """
     fiveconfigure.debug_mode = True
 
+    import collective.monkeypatcher
+    zcml.load_config('configure.zcml', collective.monkeypatcher)
     import eea.workflow
     zcml.load_config('configure.zcml', eea.workflow)
     import eea.versions

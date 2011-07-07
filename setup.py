@@ -1,16 +1,14 @@
-""" Setup package
+""" EEA Workflow installer
 """
-
 import os
-from os.path import join
 from setuptools import setup, find_packages
 
-name = 'eea.workflow'
-path = name.split('.') + ['version.txt']
-version = open(join(*path)).read().strip()
+NAME = 'eea.workflow'
+PATH = NAME.split('.') + ['version.txt']
+VERSION = open(os.path.join(*PATH)).read().strip()
 
-setup(name=name,
-      version=version,
+setup(name=NAME,
+      version=VERSION,
       description="EEA Workflow extensions",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
@@ -22,7 +20,8 @@ setup(name=name,
       keywords='eea workflow',
       author='European Environment Agency',
       author_email='webadmin@eea.europa.eu',
-      url='http://www.eea.europa.eu',
+      url='http://svn.eionet.europa.eu/projects/'
+          'Zope/browser/trunk/eea.workflow',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['eea'],
@@ -31,7 +30,8 @@ setup(name=name,
       install_requires=[
           'setuptools',
           'eea.versions',
-          'eea.jquery'
+          'eea.jquery',
+          'collective.monkeypatcher',
       ],
       entry_points="""
       # -*- Entry points: -*-

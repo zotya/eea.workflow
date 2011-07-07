@@ -1,8 +1,6 @@
 """ Patches for Products.CMFCore
 """
 from AccessControl import ClassSecurityInfo
-from Products.CMFCore.WorkflowTool import WorkflowTool
-from Products.CMFPlone.log import log
 from eea.workflow.events import InitialStateCreatedEvent
 from zope.event import notify
 
@@ -17,13 +15,5 @@ def notifyCreated(self, ob):
     The patch adds a single line that uses zope.event to notify of
     the IInitialStateCreatedEvent event
     """
-    wfs = self.getWorkflowsFor(ob)
-    for wf in wfs:
-        wf.notifyCreated(ob)
-    self._reindexWorkflowVariables(ob)
-
+    self._old_notifyCreated(ob)
     notify(InitialStateCreatedEvent(ob))
-
-WorkflowTool.notifyCreated = notifyCreated
-
-log("PATCH: Installed patches for Products.CMFCore in eea.workflow")

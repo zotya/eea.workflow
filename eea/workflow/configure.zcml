@@ -1,31 +1,37 @@
-<configure
-	xmlns="http://namespaces.zope.org/zope"
-	xmlns:browser="http://namespaces.zope.org/browser"
-	xmlns:five="http://namespaces.zope.org/five"
-	xmlns:cmf="http://namespaces.zope.org/cmf"
-	xmlns:plone="http://namespaces.plone.org/plone"
-	i18n_domain="eea">
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:cmf="http://namespaces.zope.org/cmf"
+           xmlns:monkey="http://namespaces.plone.org/monkey"
+           xmlns:plone="http://namespaces.plone.org/plone"
+           i18n_domain="eea">
 
-	<five:registerPackage package="." />
+    <five:registerPackage package="." />
+
+    <monkey:patch
+        description="Monkeypatch workflowtool to send an event on initial workflow state creation"
+        module="Products.CMFCore.WorkflowTool.WorkflowTool"
+        original="notifyCreated"
+        replacement=".patches.notifyCreated"
+        preserveOriginal="true"
+        />
 
     <include file="profiles.zcml" />
     <include file="skins.zcml" />
 
-	<adapter factory=".utils.ATFieldValueProvider" />
-	<adapter factory=".utils.TextFieldValueProvider" />
-	<adapter factory=".utils.ATFieldIsRequiredForState" />
+    <adapter factory=".utils.ATFieldValueProvider" />
+    <adapter factory=".utils.TextFieldValueProvider" />
+    <adapter factory=".utils.ATFieldIsRequiredForState" />
 
-	<browser:page
-		name="get_readiness"
-		for="eea.workflow.interfaces.IHasMandatoryWorkflowFields"
-		permission="zope2.View"
-		class=".readiness.ObjectReadinessView"
-		allowed_interface=".interfaces.IObjectReadiness"
-		/>
+    <browser:page
+        name="get_readiness"
+        for="eea.workflow.interfaces.IHasMandatoryWorkflowFields"
+        permission="zope2.View"
+        class=".readiness.ObjectReadinessView"
+        allowed_interface=".interfaces.IObjectReadiness" />
 
-	<adapter factory=".readiness.ObjectReadiness" 
-		for="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
-
+    <adapter factory=".readiness.ObjectReadiness"
+        for="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
 
     <subscriber
         for="Products.Archetypes.interfaces.IBaseContent
@@ -46,5 +52,7 @@
         for="Products.Archetypes.interfaces.IBaseContent
              OFS.interfaces.IObjectClonedEvent"
         handler="eea.workflow.events.handle_object_cloned" />
+
+    <include package=".upgrades" />
 
 </configure>

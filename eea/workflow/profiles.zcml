@@ -1,14 +1,12 @@
-<configure
-    xmlns="http://namespaces.zope.org/zope"
-	xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-	i18n_domain="eea">
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+           i18n_domain="eea">
 
-	<genericsetup:registerProfile
-		name="default"
-		title="eea.workflow"
-		directory="profiles/default"
-		description="Various workflow enhancements for EEA Content"
-		provides="Products.GenericSetup.interfaces.EXTENSION"
-		/>
+    <genericsetup:registerProfile
+        name="default"
+        title="EEA Workflow"
+        directory="profiles/default"
+        description="Installs eea.workflow"
+        provides="Products.GenericSetup.interfaces.EXTENSION" />
 
 </configure>
