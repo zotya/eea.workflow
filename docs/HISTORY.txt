@@ -4,6 +4,7 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+* Feature: refactored portlet_readiness to use the plone.portlets infrastructure [tiberich]
 
 * TODO plone4:
   Plone Calendar widget on the publishing jquery-ui pop-up

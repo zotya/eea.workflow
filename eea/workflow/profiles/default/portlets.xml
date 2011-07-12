@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<portlets>
+
+    <portlet 
+        addview="portlets.Readiness"
+        title="Readiness portlet"
+        addview="plone.app.portlets.browser.formhelper.NullAddForm"
+        description="A portlet which shows readiness information" >
+    </portlet>
+
+</portlets>
