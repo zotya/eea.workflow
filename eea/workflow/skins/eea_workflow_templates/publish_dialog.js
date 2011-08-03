@@ -123,3 +123,15 @@ function set_publish_dialog(){
 $(window).load(function(){
     set_publish_dialog();
 });
+
+
+
+$(document).ready(function () {
+
+  $("#workflow-transition-fake_publish").click(function(){
+      alert("This item is not ready to be published");
+      return false;
+  });
+
+});
+
