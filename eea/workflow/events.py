@@ -23,20 +23,6 @@ NEW_VERSION           = "New version"
 COPIED                = "Copied"
 
 
-#def _fix_bug(obj):
-#   history = obj.workflow_history
-#   for name, wf_entries in history.items():
-#       if len(wf_entries) >= 2:
-#           one = wf_entries[0]
-#           two = wf_entries[1]
-#           if one['action'] == two['action'] and \
-#              one['actor'] == two['actor'] and \
-#              one['review_state'] == two['review_state'] and \
-#              one['comments'] == two['comments']:
-#               wf_entries = wf_entries[1:] #removes the first entry
-#               history[name] = wf_entries
-
-
 def handle_workflow_initial_state_created(obj, event):
     """ Handler for the IInitialStateCreatedEvent
     """
@@ -66,18 +52,29 @@ def handle_object_copied(obj, event):
     final object.
     """
 
+    if not obj is event.object:
+        #the event is being dispatched to sublocations
+        return
+
     original = event.original
-    obj._v_original_uid = original.UID()
     obj._v_original = original
-    # Plone 4 copied objects don't retain workflow_history
-    # so we need to copy it manually from the parent
-    #obj.workflow_history = original.workflow_history.copy()
 
 
 def handle_object_cloned(obj, event):
     """ Handler for object cloned event
     """
+
+    print "Event: ", id(event)
+
     if not shasattr(obj, 'workflow_history'):
+        return
+
+    if not shasattr(obj, '_v_original'):
+        #this is the event triggered for a clone operation
+        return
+
+    if not obj.portal_type == obj._v_original.portal_type:
+        #the event is being dispatched to sublocations
         return
 
     old_history = obj._v_original.workflow_history
@@ -91,8 +88,10 @@ def handle_object_cloned(obj, event):
 
         wf_entries[-1]['action'] = COPIED
         wf_entries[-1]['comments'] = "Copied from (uid:%s)" % \
-                obj._v_original_uid
+                obj._v_original.UID()
         history[name] = tuple(wf_entries)
+
+    print "Copied history"
 
 
 def handle_version_created(obj, event):
