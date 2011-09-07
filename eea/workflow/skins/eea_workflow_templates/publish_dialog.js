@@ -26,10 +26,11 @@ function make_publish_text(questions){
 
 
 function set_publish_dialog(){
+    $("#workflow-transition-publish").attr('class', "kssIgnore");
+
     $("#workflow-transition-publish").click(function(e){
-    //$(".actionMenuContent a[title='Publishing the item makes it visible to other users.']").click(function(e){
+        //$(".actionMenuContent a[title='Publishing the item makes it visible to other users.']").click(function(e){
         // this assumes a link like http://.../content_status_modify?workflow_action=quickPublish
-        $(this).attr('class', "kssIgnore"); // TODO: this is not enough, we need to unbind the kss event
         var transition = $(this).attr('href').split('=')[1]; 
         var target = $("<div>").appendTo("body").attr('id', 'publish-dialog-target')[0];
         $(".publishDialog").remove();
