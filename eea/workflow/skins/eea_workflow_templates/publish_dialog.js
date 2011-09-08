@@ -1,3 +1,4 @@
+
 function getDialogButton(dialog_selector, button_name) {
     var buttons = $( dialog_selector + ' .ui-dialog-buttonpane button' );
     for ( var i = 0; i < buttons.length; ++i ) {
@@ -27,10 +28,21 @@ function make_publish_text(questions){
 
 function set_publish_dialog(){
     $("#workflow-transition-publish").attr('class', "kssIgnore");
+    $("#plone-contentmenu-workflow dd.actionMenuContent a").click(function(e){
+        if ($(this).attr('id') != "workflow-transition-publish") {
+            var href = $(this).attr('href');
+            var re = new RegExp("workflow_action=(.*)");
+            var action = href.match(re)[1];
+            var formaction = $('base').attr('href') + 'content_status_modify';
+            var form = "<form id='publish_form' method='POST' action='" + formaction + "'>";
+            form += "<input name='workflow_action' type='hidden' value='" + action + "'/>";
+            form += "</form>";
+            $('body').append(form);
+            $("#publish_form").submit();
 
-    $("#workflow-transition-publish").click(function(e){
-        //$(".actionMenuContent a[title='Publishing the item makes it visible to other users.']").click(function(e){
-        // this assumes a link like http://.../content_status_modify?workflow_action=quickPublish
+            return false;
+        };
+
         var transition = $(this).attr('href').split('=')[1]; 
         var target = $("<div>").appendTo("body").attr('id', 'publish-dialog-target')[0];
         $(".publishDialog").remove();
@@ -123,18 +135,28 @@ function set_publish_dialog(){
     });
 }
 
-$(window).load(function(){
-    set_publish_dialog();
-});
-
-
 
 $(document).ready(function () {
 
+  set_publish_dialog();
   $("#workflow-transition-fake_publish").click(function(){
       alert("This item is not ready to be published");
       return false;
   });
 
+  setTimeout("disableWorkflowKSS()", 1000);   //we need to wait for kukit to be initialized
 });
 
+
+function disableWorkflowKSS(){
+    var rules = kukit.engine.getRules();
+    $(rules).each(function(){
+            var selector = this.kssSelector.css;
+            if (selector == "#plone-contentmenu-workflow dd.actionMenuContent a") {
+                this.actions.content = {};
+            }
+            if (selector == "#plone-contentmenu-workflow dd.actionMenuContent a.kssIgnore") {
+                this.actions.content = {};
+            }
+    });
+}
