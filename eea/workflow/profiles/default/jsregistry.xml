@@ -24,7 +24,8 @@
         compression="safe"
         cookable="True"
         enabled="True"
-        expression="python: True"
+        expression=""
+        authenticated="True"
         id="publish_dialog.js"
         inline="False"/>
 
