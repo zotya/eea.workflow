@@ -1,6 +1,7 @@
 //
 // Replaces the uids in the workflow history with links to the originals
 //
+(function($) {
 function set_resolveuids(){
 	$(".reviewHistory span:contains('uid:')").each(function(){
 		var text = $(this).text();
@@ -19,3 +20,4 @@ function set_resolveuids(){
 
 $(document).ready(set_resolveuids);
 
+})(jQuery);

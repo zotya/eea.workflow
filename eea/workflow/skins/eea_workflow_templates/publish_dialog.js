@@ -1,5 +1,6 @@
 
 function getDialogButton(dialog_selector, button_name) {
+(function($) {
     var buttons = $( dialog_selector + ' .ui-dialog-buttonpane button' );
     for ( var i = 0; i < buttons.length; ++i ) {
         var jButton = $( buttons[i] );
@@ -8,10 +9,12 @@ function getDialogButton(dialog_selector, button_name) {
         }
     }
     return null;
+})(jQuery);
 }
 
 
 function make_publish_text(questions){
+(function($) {
     var text = "Self-QA:    ";
     $(".question", questions).each(function(){
         var title = $("h3", this).text();
@@ -23,10 +26,12 @@ function make_publish_text(questions){
         text += title + ": " + answer + "      " + comment + "      ";
     });
     return text;
+})(jQuery);
 }
 
 
 function set_publish_dialog(){
+(function($) {
     $("#workflow-transition-publish").attr('class', "kssIgnore");
     $("#plone-contentmenu-workflow dd.actionMenuContent a").click(function(e){
         if ($(this).attr('id') != "workflow-transition-publish") {
@@ -133,10 +138,11 @@ function set_publish_dialog(){
         });
         return false;
     });
+})(jQuery);
 }
 
 
-$(document).ready(function () {
+jQuery(document).ready(function ($) {
 
   set_publish_dialog();
   $("#workflow-transition-fake_publish").click(function(){
@@ -150,7 +156,7 @@ $(document).ready(function () {
 
 function disableWorkflowKSS(){
     var rules = kukit.engine.getRules();
-    $(rules).each(function(){
+    jQuery(rules).each(function(){
             var selector = this.kssSelector.css;
             if (selector == "#plone-contentmenu-workflow dd.actionMenuContent a") {
                 this.actions.content = {};
