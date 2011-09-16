@@ -38,7 +38,7 @@ function set_publish_dialog(){
             var href = $(this).attr('href');
             var re = new RegExp("workflow_action=(.*)");
             var action = href.match(re)[1];
-            var formaction = $('base').attr('href') + 'content_status_modify';
+            var formaction = $('base').attr('href') + '/content_status_modify';
             var form = "<form id='publish_form' method='POST' action='" + formaction + "'>";
             form += "<input name='workflow_action' type='hidden' value='" + action + "'/>";
             form += "</form>";
