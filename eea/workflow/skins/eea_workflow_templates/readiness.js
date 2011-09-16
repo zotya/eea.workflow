@@ -1,8 +1,8 @@
-(function($) {
 function set_readiness_accordion(){
+(function($) {
     $(".readiness_accordion").accordion({
         autoHeight:false
     });
-}
-$(document).ready(set_readiness_accordion);
 })(jQuery);
+}
+jQuery(document).ready(set_readiness_accordion);
