@@ -4,6 +4,7 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+* Optimization: load notification email addresses with AJAX to avoid long load times for dialog_publish [tiberich]
 
 * Bugfix: Fixed IE JS errors, fixed code that uses jQuery to avoid conflicts
   with other JS frameworks [szabozo0 #4542]

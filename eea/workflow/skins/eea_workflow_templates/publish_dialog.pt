@@ -2,6 +2,9 @@
   tal:define="portal_type python:here.getPortalTypeName().lower().replace(' ', '_');
   questions_template python:'%s_publish_questions' % portal_type;
   questions python:path('context/%s | context/default_publish_questions' % questions_template)">
+  <div class="metadata" style="display:none">
+    <div class="context_url" tal:content="context/absolute_url" />
+  </div>
 
   <tal:ver tal:omit-tag="" tal:define="
     versions nocall:context/@@getVersions; 
@@ -15,18 +18,12 @@
       <input type="hidden" name="effective_date" tal:condition="not:newer" 
         tal:attributes="value modules/DateTime/DateTime" />
 
-      <div style="padding-top:20px;" tal:define="wEmails context/@@workflowEmails|nothing; 
-        transition_id string:publish;
-        emails wEmails/?transition_id|nothing">
-        <dl class="collapsible inline collapsedInlineCollapsible" id="notice_emails">
-          <dt class="collapsibleHeader" style="background-color:White; color:#2D749C; font-size:1.2em;">
-            The following people will be notified by email...
-          </dt>
-          <dd class="collapsibleContent">
-            Action emails: <span class="discreet" tal:content="emails/action|string:none or old way">emails</span><br />				     
-            Confirmatiion emails: <span class="discreet" tal:content="emails/confirmation|string:none or old way">emails</span><br />				     
-          </dd>
-        </dl>
+      <div style="padding-top:20px;" >
+
+      <div id="workflow-emails-placeholder">
+        Loading notification emails...
+      </div>
+
       </div>
 
       <tal:new tal:condition="newer" tal:omit-tag="">

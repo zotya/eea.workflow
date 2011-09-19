@@ -104,6 +104,22 @@ function set_publish_dialog(){
                      var url = base + "/publish_dialog";
 
                      $(this).load(url, function(){
+                         var base_url = $(".metadata .context_url").text();
+                         $("#workflow-emails-placeholder").load(base_url + '/workflow_emails', function(){
+                             $("#notice_emails .collapsibleHeader").click(
+                                 function(){
+                                     $(this).parent().each(
+                                         function(){
+                                             var el = $(this);
+                                             if (el.hasClass('expandedInlineCollapsible')) {
+                                                 el.removeClass('expandedInlineCollapsible').addClass('collapsedInlineCollapsible');
+                                             } else {
+                                                 el.removeClass('collapsedInlineCollapsible').addClass('expandedInlineCollapsible');
+                                             }
+                                         }
+                                         );
+                                 });
+                         });
                          //disabling ok button
                          var okbtn = getDialogButton('.publishDialog', 'Ok');
                          okbtn.attr('disabled', 'disabled').addClass('ui-state-disabled');
@@ -117,20 +133,6 @@ function set_publish_dialog(){
                                  okbtn.removeAttr('disabled').removeClass('ui-state-disabled');
                              }
                          });
-
-                         $("#notice_emails .collapsibleHeader").click(
-                             function(){
-                                 $(this).parent().each(
-                                     function(){
-                                         var el = $(this);
-                                         if (el.hasClass('expandedInlineCollapsible')) {
-                                             el.removeClass('expandedInlineCollapsible').addClass('collapsedInlineCollapsible');
-                                         } else {
-                                             el.removeClass('collapsedInlineCollapsible').addClass('expandedInlineCollapsible');
-                                         }
-                                     }
-                                     );
-                             });
 
                      });
                      return false;
