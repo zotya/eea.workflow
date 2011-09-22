@@ -46,9 +46,9 @@ function set_publish_dialog(){
             $("#publish_form").submit();
 
             return false;
-        };
+        }
 
-        var transition = $(this).attr('href').split('=')[1]; 
+        var transition = $(this).attr('href').split('=')[1];
         var target = $("<div>").appendTo("body").attr('id', 'publish-dialog-target')[0];
         $(".publishDialog").remove();
 
@@ -70,7 +70,7 @@ function set_publish_dialog(){
                         if ($(q).hasClass('required')){
                             var radio = $("input[value='yes']", q).get(0);
                             if (radio.checked !== true) {
-                                $("h3", q).after("<div class='notice' style='color:Black; background-color:#FFE291; " + 
+                                $("h3", q).after("<div class='notice' style='color:Black; background-color:#FFE291; " +
                                     "padding:3px'>You need to answer with Yes</div>");
                                 $(".notice", q).effect("pulsate", {times:3}, 2000, function(){$('.notice', q).remove();});
                                 go = false;
@@ -143,20 +143,7 @@ function set_publish_dialog(){
 })(jQuery);
 }
 
-
-jQuery(document).ready(function ($) {
-
-  set_publish_dialog();
-  $("#workflow-transition-fake_publish").click(function(){
-      alert("This item is not ready to be published");
-      return false;
-  });
-
-  setTimeout("disableWorkflowKSS()", 1000);   //we need to wait for kukit to be initialized
-});
-
-
-function disableWorkflowKSS(){
+var disableWorkflowKSS = function(){
     var rules = kukit.engine.getRules();
     jQuery(rules).each(function(){
             var selector = this.kssSelector.css;
@@ -167,4 +154,19 @@ function disableWorkflowKSS(){
                 this.actions.content = {};
             }
     });
-}
+};
+
+jQuery(document).ready(function ($) {
+
+  set_publish_dialog();
+  $("#workflow-transition-fake_publish").click(function(){
+      alert("This item is not ready to be published");
+      return false;
+  });
+
+  // We need to wait for kukit to be initialized
+  jQuery(document).oneTime(1000, "disable-kss", function(){
+    disableWorkflowKSS();
+  });
+
+});

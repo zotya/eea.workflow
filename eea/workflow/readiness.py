@@ -51,9 +51,9 @@ class ObjectReadiness(object):
         optional_empty = 0 #fields that are not RFS and are not filled in
         total_fields   = 0 #the grand total of fields
         rfs_done       = 0 #the percentage of fields RFS that are filled in
-        rfs_field_names = []    #the names of fields that are RFS but 
+        rfs_field_names = []    #the names of fields that are RFS but
                                                            # have no value
-        rfs_done_field_names = []   #the names of fields that are RFS and 
+        rfs_done_field_names = []   #the names of fields that are RFS and
                                                                 #have a value
         optional_with_value = []    #optional fields that have a value
         _debug_fieldnames = []
@@ -102,12 +102,12 @@ class ObjectReadiness(object):
             rfs_required += _info['rfs_required']
             rfs_with_value += _info['rfs_with_value']
             total_fields += _info['total_fields']
-            rfs_field_names += map(
-                    lambda t:(t[0] + "_" + part.getId(), t[1]),
-                                                    _info['rfs_field_names'])
-            rfs_done_field_names += map(
-                    lambda t:(t[0] + "_" + part.getId(), t[1]),
-                                                _info['rfs_done_field_names'])
+
+            rfs_field_names += [(t[0] + "_" + part.getId(), t[1])
+                                for t in _info['rfs_field_names']]
+
+            rfs_done_field_names += [(k[0] + "_" + part.getId(), k[1])
+                                     for k in _info['rfs_done_field_names']]
 
         #rfs_required or 1  #->avoids division by 0
         rfs_done = int(float(rfs_with_value) / float(rfs_required or 1) * 100.0)
