@@ -80,7 +80,9 @@ function set_publish_dialog(){
             },
             open:function(ui){
 
-                     var base = $("base").attr('href') || document.baseURI || window.location.href.split("?")[0];
+                     // fix this
+                     //var base = $("base").attr('href') || document.baseURI || window.location.href.split("?")[0];
+                     var base = window.context_url; // this is defined from main_template
                      var url = base + "/publish_dialog";
 
                      $(this).load(url, function(){
