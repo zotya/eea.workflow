@@ -4,6 +4,9 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+* Bug fix: avoid an error when creating a new version for an assessment, by looking if 
+  the accessor is corect when getting the value for a field [tiberich #4660]
+
 * Disabled publish_dialog script, only appears for indicators content types [tiberich #4663]
 
 * Optimization: load notification email addresses with AJAX to avoid long load times for dialog_publish [tiberich]

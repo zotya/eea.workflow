@@ -6,7 +6,9 @@ from Products.CMFPlone.UnicodeSplitter import process_unicode
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from zope.component import adapts
 from zope.interface import Interface, implements
+from logging import getLogger
 
+logger = getLogger('eea.workflow')
 
 class ATFieldValueProvider(object):
     """An IValueProvider implementation for AT Fields"""
@@ -38,7 +40,12 @@ class TextFieldValueProvider(ATFieldValueProvider):
         """ Returns true if text field has at least 2 words in it
         """
         convert = getToolByName(self.context, 'portal_transforms').convert
-        value = self.field.getAccessor(self.context)()
+        accessor = self.field.getAccessor(self.context)
+        if not accessor:
+            logger.warning("Field %s for %s has no accessor" % 
+                        (self.field, self.context))
+            return False
+        value = accessor()
         text = convert('html_to_text', value).getData().strip()
         if not isinstance(text, unicode):
             text = unicode(text, 'utf-8', 'ignore')
