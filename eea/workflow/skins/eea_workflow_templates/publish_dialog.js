@@ -1,4 +1,6 @@
+
 function getDialogButton(dialog_selector, button_name) {
+(function($) {
     var buttons = $( dialog_selector + ' .ui-dialog-buttonpane button' );
     for ( var i = 0; i < buttons.length; ++i ) {
         var jButton = $( buttons[i] );
@@ -7,10 +9,12 @@ function getDialogButton(dialog_selector, button_name) {
         }
     }
     return null;
+})(jQuery);
 }
 
 
 function make_publish_text(questions){
+(function($) {
     var text = "Self-QA:    ";
     $(".question", questions).each(function(){
         var title = $("h3", this).text();
@@ -22,13 +26,29 @@ function make_publish_text(questions){
         text += title + ": " + answer + "      " + comment + "      ";
     });
     return text;
+})(jQuery);
 }
 
 
 function set_publish_dialog(){
-    $(".actionMenuContent a[title='Publish']").click(function(e){
-        // this assumes a link like http://.../content_status_modify?workflow_action=quickPublish
-        var transition = $(this).attr('href').split('=')[1]; 
+(function($) {
+    $("#workflow-transition-publish").attr('class', "kssIgnore");
+    $("#plone-contentmenu-workflow dd.actionMenuContent a").click(function(e){
+        if ($(this).attr('id') != "workflow-transition-publish") {
+            var href = $(this).attr('href');
+            var re = new RegExp("workflow_action=(.*)");
+            var action = href.match(re)[1];
+            var formaction = $('base').attr('href') + '/content_status_modify';
+            var form = "<form id='publish_form' method='POST' action='" + formaction + "'>";
+            form += "<input name='workflow_action' type='hidden' value='" + action + "'/>";
+            form += "</form>";
+            $('body').append(form);
+            $("#publish_form").submit();
+
+            return false;
+        }
+
+        var transition = $(this).attr('href').split('=')[1];
         var target = $("<div>").appendTo("body").attr('id', 'publish-dialog-target')[0];
         $(".publishDialog").remove();
 
@@ -50,7 +70,7 @@ function set_publish_dialog(){
                         if ($(q).hasClass('required')){
                             var radio = $("input[value='yes']", q).get(0);
                             if (radio.checked !== true) {
-                                $("h3", q).after("<div class='notice' style='color:Black; background-color:#FFE291; " + 
+                                $("h3", q).after("<div class='notice' style='color:Black; background-color:#FFE291; " +
                                     "padding:3px'>You need to answer with Yes</div>");
                                 $(".notice", q).effect("pulsate", {times:3}, 2000, function(){$('.notice', q).remove();});
                                 go = false;
@@ -80,12 +100,26 @@ function set_publish_dialog(){
             },
             open:function(ui){
 
-                     // fix this
-                     //var base = $("base").attr('href') || document.baseURI || window.location.href.split("?")[0];
-                     var base = window.context_url; // this is defined from main_template
+                     var base = $("base").attr('href') || document.baseURI || window.location.href.split("?")[0];
                      var url = base + "/publish_dialog";
 
                      $(this).load(url, function(){
+                         var base_url = $(".metadata .context_url").text();
+                         $("#workflow-emails-placeholder").load(base_url + '/workflow_emails', function(){
+                             $("#notice_emails .collapsibleHeader").click(
+                                 function(){
+                                     $(this).parent().each(
+                                         function(){
+                                             var el = $(this);
+                                             if (el.hasClass('expandedInlineCollapsible')) {
+                                                 el.removeClass('expandedInlineCollapsible').addClass('collapsedInlineCollapsible');
+                                             } else {
+                                                 el.removeClass('collapsedInlineCollapsible').addClass('expandedInlineCollapsible');
+                                             }
+                                         }
+                                         );
+                                 });
+                         });
                          //disabling ok button
                          var okbtn = getDialogButton('.publishDialog', 'Ok');
                          okbtn.attr('disabled', 'disabled').addClass('ui-state-disabled');
@@ -100,28 +134,39 @@ function set_publish_dialog(){
                              }
                          });
 
-                         $("#notice_emails .collapsibleHeader").click(
-                             function(){
-                                 $(this).parent().each(
-                                     function(){
-                                         var el = $(this);
-                                         if (el.hasClass('expandedInlineCollapsible')) {
-                                             el.removeClass('expandedInlineCollapsible').addClass('collapsedInlineCollapsible');
-                                         } else {
-                                             el.removeClass('collapsedInlineCollapsible').addClass('expandedInlineCollapsible');
-                                         }
-                                     }
-                                     );
-                             });
-
                      });
                      return false;
                  }
         });
         return false;
     });
+})(jQuery);
 }
 
-$(window).load(function(){
-    set_publish_dialog();
+var disableWorkflowKSS = function(){
+    var rules = kukit.engine.getRules();
+    jQuery(rules).each(function(){
+            var selector = this.kssSelector.css;
+            if (selector == "#plone-contentmenu-workflow dd.actionMenuContent a") {
+                this.actions.content = {};
+            }
+            if (selector == "#plone-contentmenu-workflow dd.actionMenuContent a.kssIgnore") {
+                this.actions.content = {};
+            }
+    });
+};
+
+jQuery(document).ready(function ($) {
+
+  set_publish_dialog();
+  $("#workflow-transition-fake_publish").click(function(){
+      alert("This item is not ready to be published");
+      return false;
+  });
+
+  // We need to wait for kukit to be initialized
+  jQuery(document).oneTime(1000, "disable-kss", function(){
+    disableWorkflowKSS();
+  });
+
 });

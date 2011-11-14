@@ -1,0 +1,21 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:plone="http://namespaces.plone.org/plone">
+
+    <plone:portlet
+        name="portlets.Readiness"
+        interface=".readiness.IReadinessPortlet"
+        assignment=".readiness.Assignment"
+        renderer=".readiness.Renderer"
+        addview="plone.app.portlets.browser.formhelper.NullAddForm"
+        />
+
+    <browser:page
+        name="readiness"
+        for="eea.workflow.interfaces.IHasMandatoryWorkflowFields"
+        template="readiness.pt"
+        permission="zope2.View"
+        />
+
+</configure>
+

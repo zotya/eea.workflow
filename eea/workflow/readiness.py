@@ -1,11 +1,15 @@
-from eea.workflow.interfaces import IValueProvider, IObjectReadiness, IFieldIsRequiredForState
+""" Readiness module => readiness for doing a certain transition
+"""
+from eea.workflow.interfaces import IValueProvider, IObjectReadiness, \
+        IFieldIsRequiredForState
 from zope.component import getMultiAdapter
 from zope.interface import implements
 
 OTHER_METADATA_FIELDS = (
         'locallyAllowedTypes',
         'immediatelyAddableTypes',
-        'id'
+        'id',
+        'constrainTypesMode',
         )
 
 
@@ -27,12 +31,14 @@ class ObjectReadiness(object):
             #   ('some title', lambda o:False, 'Some error message'),
             #   )
             }
-    depends_on = None   # a list of objects whose readiness should be taken into account
-
+    # a list of objects whose readiness should be taken into account
+    depends_on = None
     def __init__(self, context):
         self.context = context
 
-    def get_info_for(self, state_name): #pyflakes, #pylint: disable-msg = R0914
+    def get_info_for(self, state_name):
+        """ Get info for state_name
+        """
 
         #Terminology: RFS = required for state ZZZ
 
@@ -45,34 +51,44 @@ class ObjectReadiness(object):
         optional_empty = 0 #fields that are not RFS and are not filled in
         total_fields   = 0 #the grand total of fields
         rfs_done       = 0 #the percentage of fields RFS that are filled in
-        rfs_field_names = []    #the names of fields that are RFS but have no value
-        rfs_done_field_names = []   #the names of fields that are RFS and have a value
+        rfs_field_names = []    #the names of fields that are RFS but
+                                                           # have no value
+        rfs_done_field_names = []   #the names of fields that are RFS and
+                                                                #have a value
         optional_with_value = []    #optional fields that have a value
+        _debug_fieldnames = []
 
         for field in self.context.schema.fields():  #we assume AT here
             if field.isMetadata or (field.getName() in OTHER_METADATA_FIELDS):
                 continue
 
+            _debug_fieldnames.append(field.getName())
+
             total_fields += 1
 
-            info = getMultiAdapter([self.context, field], interface=IValueProvider)
+            info = getMultiAdapter([self.context, field],
+                                            interface=IValueProvider)
             has_value = info.has_value(state=state_name)
 
-            required_for = getMultiAdapter((self.context, field), interface=IFieldIsRequiredForState)
+            required_for = getMultiAdapter((self.context, field),
+                                            interface=IFieldIsRequiredForState)
             is_needed = required_for(state_name)
 
             if is_needed:
                 rfs_required += 1
                 if has_value:
                     rfs_with_value += 1
-                    rfs_done_field_names.append((field.getName(), field.widget.label))
+                    rfs_done_field_names.append((field.getName(),
+                                                        field.widget.label))
                 else:
-                    rfs_field_names.append((field.getName(), field.widget.label))
+                    rfs_field_names.append((field.getName(),
+                                                        field.widget.label))
             else:
                 if not has_value:
                     optional_empty += 1
                 else:
-                    optional_with_value.append((field.getName(), field.widget.label))
+                    optional_with_value.append((field.getName(),
+                                                         field.widget.label))
 
         for checker, error in checks:
             if checker(self.context):
@@ -86,10 +102,12 @@ class ObjectReadiness(object):
             rfs_required += _info['rfs_required']
             rfs_with_value += _info['rfs_with_value']
             total_fields += _info['total_fields']
-            rfs_field_names += map( #pyflakes, #pylint: disable-msg = W0141
-                    lambda t:(t[0] + "_" + part.getId(), t[1]), _info['rfs_field_names'])
-            rfs_done_field_names += map( #pyflakes, #pylint: disable-msg = W0141
-                    lambda t:(t[0] + "_" + part.getId(), t[1]), _info['rfs_done_field_names'])
+
+            rfs_field_names += [(t[0] + "_" + part.getId(), t[1])
+                                for t in _info['rfs_field_names']]
+
+            rfs_done_field_names += [(k[0] + "_" + part.getId(), k[1])
+                                     for k in _info['rfs_done_field_names']]
 
         #rfs_required or 1  #->avoids division by 0
         rfs_done = int(float(rfs_with_value) / float(rfs_required or 1) * 100.0)
@@ -103,11 +121,15 @@ class ObjectReadiness(object):
                 'rfs_field_names':rfs_field_names,
                 'rfs_done_field_names':rfs_done_field_names,
                 'optional_with_value':optional_with_value,
-                'extra':extras,  #extra messages that will be displayed in the portlet, in the form of tuples
-                'conditions':len(checks)
+                'extra':extras,  #extra messages that will be displayed in the
+                                                # portlet, in the form of tuples
+                'conditions':len(checks),
+                '_debug_fieldnames':_debug_fieldnames,
                 }
 
     def is_ready_for(self, state_name):
+        """ Is object ready for state_name
+        """
         info = self.get_info_for(state_name)
         if info['rfs_required'] == info['rfs_with_value']:
             return True
@@ -116,14 +138,19 @@ class ObjectReadiness(object):
 
 
 class ObjectReadinessView(object):
-
+    """ ObjectReadinessView
+    """
     def __init__(self, context, request):
         self.context = context
         self.request = request
 
     def get_info_for(self, state_name):
+        """ Get info for state name
+        """
         return IObjectReadiness(self.context).get_info_for(state_name)
 
     def is_ready_for(self, state_name):
+        """ Is object ready for state name
+        """
         return IObjectReadiness(self.context).is_ready_for(state_name)
 

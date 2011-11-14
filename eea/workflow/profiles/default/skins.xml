@@ -7,7 +7,7 @@
 
     <object name="eea_workflow_templates"
         meta_type="Filesystem Directory View"
-        directory="workflow/skins/eea_workflow_templates"/>
+        directory="eea.workflow:skins/eea_workflow_templates"/>
 
     <skin-path name="*">
         <layer insert-after="custom" 

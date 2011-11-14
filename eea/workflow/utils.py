@@ -1,10 +1,14 @@
+""" Utils module
+"""
 from Products.Archetypes.Field import Field, TextField
 from Products.CMFCore.utils import getToolByName
-from Products.PluginIndexes.TextIndex.Splitter import UnicodeSplitter
+from Products.CMFPlone.UnicodeSplitter import process_unicode
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from zope.component import adapts
 from zope.interface import Interface, implements
+from logging import getLogger
 
+logger = getLogger('eea.workflow')
 
 class ATFieldValueProvider(object):
     """An IValueProvider implementation for AT Fields"""
@@ -17,9 +21,13 @@ class ATFieldValueProvider(object):
         self.field = field
 
     def has_value(self, **kwargs):
+        """ Has value 
+        """
         return bool(self.get_value())  #may trigger false positives
 
     def get_value(self, **kwargs):
+        """ Get value
+        """
         return self.field.getAccessor(self.context)()
 
 
@@ -29,11 +37,20 @@ class TextFieldValueProvider(ATFieldValueProvider):
     adapts(Interface, TextField)
 
     def has_value(self, **kwargs):
+        """ Returns true if text field has at least 2 words in it
+        """
         convert = getToolByName(self.context, 'portal_transforms').convert
-        value = self.field.getAccessor(self.context)()
+        accessor = self.field.getAccessor(self.context)
+        if not accessor:
+            logger.warning("Field %s for %s has no accessor" % 
+                        (self.field, self.context))
+            return False
+        value = accessor()
         text = convert('html_to_text', value).getData().strip()
-        words = UnicodeSplitter.Splitter(text).split()
-        return len(words) > 1   #there should be at least 2 words, or 
+        if not isinstance(text, unicode):
+            text = unicode(text, 'utf-8', 'ignore')
+        words = process_unicode(text)
+        return len(list(words)) > 1   #there should be at least 2 words, or 
                                 #the field is considered empty
 
 

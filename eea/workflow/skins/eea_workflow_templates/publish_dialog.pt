@@ -1,9 +1,10 @@
-<metal:block use-macro="here/global_defines/macros/defines" />
-
 <form method="POST" action="" tal:attributes="action string:${context/absolute_url}/content_status_modify"
   tal:define="portal_type python:here.getPortalTypeName().lower().replace(' ', '_');
   questions_template python:'%s_publish_questions' % portal_type;
   questions python:path('context/%s | context/default_publish_questions' % questions_template)">
+  <div class="metadata" style="display:none">
+    <div class="context_url" tal:content="context/absolute_url" />
+  </div>
 
   <tal:ver tal:omit-tag="" tal:define="
     versions nocall:context/@@getVersions; 
@@ -17,18 +18,12 @@
       <input type="hidden" name="effective_date" tal:condition="not:newer" 
         tal:attributes="value modules/DateTime/DateTime" />
 
-      <div style="padding-top:20px;" tal:define="wEmails context/@@workflowEmails|nothing; 
-        transition_id string:publish;
-        emails wEmails/?transition_id|nothing">
-        <dl class="collapsible inline collapsedInlineCollapsible" id="notice_emails">
-          <dt class="collapsibleHeader" style="background-color:White; color:#2D749C; font-size:1.2em;">
-            The following people will be notified by email...
-          </dt>
-          <dd class="collapsibleContent">
-            Action emails: <span class="discreet" tal:content="emails/action|string:none or old way">emails</span><br />				     
-            Confirmatiion emails: <span class="discreet" tal:content="emails/confirmation|string:none or old way">emails</span><br />				     
-          </dd>
-        </dl>
+      <div style="padding-top:20px;" >
+
+      <div id="workflow-emails-placeholder">
+        Loading notification emails...
+      </div>
+
       </div>
 
       <tal:new tal:condition="newer" tal:omit-tag="">
@@ -64,8 +59,15 @@
         
         Choose manual publication date. We recommend something close to the date below, 
         which is 30 days after the item was initially created.
+     
+    <link type="text/css" rel="stylesheet" media="all"
+            tal:define="src string:${context/portal_url}/jscalendar/calendar-system.css;" tal:attributes="href src" />    <script type="text/javascript"
+            tal:attributes="src string:${context/portal_url}/jscalendar/calendar_stripped.js"></script>
+    <script type="text/javascript" charset="iso-8859-1"
+            tal:attributes="src string:${context/portal_url}/jscalendar/calendar-en.js"></script>
+
         <div tal:define="formname string:edit_form; inputname string:effective_date; inputvalue python:context.created() + 30">
-          <div metal:use-macro="here/calendar_macros/macros/calendarDatePickerBox" />
+          <div metal:use-macro="context/calendar_macros/macros/calendarDatePickerBox" />
         </div>
       </tal:new>
 

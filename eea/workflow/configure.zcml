@@ -1,36 +1,38 @@
-<configure
-	xmlns="http://namespaces.zope.org/zope"
-	xmlns:browser="http://namespaces.zope.org/browser"
-	xmlns:five="http://namespaces.zope.org/five"
-	xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-	xmlns:plone="http://namespaces.plone.org/plone"
-	i18n_domain="eea.workflow">
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five"
+           xmlns:cmf="http://namespaces.zope.org/cmf"
+           xmlns:monkey="http://namespaces.plone.org/monkey"
+           xmlns:plone="http://namespaces.plone.org/plone"
+           i18n_domain="eea">
 
-	<five:registerPackage package="." initialize=".initialize" />
+    <five:registerPackage package="." />
 
-	<genericsetup:registerProfile
-		name="default"
-		title="eea.workflow"
-		directory="profiles/default"
-		description="Various workflow enhancements for EEA Content"
-		provides="Products.GenericSetup.interfaces.EXTENSION"
-		/>
+    <monkey:patch
+        description="Monkeypatch workflowtool to send an event on initial workflow state creation"
+        module="Products.CMFCore.WorkflowTool.WorkflowTool"
+        original="notifyCreated"
+        replacement=".patches.notifyCreated"
+        preserveOriginal="true"
+        />
 
-	<adapter factory=".utils.ATFieldValueProvider" />
-	<adapter factory=".utils.TextFieldValueProvider" />
-	<adapter factory=".utils.ATFieldIsRequiredForState" />
+    <include file="profiles.zcml" />
+    <include file="skins.zcml" />
+    <include package=".portlets" />
 
-	<browser:page
-		name="get_readiness"
-		for="eea.workflow.interfaces.IHasMandatoryWorkflowFields"
-		permission="zope2.View"
-		class=".readiness.ObjectReadinessView"
-		allowed_interface=".interfaces.IObjectReadiness"
-		/>
+    <adapter factory=".utils.ATFieldValueProvider" />
+    <adapter factory=".utils.TextFieldValueProvider" />
+    <adapter factory=".utils.ATFieldIsRequiredForState" />
 
-	<adapter factory=".readiness.ObjectReadiness" 
-		for="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+    <browser:page
+        name="get_readiness"
+        for="eea.workflow.interfaces.IHasMandatoryWorkflowFields"
+        permission="zope2.View"
+        class=".readiness.ObjectReadinessView"
+        allowed_interface=".interfaces.IObjectReadiness" />
 
+    <adapter factory=".readiness.ObjectReadiness"
+        for="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
 
     <subscriber
         for="Products.Archetypes.interfaces.IBaseContent
@@ -44,12 +46,14 @@
 
     <subscriber
         for="Products.Archetypes.interfaces.IBaseContent
-             zope.app.event.interfaces.IObjectCopiedEvent"
+             zope.lifecycleevent.interfaces.IObjectCopiedEvent"
         handler="eea.workflow.events.handle_object_copied" />
 
     <subscriber
         for="Products.Archetypes.interfaces.IBaseContent
              OFS.interfaces.IObjectClonedEvent"
         handler="eea.workflow.events.handle_object_cloned" />
+
+    <include package=".upgrades" />
 
 </configure>

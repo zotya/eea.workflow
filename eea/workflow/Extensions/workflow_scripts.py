@@ -1,9 +1,14 @@
-#from zope.component import getMultiAdapter
-from Products.CMFPlone.utils import getToolByName
+""" Workflow scripts module
+"""
+from Products.statusmessages.interfaces import IStatusMessage
 
 def fake_transition(statechange, **kw):
+    """ Fake Transition
+    """
     obj = statechange.object
-    plone_utils = getToolByName(obj, 'plone_utils')
-    plone_utils.addPortalMessage("This object does not meet transition requirements. "
-                                 "Please follow the guidelines in meeting these requirements")
+    IStatusMessage(obj.REQUEST).add(
+            "This object does not meet transition requirements. "
+            "Please follow the guidelines in meeting these requirements", 
+            type='error')
+
     return True

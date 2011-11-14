@@ -24,6 +24,15 @@
         compression="safe"
         cookable="True"
         enabled="True"
+        expression="python: (not portal.portal_membership.isAnonymousUser()) and object.meta_type in ['Assessment', 'Specification']"
+        authenticated="True"
+        id="publish_dialog.js"
+        inline="False"/>
+
+    <javascript cacheable="True"
+        compression="safe"
+        cookable="True"
+        enabled="True"
         expression="python:True"
         id="resolveuid.js"
         inline="False"/>

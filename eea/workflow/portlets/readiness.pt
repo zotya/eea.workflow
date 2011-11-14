@@ -1,6 +1,11 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
   xmlns:metal="http://xml.zope.org/namespaces/metal"
-  i18n:domain="indicators">
+  i18n:domain="eea">
+
+  <tal:comment replace="nothing">
+    This template should actually be a portlet. It is separated like this to 
+    enable reusing it in eea.indicators
+  </tal:comment>
 
   <body>
     <metal:macro metal:define-macro="portlet">
