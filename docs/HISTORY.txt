@@ -1,32 +1,23 @@
 Changelog
 =========
 
-
-4.0-dev - (unreleased)
-----------------------
+4.0 - (2011-11-18)
+------------------
 * Bug fix: avoid an error when creating a new version for an assessment, by looking if 
   the accessor is corect when getting the value for a field [tiberich #4660]
-
 * Disabled publish_dialog script, only appears for indicators content types [tiberich #4663]
-
 * Optimization: load notification email addresses with AJAX to avoid long load times for dialog_publish [tiberich]
-
 * Bugfix: Fixed IE JS errors, fixed code that uses jQuery to avoid conflicts
   with other JS frameworks [szabozo0 #4542]
-
 * Feature: refactored portlet_readiness to use the plone.portlets infrastructure [tiberich]
-
 * TODO plone4:
   Plone Calendar widget on the publishing jquery-ui pop-up
   goes below the pop-up, while being hidden and placed incorectly
   with the default javascript definition
-
 * Feature: Added upgrade steps
   [voineali #4392]
-
 * Feature: Plone 4.x compatible release
   [ichimdav #4305]
-
 
 1.10 - (2011-03-09)
 -------------------
