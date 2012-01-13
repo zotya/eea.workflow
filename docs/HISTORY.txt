@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.3-dev - (unreleased)
+----------------------
+
 4.2 - (2012-01-13)
 ------------------
  * Bug fix: fixed problem with in publish_dialog.js [tiberich #4874]
