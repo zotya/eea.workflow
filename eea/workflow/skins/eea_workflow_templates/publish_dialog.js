@@ -1,20 +1,23 @@
 
 function getDialogButton(dialog_selector, button_name) {
-(function($) {
-    var buttons = $( dialog_selector + ' .ui-dialog-buttonpane button' );
-    for ( var i = 0; i < buttons.length; ++i ) {
-        var jButton = $( buttons[i] );
-        if ( jButton.text() == button_name ) {
-            return jButton;
+    var res = null;
+    (function($) {
+        var buttons = $(dialog_selector + ' .ui-dialog-buttonpane button' );
+        for ( var i = 0; i < buttons.length; ++i ) {
+            var jButton = $( buttons[i] );
+            if ( jButton.text() == button_name ) {
+                res = jButton[0];
+                return;
+            }
         }
-    }
-    return null;
-})(jQuery);
+        return;
+    })(jQuery);
+    return res;
 }
 
 
 function make_publish_text(questions){
-(function($) {
+ return (function($) {
     var text = "Self-QA:    ";
     $(".question", questions).each(function(){
         var title = $("h3", this).text();
@@ -120,21 +123,24 @@ function set_publish_dialog(){
                                          );
                                  });
                          });
-                         //disabling ok button
-                         var okbtn = getDialogButton('.publishDialog', 'Ok');
-                         okbtn.attr('disabled', 'disabled').addClass('ui-state-disabled');
-
                          //see if all radios have a value. When they do, activate the OK button
                          $(".questions input[type='radio']", target).change(function(){
                              var questions = $(".question", target);
                              var activated = $(":radio[checked='true']", target);
+                             var okbtn = getDialogButton('.publishDialog', 'Ok');
                              if (questions.length === activated.length) {
-                                 var okbtn = getDialogButton('.publishDialog', 'Ok');
-                                 okbtn.removeAttr('disabled').removeClass('ui-state-disabled');
+                                 $(okbtn).removeAttr('disabled').removeClass('ui-state-disabled');
+                             } else {
+                                 $(okbtn).attr('disabled', 'disabled').addClass('ui-state-disabled');
                              }
                          });
 
                      });
+                     //
+                     //disabling ok button
+                     var okbtn = getDialogButton('.publishDialog', 'Ok');
+                     $(okbtn).attr('disabled', 'disabled').addClass('ui-state-disabled');
+
                      return false;
                  }
         });
