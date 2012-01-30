@@ -52,7 +52,7 @@
                 <a href="" tal:attributes="href ver/absolute_url" tal:content="ver/title_or_id">Item</a>
               </td>
               <td tal:content="python:ver.created().Date()" />
-              <td tal:content="python:ver.effectiveDate() and ver.effectiveDate().Date() or ''" />
+              <td tal:content="python:ver.getEffectiveDate() and ver.getEffectiveDate().Date() or ''" />
             </tr>
           </tbody>
         </table>
