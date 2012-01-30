@@ -57,13 +57,16 @@
           </tbody>
         </table>
         
-        Choose manual publication date. We recommend something close to the date below, 
-        which is 30 days after the item was initially created.
+        <p>
+            Choose manual publication date. We recommend something close to the date below, 
+            which is 30 days after the item was initially created.
+        </p>
      
-    <link type="text/css" rel="stylesheet" media="all"
-            tal:define="src string:${context/portal_url}/jscalendar/calendar-system.css;" tal:attributes="href src" />    <script type="text/javascript"
+        <link type="text/css" rel="stylesheet" media="all"
+            tal:define="src string:${context/portal_url}/jscalendar/calendar-system.css;" tal:attributes="href src" />    
+        <script type="text/javascript"
             tal:attributes="src string:${context/portal_url}/jscalendar/calendar_stripped.js"></script>
-    <script type="text/javascript" charset="iso-8859-1"
+        <script type="text/javascript" charset="iso-8859-1"
             tal:attributes="src string:${context/portal_url}/jscalendar/calendar-en.js"></script>
 
         <div tal:define="formname string:edit_form; inputname string:effective_date; inputvalue python:context.created() + 30">
