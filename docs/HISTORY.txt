@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.3-dev - (unreleased)
-----------------------
+4.3 - (2012-01-31)
+------------------
  * Bug fix: some minor cosmetic improvements to publish dialog [tiberich #4471]
  * Bug fix: fixed reviewers getting security screen when trying to publish 
    assessments that had newer draft versions [tiberich #4471]
