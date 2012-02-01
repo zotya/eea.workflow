@@ -24,6 +24,10 @@
     <adapter factory=".utils.TextFieldValueProvider" />
     <adapter factory=".utils.ATFieldIsRequiredForState" />
 
+    <class class="Products.Archetypes.BaseContent.BaseContent">
+        <implements interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+    </class>
+
     <browser:page
         name="get_readiness"
         for="eea.workflow.interfaces.IHasMandatoryWorkflowFields"

@@ -1,9 +1,11 @@
 """ Readiness module => readiness for doing a certain transition
 """
-from eea.workflow.interfaces import IValueProvider, IObjectReadiness, \
-        IFieldIsRequiredForState
+from eea.workflow.interfaces import IFieldIsRequiredForState
+from eea.workflow.interfaces import IObjectReadiness
+from eea.workflow.interfaces import IValueProvider
 from zope.component import getMultiAdapter
 from zope.interface import implements
+import pprint
 
 OTHER_METADATA_FIELDS = (
         'locallyAllowedTypes',
@@ -31,8 +33,10 @@ class ObjectReadiness(object):
             #   ('some title', lambda o:False, 'Some error message'),
             #   )
             }
+
     # a list of objects whose readiness should be taken into account
     depends_on = None
+
     def __init__(self, context):
         self.context = context
 
@@ -111,8 +115,10 @@ class ObjectReadiness(object):
 
         #rfs_required or 1  #->avoids division by 0
         rfs_done = int(float(rfs_with_value) / float(rfs_required or 1) * 100.0)
+        if not rfs_required:
+            rfs_done = 100
 
-        return {
+        info = {
                 'rfs_done':rfs_done,
                 'rfs_with_value':rfs_with_value,
                 'rfs_required':rfs_required,
@@ -126,6 +132,8 @@ class ObjectReadiness(object):
                 'conditions':len(checks),
                 '_debug_fieldnames':_debug_fieldnames,
                 }
+        pprint.pprint(info)
+        return info
 
     def is_ready_for(self, state_name):
         """ Is object ready for state_name
