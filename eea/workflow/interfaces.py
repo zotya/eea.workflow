@@ -30,7 +30,7 @@ class IValueProvider(Interface):
 
 
 class IFieldIsRequiredForState(Interface):
-    ###c the naming of this interface should be changed, it's too specific;
+    ### the naming of this interface should be changed, it's too specific;
     """ Objects of this type provide required for state
 
     The use case is this: we want to be able to interrogate various
@@ -42,6 +42,15 @@ class IFieldIsRequiredForState(Interface):
     def __call__(state):
         """ Is required for state?
         """
+
+class IRequiredFieldsForState(Interface):
+    """Should be implemented as a named adapter for objects, with the name
+    being the workflow state name
+
+    queryAdapter(context, interface=IRequiredFieldsForState, name='published')
+    """
+
+    fields = Attribute("A list of field names that are required for the state")
 
 
 class IObjectReadiness(Interface):
@@ -63,3 +72,5 @@ class IObjectReadiness(Interface):
         """ Returns a bool that tells is the object is ready to be transitioned 
         to the named state
         """
+
+

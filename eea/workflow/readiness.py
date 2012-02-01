@@ -2,8 +2,9 @@
 """
 from eea.workflow.interfaces import IFieldIsRequiredForState
 from eea.workflow.interfaces import IObjectReadiness
+from eea.workflow.interfaces import IRequiredFieldsForState
 from eea.workflow.interfaces import IValueProvider
-from zope.component import getMultiAdapter
+from zope.component import getMultiAdapter, queryAdapter
 from zope.interface import implements
 import pprint
 
@@ -62,6 +63,11 @@ class ObjectReadiness(object):
         optional_with_value = []    #optional fields that have a value
         _debug_fieldnames = []
 
+
+        generic_adapter = queryAdapter(self.context, IRequiredFieldsForState, 
+                name=state_name)
+        required_fields = generic_adapter and generic_adapter.fields or []
+
         for field in self.context.schema.fields():  #we assume AT here
             if field.isMetadata or (field.getName() in OTHER_METADATA_FIELDS):
                 continue
@@ -74,9 +80,12 @@ class ObjectReadiness(object):
                                             interface=IValueProvider)
             has_value = info.has_value(state=state_name)
 
-            required_for = getMultiAdapter((self.context, field),
-                                            interface=IFieldIsRequiredForState)
-            is_needed = required_for(state_name)
+            if generic_adapter:
+                is_needed = field.getName() in required_fields
+            else:
+                adapter = getMultiAdapter((self.context, field),
+                                                interface=IFieldIsRequiredForState)
+                is_needed = adapter(state_name)
 
             if is_needed:
                 rfs_required += 1
