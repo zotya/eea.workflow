@@ -141,7 +141,7 @@ class ObjectReadiness(object):
                 'conditions':len(checks),
                 '_debug_fieldnames':_debug_fieldnames,
                 }
-        pprint.pprint(info)
+        #pprint.pprint(info)
         return info
 
     def is_ready_for(self, state_name):

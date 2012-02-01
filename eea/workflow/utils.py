@@ -65,6 +65,8 @@ class ATFieldIsRequiredForState(object):
         self.field = field
 
     def __call__(self, state, **kwargs):
+        if self.field.required:
+            return True
         ATTR = 'required_for_' + state
         return getattr(self.field, ATTR, False)
 
