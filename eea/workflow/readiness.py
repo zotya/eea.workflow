@@ -6,7 +6,6 @@ from eea.workflow.interfaces import IRequiredFieldsForState
 from eea.workflow.interfaces import IValueProvider
 from zope.component import getMultiAdapter, queryAdapter
 from zope.interface import implements
-import pprint
 
 OTHER_METADATA_FIELDS = (
         'locallyAllowedTypes',
@@ -141,7 +140,6 @@ class ObjectReadiness(object):
                 'conditions':len(checks),
                 '_debug_fieldnames':_debug_fieldnames,
                 }
-        #pprint.pprint(info)
         return info
 
     def is_ready_for(self, state_name):
