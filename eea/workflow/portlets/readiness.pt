@@ -8,7 +8,7 @@
   </tal:comment>
 
   <body>
-    <metal:macro metal:define-macro="portlet">
+    <metal:macro metal:define-macro="portlet" tal:on-error="nothing">
       <tal:defs tal:define="api nocall:context/@@get_readiness | nothing; 
         has_permission python:context.portal_membership.checkPermission('Modify portal content', context)" 
         tal:condition="python:api and has_permission" >

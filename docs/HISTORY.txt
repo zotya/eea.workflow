@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.4-dev - (unreleased)
-----------------------
+4.4 - (2012-02-06)
+------------------
  * Feature: show the readiness portlet for all content types [tiberich #4023]
  * Change: consider required fields as required for any state when calculating readiness [tiberich #4023]
  * UPGRADE STEP: #4023: import step: eea workflow > portlets
