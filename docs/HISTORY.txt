@@ -3,6 +3,7 @@ Changelog
 
 4.5-dev - (unreleased)
 ----------------------
+ * Bug fix: improve retrieval of readiness information [tiberich]
 
 4.4 - (2012-02-06)
 ------------------

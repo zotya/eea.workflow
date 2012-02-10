@@ -12,7 +12,8 @@
 
     <browser:page
         name="readiness"
-        for="eea.workflow.interfaces.IHasMandatoryWorkflowFields"
+        for="*"
+        class=".readiness.Readiness"
         template="readiness.pt"
         permission="zope2.View"
         />
