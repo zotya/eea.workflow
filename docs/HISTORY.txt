@@ -3,6 +3,8 @@ Changelog
 
 4.6-dev - (unreleased)
 ----------------------
+ * Bug fix: fixed issue with loading publish confirmation dialog on urls with @@
+   [tiberich]
 
 4.5 - (2012-02-10)
 ------------------

@@ -32,6 +32,11 @@ function make_publish_text(questions){
 })(jQuery);
 }
 
+function get_base(){
+    var base = (window.context_url || $("base").attr('href') || document.baseURI || 
+                window.location.href.split("?")[0].split('@@')[0]);
+    return base;
+}
 
 function set_publish_dialog(){
 (function($) {
@@ -41,7 +46,7 @@ function set_publish_dialog(){
             var href = $(this).attr('href');
             var re = new RegExp("workflow_action=(.*)");
             var action = href.match(re)[1];
-            var formaction = $('base').attr('href') + '/content_status_modify';
+            var formaction = get_base() + '/content_status_modify';
             var form = "<form id='publish_form' method='POST' action='" + formaction + "'>";
             form += "<input name='workflow_action' type='hidden' value='" + action + "'/>";
             form += "</form>";
@@ -103,7 +108,7 @@ function set_publish_dialog(){
             },
             open:function(ui){
 
-                     var base = $("base").attr('href') || document.baseURI || window.location.href.split("?")[0];
+                     var base = get_base();
                      var url = base + "/publish_dialog";
 
                      $(this).load(url, function(){
