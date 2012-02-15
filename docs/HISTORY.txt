@@ -3,6 +3,8 @@ Changelog
 
 4.7-dev - (unreleased)
 ----------------------
+ * Bug fix: use portal_url to link images in css 
+ [tiberich #4956]
 
 4.6 - (2012-02-15)
 ------------------

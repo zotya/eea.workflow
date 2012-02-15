@@ -1,3 +1,8 @@
+/*
+<dtml-with base_properties>
+<dtml-call "REQUEST.set('portal_url', portal_url())">
+ */
+
 .readiness_accordion  {
     margin:1em 0;
 }
@@ -12,13 +17,17 @@
     padding:5px 0;
 }
 .readiness_accordion ul.finished li {
-    background:transparent url('./accept.png');
+    background:transparent url('&dtml-portal_url;/accept.png');
     background-repeat:no-repeat;
     padding-left:20px;
 }
 .readiness_accordion ul.unfinished li {
-    background:transparent url('./cancel.png');
+    background:transparent url('&dtml-portal_url;/cancel.png');
     background-repeat:no-repeat;
     padding-left:20px;
 }
+
+/*
+</dtml-with>  (end of loaded base_properties variables)
+ */
 
