@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.7-dev - (unreleased)
-----------------------
+4.7 - (2012-03-05)
+------------------
  * Bug fix: use portal_url to link images in css 
  [tiberich #4956]
 
