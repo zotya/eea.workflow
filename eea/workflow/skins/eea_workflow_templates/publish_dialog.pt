@@ -21,6 +21,7 @@
       <div style="padding-top:20px;" >
 
       <div id="workflow-emails-placeholder">
+        <img src="" tal:attributes="src string:${context/portal_url}/eea-ajax-loader.gif" />
         Loading notification emails...
       </div>
 
