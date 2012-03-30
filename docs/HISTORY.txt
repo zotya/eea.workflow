@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.8-dev - (unreleased)
-----------------------
+4.8 - (2012-03-30)
+------------------
  * Bug fix: added ajax loader image when loading workflow emails in dialog
    publishing [tiberich]
 
