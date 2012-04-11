@@ -64,7 +64,7 @@ def handle_object_cloned(obj, event):
     """ Handler for object cloned event
     """
 
-    print "Event: ", id(event)
+    #print "Event: ", id(event)
 
     if not shasattr(obj, 'workflow_history'):
         return
@@ -91,7 +91,7 @@ def handle_object_cloned(obj, event):
                 obj._v_original.UID()
         history[name] = tuple(wf_entries)
 
-    print "Copied history"
+    #print "Copied history"
 
 
 def handle_version_created(obj, event):
