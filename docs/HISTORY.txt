@@ -3,6 +3,9 @@ Changelog
 
 4.9-dev - (unreleased)
 ----------------------
+ * Bug fix: added content_status_modify.cpy override to show a relevant
+   portal status message when fake_publish transition is executed
+   [tiberich #5065]
 
 4.8 - (2012-03-30)
 ------------------
