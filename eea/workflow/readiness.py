@@ -67,6 +67,22 @@ class ObjectReadiness(object):
                 name=state_name)
         required_fields = generic_adapter and generic_adapter.fields or []
 
+        if not getattr(self.context, 'schema'):
+            info = {
+                    'rfs_done':0,
+                    'rfs_with_value':0,
+                    'rfs_required':0,
+                    'optional_empty':0,
+                    'total_fields':0,
+                    'rfs_field_names':0,
+                    'rfs_done_field_names':0,
+                    'optional_with_value':0,
+                    'extra':extras,  
+                    'conditions':len(checks),
+                    '_debug_fieldnames':_debug_fieldnames,
+                    }
+            return 
+
         for field in self.context.schema.fields():  #we assume AT here
             if field.isMetadata or (field.getName() in OTHER_METADATA_FIELDS):
                 continue
