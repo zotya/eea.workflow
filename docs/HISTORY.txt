@@ -3,52 +3,61 @@ Changelog
 
 4.11-dev - (unreleased)
 -----------------------
+* Bug fix: fixed markup of HISTORY.txt file
+  [ciobabog refs #5231]
 
 4.10 - (2012-05-02)
 -------------------
- * Bug fix: enabled get_readiness and its adapter for zope.interface.Interface
-   [tiberich #5132]
+* Bug fix: enabled get_readiness and its adapter for zope.interface.Interface
+  [tiberich #5132]
 
 4.9 - (2012-04-26)
 ------------------
- * Bug fix: added content_status_modify.cpy override to show a relevant
-   portal status message when fake_publish transition is executed
-   [tiberich #5065]
+* Bug fix: added content_status_modify.cpy override to show a relevant
+  portal status message when fake_publish transition is executed
+  [tiberich #5065]
 
 4.8 - (2012-03-30)
 ------------------
- * Bug fix: added ajax loader image when loading workflow emails in dialog
-   publishing [tiberich]
+* Bug fix: added ajax loader image when loading workflow emails in dialog
+  publishing
+  [tiberich]
 
 4.7 - (2012-03-05)
 ------------------
- * Bug fix: use portal_url to link images in css 
- [tiberich #4956]
+* Bug fix: use portal_url to link images in css 
+  [tiberich #4956]
 
 4.6 - (2012-02-15)
 ------------------
- * Bug fix: fixed issue with loading publish confirmation dialog on urls with @@
-   [tiberich]
+* Bug fix: fixed issue with loading publish confirmation dialog on urls with @@
+  [tiberich]
 
 4.5 - (2012-02-10)
 ------------------
- * Bug fix: improve retrieval of readiness information [tiberich]
+* Bug fix: improve retrieval of readiness information
+  [tiberich]
 
 4.4 - (2012-02-06)
 ------------------
- * Feature: show the readiness portlet for all content types [tiberich #4023]
- * Change: consider required fields as required for any state when calculating readiness [tiberich #4023]
- * UPGRADE STEP: #4023: import step: eea workflow > portlets
+* Feature: show the readiness portlet for all content types
+  [tiberich #4023]
+* Change: consider required fields as required for any state when calculating readiness
+  [tiberich #4023]
+* UPGRADE STEP: #4023: import step: eea workflow > portlets
 
 4.3 - (2012-01-31)
 ------------------
- * Bug fix: some minor cosmetic improvements to publish dialog [tiberich #4471]
- * Bug fix: fixed reviewers getting security screen when trying to publish 
-   assessments that had newer draft versions [tiberich #4471]
+* Bug fix: some minor cosmetic improvements to publish dialog
+  [tiberich #4471]
+* Bug fix: fixed reviewers getting security screen when trying to publish 
+  assessments that had newer draft versions
+  [tiberich #4471]
 
 4.2 - (2012-01-13)
 ------------------
- * Bug fix: fixed problem with in publish_dialog.js [tiberich #4874]
+* Bug fix: fixed problem with in publish_dialog.js
+  [tiberich #4874]
 
 4.1 - (2011-11-18)
 ------------------
@@ -57,12 +66,17 @@ Changelog
 4.0 - (2011-11-18)
 ------------------
 * Bug fix: avoid an error when creating a new version for an assessment, by looking if 
-  the accessor is corect when getting the value for a field [tiberich #4660]
-* Disabled publish_dialog script, only appears for indicators content types [tiberich #4663]
-* Optimization: load notification email addresses with AJAX to avoid long load times for dialog_publish [tiberich]
+  the accessor is corect when getting the value for a field
+  [tiberich #4660]
+* Disabled publish_dialog script, only appears for indicators content types
+  [tiberich #4663]
+* Optimization: load notification email addresses with AJAX to avoid long load times for dialog_publish
+  [tiberich]
 * Bugfix: Fixed IE JS errors, fixed code that uses jQuery to avoid conflicts
-  with other JS frameworks [szabozo0 #4542]
-* Feature: refactored portlet_readiness to use the plone.portlets infrastructure [tiberich]
+  with other JS frameworks
+  [szabozo0 #4542]
+* Feature: refactored portlet_readiness to use the plone.portlets infrastructure
+  [tiberich]
 * TODO plone4:
   Plone Calendar widget on the publishing jquery-ui pop-up
   goes below the pop-up, while being hidden and placed incorectly
@@ -74,60 +88,83 @@ Changelog
 
 1.10 - (2011-03-09)
 -------------------
- * Change: fixed and surpressed medium and high pylint violations [ichimdav #4140]
+* Change: fixed and surpressed medium and high pylint violations
+  [ichimdav #4140]
 
 1.9 - (2011-02-01)
 ------------------
- * Feature: show calendar widget in publishing dialog when an item should be published at a previous date [tiberich #4003]
+* Feature: show calendar widget in publishing dialog when an item should be published at a previous date
+  [tiberich #4003]
 
 1.8 - (2011-01-14)
 ------------------
- * Feature: when an item has a newer version, don't allow publishing [tiberich #4003]
- * Bug fix: Fixed dialog publishing javascript [tiberich #4003]
- * Feature: Get the transition to be executed from the workflow action url for dialog publish [tiberich #4003]
- * Feature: use @@get_readiness view to decide if the questions should be displayed or not [tiberich #4003]
+* Feature: when an item has a newer version, don't allow publishing
+  [tiberich #4003]
+* Bug fix: Fixed dialog publishing javascript
+  [tiberich #4003]
+* Feature: Get the transition to be executed from the workflow action url for dialog publish
+  [tiberich #4003]
+* Feature: use @@get_readiness view to decide if the questions should be displayed or not
+  [tiberich #4003]
 
 1.7 - (2011-01-05)
 ------------------
- * Change: use the some format for optional_with_value fields as the rest in readiness info API [tiberich]
- * Feature: only activate Ok button on dialog when all questions are answered [tiberich #4003]
- * Feature: now it is possible to have different questions, per content type [tiberich #4005]
- * Feature: show action and confirmation emails in the publishing dialog [tiberich #4002]
- * Feature: make it possible to specify required questions in publishing dialog [tiberich #4004]
+* Change: use the some format for optional_with_value fields as the rest in readiness info API
+  [tiberich]
+* Feature: only activate Ok button on dialog when all questions are answered
+  [tiberich #4003]
+* Feature: now it is possible to have different questions, per content type
+  [tiberich #4005]
+* Feature: show action and confirmation emails in the publishing dialog
+  [tiberich #4002]
+* Feature: make it possible to specify required questions in publishing dialog
+  [tiberich #4004]
 
 1.6 - (2010-12-16)
 ------------------
- * Change: show text in the accordion when everything is ok [tiberich #3766]
- * Feature: Show a dialog popup that prompts for quality asurance information when doing a publish [tiberich #3822]
+* Change: show text in the accordion when everything is ok
+  [tiberich #3766]
+* Feature: Show a dialog popup that prompts for quality asurance information when doing a publish
+  [tiberich #3822]
 
 1.5 - (2010-10-28)
 ------------------
- * Improved portlet readiness display by showing field list in an accordion [tiberich #3766]
+* Improved portlet readiness display by showing field list in an accordion
+  [tiberich #3766]
 
 1.4 - (2010-10-01)
 ------------------
- * Bug fix: Fix extras display in portlet_readiness [tiberich #3735]
+* Bug fix: Fix extras display in portlet_readiness
+  [tiberich #3735]
 
 1.3 - (2010-09-30)
 ------------------
- * Change: restructure ObjectReadinessView to remove necessity of redefining it if
-   the ObjectReadiness class is subclassed [tiberich #3694]
- * Feature: check object readiness against predefined checks [tiberich #3694]
- * Feature: consider stats for dependent objects when calculating object readiness [tiberich #3694]
- * Change: all text fields that are checked for readiness need to have at least 2 words
-   to pass the check [tiberich #3647]
+* Change: restructure ObjectReadinessView to remove necessity of redefining it if
+  the ObjectReadiness class is subclassed
+  [tiberich #3694]
+* Feature: check object readiness against predefined checks
+  [tiberich #3694]
+* Feature: consider stats for dependent objects when calculating object readiness
+  [tiberich #3694]
+* Change: all text fields that are checked for readiness need to have at least 2 words
+  to pass the check
+  [tiberich #3647]
 
 1.2 - (2010-09-14)
 ------------------
- * Change: small cleanup in readiness code [tiberich]
+* Change: small cleanup in readiness code
+  [tiberich]
 
 1.1 - (2010-09-06)
 ------------------
- * Change: Show only 'missing required fields' message if there are missing. [demarant]
- * Feature: show links in portlet_readiness to unfilled fields [tiberich 3598]
- * Change:  format extra messages as structured in the portlet_readiness [tiberich 3603]
+* Change: Show only 'missing required fields' message if there are missing.
+  [demarant]
+* Feature: show links in portlet_readiness to unfilled fields
+  [tiberich 3598]
+* Change:  format extra messages as structured in the portlet_readiness
+  [tiberich 3603]
 
 1.0 - (2010-07-01)
 ------------------
- * Initial release [ghicaale]
+* Initial release [ghicaale]
 
