@@ -32,4 +32,6 @@ class Readiness(BrowserView):
     """
 
     def enabled(self):
+        """ Enabled
+        """
         return IHasMandatoryWorkflowFields.providedBy(self.context)

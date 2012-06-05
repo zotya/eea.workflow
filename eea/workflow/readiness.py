@@ -63,7 +63,7 @@ class ObjectReadiness(object):
         _debug_fieldnames = []
 
 
-        generic_adapter = queryAdapter(self.context, IRequiredFieldsForState, 
+        generic_adapter = queryAdapter(self.context, IRequiredFieldsForState,
                 name=state_name)
         required_fields = generic_adapter and generic_adapter.fields or []
 
@@ -77,11 +77,11 @@ class ObjectReadiness(object):
                     'rfs_field_names':0,
                     'rfs_done_field_names':0,
                     'optional_with_value':0,
-                    'extra':extras,  
+                    'extra':extras,
                     'conditions':len(checks),
                     '_debug_fieldnames':_debug_fieldnames,
                     }
-            return 
+            return
 
         for field in self.context.schema.fields():  #we assume AT here
             if field.isMetadata or (field.getName() in OTHER_METADATA_FIELDS):
@@ -99,7 +99,7 @@ class ObjectReadiness(object):
                 is_needed = field.getName() in required_fields
             else:
                 adapter = getMultiAdapter((self.context, field),
-                                                interface=IFieldIsRequiredForState)
+                                          interface=IFieldIsRequiredForState)
                 is_needed = adapter(state_name)
 
             if is_needed:

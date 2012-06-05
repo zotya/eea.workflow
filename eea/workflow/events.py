@@ -81,7 +81,7 @@ def handle_object_cloned(obj, event):
     history = obj.workflow_history   #this is a persistent mapping
 
     for name in history:
-        history[name] = old_history[name] + history[name]
+        history[name] = old_history.get(name, ()) + history.get(name, ())
 
     for name, wf_entries in history.items():
         wf_entries = list(wf_entries)

@@ -3,6 +3,8 @@ Changelog
 
 4.11-dev - (unreleased)
 -----------------------
+* Bug fix: Fixed document check-out
+  [voineali fixes #5245]
 * Bug fix: fixed markup of HISTORY.txt file
   [ciobabog refs #5231]
 
@@ -25,7 +27,7 @@ Changelog
 
 4.7 - (2012-03-05)
 ------------------
-* Bug fix: use portal_url to link images in css 
+* Bug fix: use portal_url to link images in css
   [tiberich #4956]
 
 4.6 - (2012-02-15)
@@ -50,7 +52,7 @@ Changelog
 ------------------
 * Bug fix: some minor cosmetic improvements to publish dialog
   [tiberich #4471]
-* Bug fix: fixed reviewers getting security screen when trying to publish 
+* Bug fix: fixed reviewers getting security screen when trying to publish
   assessments that had newer draft versions
   [tiberich #4471]
 
@@ -61,11 +63,11 @@ Changelog
 
 4.1 - (2011-11-18)
 ------------------
-* Rerelease broken egg  
+* Rerelease broken egg
 
 4.0 - (2011-11-18)
 ------------------
-* Bug fix: avoid an error when creating a new version for an assessment, by looking if 
+* Bug fix: avoid an error when creating a new version for an assessment, by looking if
   the accessor is corect when getting the value for a field
   [tiberich #4660]
 * Disabled publish_dialog script, only appears for indicators content types
