@@ -60,7 +60,7 @@ class IObjectReadiness(Interface):
 
     checks = Attribute("A mapping of workflow state to lists of checks that "
                                                         "need to be executed")
-    depends_on = Attribute("A list of objects whose readiness "
+    depends_on = Attribute("A list of objects whose marked fields "
                                                         "should be considered")
 
     def get_info_for(state_name):

@@ -7,6 +7,8 @@ Changelog
   [voineali fixes #5245]
 * Bug fix: fixed markup of HISTORY.txt file
   [ciobabog refs #5231]
+* Bug fix: clarify what depends_on stands for in interfaces.py
+  [tiberich #5256]
 
 4.10 - (2012-05-02)
 -------------------
