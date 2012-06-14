@@ -20,16 +20,16 @@
 
       <div style="padding-top:20px;" >
 
-      <div id="workflow-emails-placeholder">
+      <div id="workflow-emails-placeholder" >
         <img src="" tal:attributes="src string:${context/portal_url}/eea-ajax-loader.gif" />
-        Loading notification emails...
+        <span i18n:translate="">Loading notification emails...</span>
       </div>
 
       </div>
 
       <tal:new tal:condition="newer" tal:omit-tag="">
-        <h2>Set the publishing date</h2>
-        <p>This item has already been published in a newer version. You need to decide on a date,
+        <h2 i18n:translate="publishing_date">Set the publishing date</h2>
+        <p i18n:translate="publishing_desc">This item has already been published in a newer version. You need to decide on a date,
           in the past, when this item should have been published. The following
           table of all versions should help you in deciding the actual date.
           If you have questions, please contact the 
@@ -42,9 +42,9 @@
         <table class="listing nosort">
           <thead>
             <tr>
-              <th>Item</th>
-              <th>&nbsp;Creation date&nbsp;</th>
-              <th>&nbsp;Publication date&nbsp;</th>
+              <th i18n:translate="Item">Item</th>
+              <th i18n:translate="creation_date">&nbsp;Creation date&nbsp;</th>
+              <th i18n:translate="pub_date">&nbsp;Publication date&nbsp;</th>
             </tr>
           </thead>
           <tbody>
@@ -58,7 +58,7 @@
           </tbody>
         </table>
         
-        <p>
+        <p i18n:translate="pub_date_desc">
             Choose manual publication date. We recommend something close to the date below, 
             which is 30 days after the item was initially created.
         </p>

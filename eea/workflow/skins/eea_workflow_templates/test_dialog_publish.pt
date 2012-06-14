@@ -3,13 +3,15 @@
     <script type="text/javascript" src="++resource++jquery-1.3.2.js" ></script>
     <script type="text/javascript" src="++resource++jquery.ui-1.7.js" ></script>
     <script type="text/javascript" src="publish_dialog.js" ></script>
-    <link type="text/css" rel="stylesheet" href="/www/portal_css/Plone%20Default/++resource++jquery-ui-1.7.custom.css">
-      <base tal:attributes="href context/absolute_url" />
+    <link type="text/css" rel="stylesheet" href="/www/portal_css/Plone%20Default/++resource++jquery-ui-1.7.custom.css" />
+    <base tal:attributes="href context/absolute_url" />
   </head>
 
   <body>
     <div class="actionMenuContent">
-      <a href="/" title="Publish">Publish</a>
+      <a href="/" title="Publish"  
+       i18n:attributes="title publish"
+       i18n:translate="publish">Publish</a>
     </div>
   </body>
 </html>

@@ -2,9 +2,12 @@
   <!--The questions are defined as a tuple of ('question title', True if is required to be answered with Yes, False otherwise)-->
 </div>
 
-<p>Indicators have different procedures and approvals before publishing, depending 
-  if they are CSI or not. Please see <a href="http://svn.eionet.europa.eu/projects/Zope/wiki/IndicatorsUserGuide/Procedures" 
-    target="_new">indicators procedures for more details.</a>
+<p i18n:translate="">Indicators have different procedures and approvals before publishing, depending 
+  if they are CSI or not. Please see
+    <span i18n:name="indicators_details"> 
+      <a href="http://svn.eionet.europa.eu/projects/Zope/wiki/IndicatorsUserGuide/Procedures" 
+        target="_new" i18n:translate="">indicators procedures for more details.</a>
+    </span>        
 </p> 
 
 <div class='questions' tal:define="questions python:[
@@ -16,11 +19,11 @@
       <h3 tal:content="python:info[0]">Have you done the Eionet review and incorporated the necessary feedback?</h3>
 
       <input type="radio" value="yes" tal:attributes="name string:cond${index}; id string:cond${index}-yes" />
-      <label for="cond1-yes" attributes="for string:cond${index}-yes">Yes</label> 
+      <label for="cond1-yes" attributes="for string:cond${index}-yes" i18n:translate="">Yes</label> 
       <input type="radio" value="no" tal:attributes="name string:cond${index}; id string:cond${index}-no" />
-      <label for="cond1-no" attributes="for string:cond${index}-no">No</label><br />
+      <label for="cond1-no" attributes="for string:cond${index}-no" i18n:translate="">No</label><br />
 
-      <label for="comments-cond1" tal:attributes="for string:comments-cond${index}">
+      <label for="comments-cond1" tal:attributes="for string:comments-cond${index}" i18n:translate="">
         If not, please provide further justification
       </label><br />
       <textarea name="comments-cond1" tal:attributes="name string:comments-cond${index}" ></textarea>

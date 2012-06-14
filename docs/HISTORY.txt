@@ -3,6 +3,8 @@ Changelog
 
 4.12-dev - (unreleased)
 -----------------------
+* Bug Fix: Fixed i18n missing tags in *.pt
+  [prospchr refs #5160]
 
 4.11 - (2012-06-12)
 -------------------
