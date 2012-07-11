@@ -60,7 +60,7 @@
                 </p>
               </div>
 
-              <div class="section_headline"><a href="#" i18n:translate="done">Done</a></div>
+              <div class="section_headline"><a href="#" i18n:translate="">Done</a></div>
               <div class="accordion_content">
                 <div class="missingFields" tal:condition="info/rfs_done_field_names">
                   <ul class="finished">
@@ -85,7 +85,7 @@
               <a href="" 
                 tal:attributes="href string:${context/absolute_url}/edit" 
                 title="" class="moreLink" >
-                <span i18n:translate="edit">Edit</span>
+                <span i18n:translate="">Edit</span>
               </a>
             </dd>
           </dl>

@@ -11,7 +11,7 @@
     <div class="actionMenuContent">
       <a href="/" title="Publish"  
        i18n:attributes="title publish"
-       i18n:translate="publish">Publish</a>
+       i18n:translate="">Publish</a>
     </div>
   </body>
 </html>

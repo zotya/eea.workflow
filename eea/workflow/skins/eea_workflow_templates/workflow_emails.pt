@@ -3,7 +3,7 @@
                 emails wEmails/?transition_id|nothing" 
     class="collapsible inline collapsedInlineCollapsible" 
     id="notice_emails">
-  <dt class="collapsibleHeader" style="background-color:White; color:#2D749C; font-size:1.2em;" i18n:translate="notify_people">
+  <dt class="collapsibleHeader" style="background-color:White; color:#2D749C; font-size:1.2em;" i18n:translate="">
     The following people will be notified by email...
   </dt>
   <dd class="collapsibleContent" i18n:translate="">
