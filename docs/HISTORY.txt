@@ -6,7 +6,7 @@ Changelog
 
 5.0 - (2012-07-13)
 ------------------
-* Bug Fix: Fixed i18n missing tags in *.pt
+* Bug Fix: Fixed i18n missing tags in .pt
   [prospchr refs #5160]
 
 4.11 - (2012-06-12)
