@@ -68,7 +68,8 @@ transaction_note(note)
 # If this item is the default page in its parent, attempt to publish that
 # too. It may not be possible, of course
 # we don't touch parent for linguaflow transitions
-if plone_utils.isDefaultPage(new_context) and workflow_action not in ['invalidate', 'invalidateall', 'validate', 'validateall', 'nochange']:
+if plone_utils.isDefaultPage(new_context) and workflow_action not in \
+    ['invalidate', 'invalidateall', 'validate', 'validateall', 'nochange']:
     parent = new_context.aq_inner.aq_parent
     try:
         parent.content_status_modify( workflow_action,
@@ -80,13 +81,28 @@ if plone_utils.isDefaultPage(new_context) and workflow_action not in ['invalidat
     except Exception:
         pass
 
-#support for eea.workflow fake_publish and readiness check
 if workflow_action == "fake_publish":
-    context.plone_utils.addPortalMessage(_(
-            u"This object does not meet transition requirements. "
-            u"Please follow the guidelines in meeting these requirements", 
-        ))
     return state.set(context=wfcontext)
+
+#support for eea.workflow fake_publish and readiness check
+#if workflow_action == "fake_publish":
+    #msg = u"The workflow transition cannot be executed, the object doesn't meet the requirements. "
+    #api = context.restrictedTraverse("@@get_readiness")
+    #info = api.get_info_for("published")    #ZZZ: here we hardcode the transition id
+    #extra = info['extra']
+    #totmiss = info['rfs_required'] - info['rfs_with_value'] - len(info['extra'])
+    #msg += "You have %s fields or conditions to fulfil. <br />" % totmiss
+    #if info['rfs_field_names']:
+        #msg += "<br />The following required fields are not filled in: %s. <br />" % \
+               #", ".join([x[1] for x in info['rfs_field_names']])
+    #if info['extra']:
+        #msg += "<br />The following conditions have not been fulfiled: <br />" + \
+            #"<br />".join([x[1] for x in info['extra']])
+
+    ##u"Please follow the guidelines in meeting these requirements", 
+
+    #context.plone_utils.addPortalMessage(msg)
+    #return state.set(context=wfcontext)
     
 
 context.plone_utils.addPortalMessage(_(u'Your content\'s status has been modified.'))

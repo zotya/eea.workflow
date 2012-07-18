@@ -171,7 +171,8 @@ jQuery(document).ready(function ($) {
 
   set_publish_dialog();
   $("#workflow-transition-fake_publish").click(function(){
-      alert("This item is not ready to be published");
+      //ZZZ: this doesn't work
+      //alert("This item is not ready to be published");
       return false;
   });
 

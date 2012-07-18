@@ -3,6 +3,9 @@ Changelog
 
 5.1-dev - (unreleased)
 ----------------------
+* Bug fix: improve error message when fake_publish is executed; don't 
+  show multiple portal messages
+  [tiberich refs #5341]
 
 5.0 - (2012-07-13)
 ------------------
