@@ -6,6 +6,11 @@ Changelog
 * Bug fix: improve error message when fake_publish is executed; don't 
   show multiple portal messages
   [tiberich refs #5341]
+* Bug fix: replace automatically assigned readiness portlet with a portlet
+  that can be assigned to context from @@manage-portlets
+  [tiberich #5341]
+* Upgrade Step: import "Portlets" step from "EEA Workflow" profile in portal_setup
+  [tiberich #5341]
 
 5.0 - (2012-07-13)
 ------------------

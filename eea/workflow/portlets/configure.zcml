@@ -3,12 +3,24 @@
            xmlns:plone="http://namespaces.plone.org/plone">
 
     <plone:portlet
-        name="portlets.Readiness"
+        name="portlets.AssignedReadiness"
+        interface=".readiness.IReadinessPortlet"
+        assignment=".readiness.Assignment"
+        renderer=".readiness.Renderer"
+        addview=".readiness.AddForm"
+        />
+
+
+    <!--plone:portlet
+        name="portlets.AssignedReadiness"
         interface=".readiness.IReadinessPortlet"
         assignment=".readiness.Assignment"
         renderer=".readiness.Renderer"
         addview="plone.app.portlets.browser.formhelper.NullAddForm"
-        />
+        view_permission="zope2.View"
+        edit_permission="plone.app.portlets.ManagePortlets"
+     /-->
+
 
     <browser:page
         name="readiness"
