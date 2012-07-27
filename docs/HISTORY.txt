@@ -10,6 +10,8 @@ Changelog
   that can be assigned to context from @@manage-portlets
   [tiberich #5341]
 * Upgrade Step: import "Portlets" step from "EEA Workflow" profile in portal_setup
+  Assign the Readiness portlet in all contexts where it needs to be present
+  (for example /SITE/data-and-maps/indicators)
   [tiberich #5341]
 
 5.0 - (2012-07-13)
