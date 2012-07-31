@@ -5,10 +5,8 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from plone.app.portlets.portlets import base
-from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
 from zope.formlib import form
-from zope.interface import implements
 from zope.interface import implements
 
 
