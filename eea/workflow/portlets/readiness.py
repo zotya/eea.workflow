@@ -24,11 +24,15 @@ class Assignment(base.Assignment):
 
 
 class AddForm(base.AddForm):
+    """ Add
+    """
     form_fields = form.Fields(IReadinessPortlet)
     label = u"Add Readiness portlet"
     description = u"This portlet shows readiness information"
 
     def create(self, data):
+        """ Create
+        """
         return Assignment()
 
 
