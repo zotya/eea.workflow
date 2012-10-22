@@ -11,6 +11,8 @@
     <metal:macro metal:define-macro="portlet" tal:on-error="nothing">
       <tal:def tal:define="enable view/enabled">
         <tal:defs tal:define="api nocall:context/@@get_readiness | nothing; 
+          has_agg_view context/@@edit_aggregated | nothing;
+          edit_view python:has_agg_view and '@@edit_aggregated' or 'edit';
           has_permission python:context.portal_membership.checkPermission('Modify portal content', context)" 
           tal:condition="python:enable and api and has_permission" >
           <dl class="portlet" id="readiness-status" 
@@ -43,7 +45,7 @@
                 <div tal:condition="info/rfs_field_names">
                   <ul class="unfinished">
                     <li tal:repeat="field info/rfs_field_names" >
-                      <a href="#rfs_title" tal:attributes="href string:@@edit_aggregated#rfs_${name}"
+                      <a href="#rfs_title" tal:attributes="href string:${edit_view}#rfs_${name}"
                          tal:content="label" 
                          tal:define="name python:field[0]; label python:field[1]">Field</a>
                     </li>
@@ -65,7 +67,7 @@
                 <div class="missingFields" tal:condition="info/rfs_done_field_names">
                   <ul class="finished">
                     <li tal:repeat="field info/rfs_done_field_names" >
-                      <a href="#rfs_title" tal:attributes="href string:@@edit_aggregated#rfs_${name}"
+                      <a href="#rfs_title" tal:attributes="href string:${edit_view}#rfs_${name}"
                         tal:content="label" tal:define="name python:field[0]; label python:field[1]">Field</a>
                     </li>
                   </ul>
