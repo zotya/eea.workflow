@@ -3,6 +3,8 @@ Changelog
 
 5.2-dev - (unreleased)
 ----------------------
+* Bug fix: don't hardcode edit links in portlet_readiness as edit_aggregated
+  [tiberich #5472]
 
 5.1 - (2012-08-28)
 ------------------
