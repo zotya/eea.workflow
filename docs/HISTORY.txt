@@ -3,6 +3,8 @@ Changelog
 
 5.3-dev - (unreleased)
 ----------------------
+* Change: updated link to taskman wiki for Indicators procedure.
+  [demarant]
 
 5.2 - (2012-11-22)
 ------------------
