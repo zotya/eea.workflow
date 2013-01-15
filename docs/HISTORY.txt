@@ -1,6 +1,9 @@
 Changelog
 =========
 
+5.4-dev - (unreleased)
+----------------------
+
 5.3 - (2013-01-15)
 ------------------
 * Change: updated link to taskman wiki for Indicators procedure.
