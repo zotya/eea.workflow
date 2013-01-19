@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.4-dev - (unreleased)
-----------------------
+5.4 - (2013-01-19)
+------------------
 * Bug fix: set tal omit on readiness.pt html tag to avoid having more than 
   one html tag in the document
   [ichimdav]
