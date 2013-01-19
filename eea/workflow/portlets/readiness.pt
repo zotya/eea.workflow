@@ -1,5 +1,6 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
   xmlns:metal="http://xml.zope.org/namespaces/metal"
+  tal:omit-tag=""
   i18n:domain="eea">
 
   <tal:comment replace="nothing">
@@ -7,7 +8,6 @@
     enable reusing it in eea.indicators
   </tal:comment>
 
-  <body>
     <metal:macro metal:define-macro="portlet" tal:on-error="nothing">
       <tal:def tal:define="enable view/enabled">
         <tal:defs tal:define="api nocall:context/@@get_readiness | nothing; 
@@ -94,5 +94,4 @@
         </tal:defs>
       </tal:def>
     </metal:macro>
-  </body>
 </html>
