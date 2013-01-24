@@ -3,6 +3,8 @@ Changelog
 
 5.5-dev - (unreleased)
 ----------------------
+* Bug fix: avoid recursion error when showing readiness portlet
+  [tiberich #13644]
 
 5.4 - (2013-01-19)
 ------------------

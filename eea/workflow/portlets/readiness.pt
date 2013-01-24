@@ -8,12 +8,15 @@
     enable reusing it in eea.indicators
   </tal:comment>
 
-    <metal:macro metal:define-macro="portlet" tal:on-error="nothing">
+    <metal:macro metal:define-macro="portlet" >
       <tal:def tal:define="enable view/enabled">
         <tal:defs tal:define="api nocall:context/@@get_readiness | nothing; 
-          has_agg_view context/@@edit_aggregated | nothing;
-          edit_view python:has_agg_view and '@@edit_aggregated' or 'edit';
-          has_permission python:context.portal_membership.checkPermission('Modify portal content', context)" 
+                              iinfo context/@@plone_interface_info;
+                              ispecification string:eea.indicators.content.interfaces.ISpecification;
+                              iassessment string:eea.indicators.content.interfaces.IAssessment;
+                              has_agg_view python: iinfo.provides(ispecification) or iinfo.provides(iassessment);
+                              edit_view python:has_agg_view and '@@edit_aggregated' or 'edit';
+                              has_permission python:context.portal_membership.checkPermission('Modify portal content', context)" 
           tal:condition="python:enable and api and has_permission" >
           <dl class="portlet" id="readiness-status" 
             tal:define="info python:api.get_info_for('published');
