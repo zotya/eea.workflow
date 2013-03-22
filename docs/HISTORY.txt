@@ -3,6 +3,8 @@ Changelog
 
 5.6-dev - (unreleased)
 ----------------------
+* Feature: Added a self.value_info() mapping to IValueProvider
+  [tiberich #14175]
 
 5.5 - (2013-01-25)
 ------------------

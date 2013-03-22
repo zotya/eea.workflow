@@ -28,6 +28,16 @@ class IValueProvider(Interface):
         """ Returns the value of this object
         """
 
+    def value_info(kwargs):
+        """ Returns a mapping describing the value of the object
+
+        Keys are:
+        ``raw_value``: the real value for this object
+        ``value``: same thing as get_value()
+        ``has_value``: same thing as has_value()
+        ``msg``: a descriptive message informing about value requirements
+        """
+
 
 class IFieldIsRequiredForState(Interface):
     ### the naming of this interface should be changed, it's too specific;

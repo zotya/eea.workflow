@@ -30,6 +30,16 @@ class ATFieldValueProvider(object):
         """
         return self.field.getAccessor(self.context)()
 
+    def value_info(self, **kwargs):
+        """ Get value info
+        """
+        return {
+            'raw_value':self.field.getAccessor(self.context)(),
+            'has_value':self.has_value(),
+            'value':self.field.getAccessor(self.context)(),
+            'msg':''
+        }
+
 
 class TextFieldValueProvider(ATFieldValueProvider):
     """An IValueProvider implementation for Text Fields"""
@@ -52,6 +62,16 @@ class TextFieldValueProvider(ATFieldValueProvider):
         words = process_unicode(text)
         return len(list(words)) > 1   #there should be at least 2 words, or 
                                 #the field is considered empty
+
+    def value_info(self, **kwargs):
+        """ Get value info
+        """
+        return {
+            'raw_value':self.field.getAccessor(self.context)(),
+            'value':self.field.getAccessor(self.context)(),
+            'has_value':self.has_value(**kwargs),
+            'msg':('Needs at least two words.') #needs i18n
+        }
 
 
 class ATFieldIsRequiredForState(object):

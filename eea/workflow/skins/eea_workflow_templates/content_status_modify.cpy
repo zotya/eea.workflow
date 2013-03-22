@@ -84,26 +84,5 @@ if plone_utils.isDefaultPage(new_context) and workflow_action not in \
 if workflow_action == "fake_publish":
     return state.set(context=wfcontext)
 
-#support for eea.workflow fake_publish and readiness check
-#if workflow_action == "fake_publish":
-    #msg = u"The workflow transition cannot be executed, the object doesn't meet the requirements. "
-    #api = context.restrictedTraverse("@@get_readiness")
-    #info = api.get_info_for("published")    #ZZZ: here we hardcode the transition id
-    #extra = info['extra']
-    #totmiss = info['rfs_required'] - info['rfs_with_value'] - len(info['extra'])
-    #msg += "You have %s fields or conditions to fulfil. <br />" % totmiss
-    #if info['rfs_field_names']:
-        #msg += "<br />The following required fields are not filled in: %s. <br />" % \
-               #", ".join([x[1] for x in info['rfs_field_names']])
-    #if info['extra']:
-        #msg += "<br />The following conditions have not been fulfiled: <br />" + \
-            #"<br />".join([x[1] for x in info['extra']])
-
-    ##u"Please follow the guidelines in meeting these requirements", 
-
-    #context.plone_utils.addPortalMessage(msg)
-    #return state.set(context=wfcontext)
-    
-
 context.plone_utils.addPortalMessage(_(u'Your content\'s status has been modified.'))
 return state.set(context=wfcontext)
