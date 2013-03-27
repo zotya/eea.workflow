@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Feature: Added a self.value_info() mapping to IValueProvider
   [tiberich #14175]
+* Bug fix: don't allow deleting the effective date when bulk publishing
+  [tiberich #14220]
 
 5.5 - (2013-01-25)
 ------------------

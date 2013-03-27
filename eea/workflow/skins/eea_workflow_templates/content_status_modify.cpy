@@ -36,6 +36,12 @@ def editContent(obj, effective, expiry):
         kwargs['expiration_date'] = expiry
     new_context.plone_utils.contentEdit( obj, **kwargs)
 
+# we force an effective date for the situation when items are published from folder_contents
+# bulk publishing
+if workflow_action == "publish" and \
+    ((not effective_date or effective_date == "_NOT_SET_") or effective_date == ''):
+    effective_date = DateTime()
+
 #You can transition content but not have the permission to ModifyPortalContent
 try:
     editContent(new_context,effective_date,expiration_date)
