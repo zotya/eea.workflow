@@ -60,7 +60,10 @@ class ObjectReadiness(object):
         rfs_done_field_names = []   #the names of fields that are RFS and
                                                                 #have a value
         optional_with_value = []    #optional fields that have a value
-        _debug_fieldnames = []
+
+        _debug_all_fieldnames = []      #all fieldnames 
+        #fields or conditions which have value
+        _debug_required_fields_with_value = []   
 
 
         generic_adapter = queryAdapter(self.context, IRequiredFieldsForState,
@@ -79,7 +82,8 @@ class ObjectReadiness(object):
                     'optional_with_value':0,
                     'extra':extras,
                     'conditions':len(checks),
-                    '_debug_fieldnames':_debug_fieldnames,
+                    '_debug_all_fieldnames':[],
+                    '_debug_required_fields_with_value':[]
                     }
             return
 
@@ -87,7 +91,7 @@ class ObjectReadiness(object):
             if field.isMetadata or (field.getName() in OTHER_METADATA_FIELDS):
                 continue
 
-            _debug_fieldnames.append(field.getName())
+            _debug_all_fieldnames.append(field.getName())
 
             total_fields += 1
 
@@ -105,6 +109,7 @@ class ObjectReadiness(object):
             if is_needed:
                 rfs_required += 1
                 if has_value:
+                    _debug_required_fields_with_value.append(field.getName())
                     rfs_with_value += 1
                     rfs_done_field_names.append((field.getName(),
                                                         field.widget.label))
@@ -119,10 +124,12 @@ class ObjectReadiness(object):
                                                          field.widget.label))
 
         for checker, error in checks:
+            _debug_all_fieldnames.append("CONDITION: " + error)
             if checker(self.context):
                 extras.append(('error', error))
             else:
                 rfs_with_value += 1
+                _debug_required_fields_with_value.append("CONDITION CHECKS OK: " + error)
 
         #We calculate the stats for the dependencies
         for part in depends_on:
@@ -154,7 +161,8 @@ class ObjectReadiness(object):
                 'extra':extras,  #extra messages that will be displayed in the
                                                 # portlet, in the form of tuples
                 'conditions':len(checks),
-                '_debug_fieldnames':_debug_fieldnames,
+                '_debug_all_fieldnames':_debug_all_fieldnames,
+                '_debug_required_fields_with_value':_debug_required_fields_with_value
                 }
         return info
 
