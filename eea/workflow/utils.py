@@ -28,17 +28,35 @@ class ATFieldValueProvider(object):
     def get_value(self, **kwargs):
         """ Get value
         """
-        return self.field.getAccessor(self.context)()
+        accessor = self.field.getAccessor(self.context)
+        if not accessor:
+            logger.warning("Field %s for %s has no accessor" % 
+                        (self.field, self.context))
+            return None
+        return accessor()
 
     def value_info(self, **kwargs):
         """ Get value info
         """
+        accessor = self.field.getAccessor(self.context)
+        if accessor is None:
+            logger.warning("Field %s for %s has no accessor" % 
+                        (self.field, self.context))
+            
+            return {
+                'raw_value':None,
+                'value':None,
+                'has_value':False,
+                'msg':"Could not find accessor for this field"
+            }
+
         return {
-            'raw_value':self.field.getAccessor(self.context)(),
-            'has_value':self.has_value(),
-            'value':self.field.getAccessor(self.context)(),
-            'msg':''
+            'raw_value':accessor(),
+            'value':accessor(),
+            'has_value':self.has_value(**kwargs),
+            'msg':('No value filled in') #needs i18n
         }
+
 
 
 class TextFieldValueProvider(ATFieldValueProvider):
@@ -66,9 +84,21 @@ class TextFieldValueProvider(ATFieldValueProvider):
     def value_info(self, **kwargs):
         """ Get value info
         """
+        accessor = self.field.getAccessor(self.context)
+        if accessor is None:
+            logger.warning("Field %s for %s has no accessor" % 
+                        (self.field, self.context))
+            
+            return {
+                'raw_value':None,
+                'value':None,
+                'has_value':False,
+                'msg':"Could not find accessor for this field"
+            }
+
         return {
-            'raw_value':self.field.getAccessor(self.context)(),
-            'value':self.field.getAccessor(self.context)(),
+            'raw_value':accessor(),
+            'value':accessor(),
             'has_value':self.has_value(**kwargs),
             'msg':('Needs at least two words.') #needs i18n
         }

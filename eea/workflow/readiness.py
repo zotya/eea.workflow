@@ -5,6 +5,7 @@ from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.interfaces import IRequiredFieldsForState
 from eea.workflow.interfaces import IValueProvider
 from zope.component import getMultiAdapter, queryAdapter
+from zope.component import queryMultiAdapter
 from zope.interface import implements
 
 OTHER_METADATA_FIELDS = (
@@ -88,15 +89,19 @@ class ObjectReadiness(object):
             return
 
         for field in self.context.schema.fields():  #we assume AT here
-            if field.isMetadata or (field.getName() in OTHER_METADATA_FIELDS):
+            field_name = field.getName() 
+            if field.isMetadata or (field_name in OTHER_METADATA_FIELDS):
                 continue
 
             _debug_all_fieldnames.append(field.getName())
 
             total_fields += 1
 
-            info = getMultiAdapter([self.context, field],
-                                            interface=IValueProvider)
+            info = queryMultiAdapter([self.context, field], 
+                            interface=IValueProvider, name=field_name)
+            if info is None:
+                info = getMultiAdapter([self.context, field],
+                                            interface=IValueProvider, )
             has_value = info.has_value(state=state_name)
 
             if generic_adapter:
