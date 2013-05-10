@@ -8,6 +8,8 @@ Changelog
 * Feature: look for a named IValueProvider adapter when calculating
   value of fields
   [tiberich #14361]
+* Bug fix: change code to conform to eea.versions API changes
+  [tiberich #14008]
 
 5.6 - (2013-04-17)
 ------------------

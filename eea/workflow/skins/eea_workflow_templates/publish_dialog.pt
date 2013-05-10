@@ -7,8 +7,8 @@
   </div>
 
   <tal:ver tal:omit-tag="" tal:define="
-    versions nocall:context/@@getVersions; 
-    newer versions/newest;
+    versions_api nocall:context/@@getVersions; 
+    newer versions_api/later_versions;
     readiness_view nocall:context/@@get_readiness | nothing" >
 
     <div tal:condition="python:(not readiness_view) or readiness_view.is_ready_for('published')" tal:omit-tag="">
@@ -48,7 +48,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr tal:repeat="ver python:versions().values()">
+            <tr tal:repeat="ver python:versions_api.versions()">
               <td>
                 <a href="" tal:attributes="href ver/absolute_url" tal:content="ver/title_or_id">Item</a>
               </td>
