@@ -1,6 +1,9 @@
 Changelog
 =========
 
+5.8-dev - (unreleased)
+----------------------
+
 5.7 - (2013-05-20)
 ------------------
 * Bug fix: improved debugging information for readiness info
