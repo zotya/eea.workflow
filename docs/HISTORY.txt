@@ -3,6 +3,8 @@ Changelog
 
 5.8-dev - (unreleased)
 ----------------------
+* Bug fix: Fix ZCML dependencies and cleanup to work with Plone 4.2
+  [voineali refs 14901]
 
 5.7 - (2013-05-20)
 ------------------
@@ -28,7 +30,7 @@ Changelog
 
 5.4 - (2013-01-19)
 ------------------
-* Bug fix: set tal omit on readiness.pt html tag to avoid having more than 
+* Bug fix: set tal omit on readiness.pt html tag to avoid having more than
   one html tag in the document
   [ichimdav]
 
@@ -44,7 +46,7 @@ Changelog
 
 5.1 - (2012-08-28)
 ------------------
-* Bug fix: improve error message when fake_publish is executed; don't 
+* Bug fix: improve error message when fake_publish is executed; don't
   show multiple portal messages
   [tiberich refs #5341]
 * Bug fix: replace automatically assigned readiness portlet with a portlet

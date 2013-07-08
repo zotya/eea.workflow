@@ -1,40 +1,9 @@
 <?xml version="1.0"?>
-<object name="portal_javascripts" meta_type="JavaScripts Registry">
-
-    <javascript cacheable="True"
-        compression="safe"
-        cookable="True"
-        enabled="True"
-        expression=""
-        id="readiness.js"
-        inline="False"/>
-
-    The following script is disabled by default. Change the condition to enable it, per content type. 
-    One example would be: python:object.meta_type in ['Specification', 'Assessment', 'IndicatorFactSheet']
-
-    <!--<javascript cacheable="True"-->
-        <!--compression="safe"-->
-        <!--cookable="True"-->
-        <!--enabled="True"-->
-        <!--expression="python:False"-->
-        <!--id="publish_dialog.js"-->
-        <!--inline="False"/>-->
-
-    <javascript cacheable="True"
-        compression="safe"
-        cookable="True"
-        enabled="True"
-        expression="python: (not portal.portal_membership.isAnonymousUser()) and object.meta_type in ['Assessment', 'Specification']"
-        authenticated="True"
-        id="publish_dialog.js"
-        inline="False"/>
-
-    <javascript cacheable="True"
-        compression="safe"
-        cookable="True"
-        enabled="True"
-        expression="python:True"
-        id="resolveuid.js"
-        inline="False"/>
-
+<object name="portal_javascripts">
+  <javascript id="readiness.js"/>
+  <javascript id="resolveuid.js"/>
+  <javascript id="publish_dialog.js"
+    expression="python: (not portal.portal_membership.isAnonymousUser()) and object.meta_type in ['Assessment', 'Specification']"
+    authenticated="True"
+    />
 </object>

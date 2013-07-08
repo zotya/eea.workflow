@@ -1,12 +1,11 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:browser="http://namespaces.zope.org/browser"
-           xmlns:five="http://namespaces.zope.org/five"
            xmlns:cmf="http://namespaces.zope.org/cmf"
            xmlns:monkey="http://namespaces.plone.org/monkey"
            xmlns:plone="http://namespaces.plone.org/plone"
            i18n_domain="eea">
 
-    <five:registerPackage package="." />
+    <includeDependencies package="."/>
 
     <monkey:patch
         description="Monkeypatch workflowtool to send an event on initial workflow state creation"

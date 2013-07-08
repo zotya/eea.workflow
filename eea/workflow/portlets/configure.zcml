@@ -1,22 +1,29 @@
-<configure xmlns="http://namespaces.zope.org/zope"
-           xmlns:browser="http://namespaces.zope.org/browser"
-           xmlns:plone="http://namespaces.plone.org/plone">
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:plone="http://namespaces.plone.org/plone"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  >
 
-    <plone:portlet
-        name="portlets.Readiness"
-        interface=".readiness.IReadinessPortlet"
-        assignment=".readiness.Assignment"
-        renderer=".readiness.Renderer"
-        addview=".readiness.AddForm"
-        />
+  <include package="plone.app.portlets" file="permissions.zcml" />
 
-    <browser:page
-        name="readiness"
-        for="*"
-        class=".readiness.Readiness"
-        template="readiness.pt"
-        permission="zope2.View"
-        />
+  <plone:portlet
+    zcml:condition="installed eea.indicators"
+    name="portlets.Readiness"
+    interface=".readiness.IReadinessPortlet"
+    assignment=".readiness.Assignment"
+    renderer=".readiness.Renderer"
+    addview=".readiness.AddForm"
+    />
+
+  <browser:page
+    zcml:condition="installed eea.indicators"
+    name="readiness"
+    for="*"
+    class=".readiness.Readiness"
+    template="readiness.pt"
+    permission="zope2.View"
+    />
+
 
 </configure>
-
