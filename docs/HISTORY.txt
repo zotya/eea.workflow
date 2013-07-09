@@ -1,6 +1,9 @@
 Changelog
 =========
 
+5.9-dev - (unreleased)
+----------------------
+
 5.8 - (2013-07-09)
 ------------------
 * Bug fix: Fix ZCML dependencies and cleanup to work with Plone 4.2
