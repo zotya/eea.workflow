@@ -4,7 +4,6 @@ from AccessControl import ClassSecurityInfo
 from eea.workflow.events import InitialStateCreatedEvent
 from zope.event import notify
 
-
 security = ClassSecurityInfo()
 
 security.declarePrivate('notifyCreated')

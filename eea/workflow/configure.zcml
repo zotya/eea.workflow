@@ -18,6 +18,7 @@
     <include file="profiles.zcml" />
     <include file="skins.zcml" />
     <include package=".portlets" />
+    <include package=".progress" />
 
     <adapter factory=".utils.ATFieldValueProvider" />
     <adapter factory=".utils.TextFieldValueProvider" />
