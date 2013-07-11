@@ -33,7 +33,7 @@ function make_publish_text(questions){
 }
 
 function get_base(){
-    var base = (window.context_url || $("base").attr('href') || document.baseURI || 
+    var base = (window.context_url || $("base").attr('href') || document.baseURI ||
                 window.location.href.split("?")[0].split('@@')[0]);
     return base;
 }
@@ -177,8 +177,10 @@ jQuery(document).ready(function ($) {
   });
 
   // We need to wait for kukit to be initialized
-  jQuery(document).oneTime(1000, "disable-kss", function(){
-    disableWorkflowKSS();
-  });
+  if(jQuery(document).oneTime){
+    jQuery(document).oneTime(1000, "disable-kss", function(){
+      disableWorkflowKSS();
+    });
+  }
 
 });
