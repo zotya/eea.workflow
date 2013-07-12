@@ -7,10 +7,23 @@
     <implements interface="eea.workflow.progress.interfaces.IWorkflowState" />
   </class>
 
+  <class class="Products.DCWorkflow.DCWorkflow.DCWorkflowDefinition">
+    <implements interface="eea.workflow.progress.interfaces.IWorkflow" />
+  </class>
+
   <browser:page
     for="eea.workflow.progress.interfaces.IWorkflowState"
-    name="manage_progressbar"
+    name="manage_progress"
     class=".browser.ZMIStateProgressView"
+    template="manage_stateprogress.pt"
+    permission="cmf.ManagePortal"
+    />
+
+    <browser:page
+    for="eea.workflow.progress.interfaces.IWorkflow"
+    name="manage_progress"
+    class=".browser.ZMIWorkflowProgressView"
+    template="manage_progress.pt"
     permission="cmf.ManagePortal"
     />
 
