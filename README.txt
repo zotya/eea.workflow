@@ -8,6 +8,12 @@ Contents
 
 .. contents::
 
+Main features
+=============
+
+- Progress monitoring, a system that visually display a progress bar
+  in the publishing process of a document according with the workflow
+  state in which the document is.
 
 Install
 =======
@@ -16,6 +22,15 @@ Install
   can download a sample buildout from
   https://github.com/eea/eea.workflow/tree/master/buildouts/plone4
 - Install eea.workflow within Site Setup > Add-ons
+
+Getting started
+===============
+
+Progress monitoring
+-------------------
+
+1. Go to *ZMI > portal_workflows > Contents Tab* and select your workflow
+2. Click on *Progress Bar Tab* and update *% done* for each state
 
 
 Source code

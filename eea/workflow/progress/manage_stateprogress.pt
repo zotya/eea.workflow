@@ -9,16 +9,28 @@
 
 
 <form action="manage_progress" method="POST">
-  <table>
+  <table style="width: 100%">
     <tr>
-      <th align="left">% Done</th>
+      <th align="left" style="width: 10%">% Done</th>
+      <td style="width: 80%">
+        <table style="width: 100%">
+          <tr>
+            <td style="padding:none; border: 1px dotted silver">
+              <hr style="color:#c00; background-color:#BAE0BA; height:15px; border:none;
+                         margin:0;" align="left" tal:attributes="width python:'%s%%' % (context.progress if getattr(context, 'progress', None) else 0)" />
+            </td>
+          </tr>
+        </table>
+      </td>
       <td>
-        <input type="number" name="progress" min="0" max="100"
+        <input type="number" name="progress:int" min="0" max="100"
           tal:attributes="value context/progress|python:0" />
+      </td>
+      <td>
+        <input type="submit" name="submit" value="Update" />
       </td>
     </tr>
   </table>
-  <input type="submit" name="submit" value="Save changes" />
 </form>
 
 <h1 tal:replace="structure context/manage_page_footer" />

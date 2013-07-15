@@ -3,6 +3,8 @@ Changelog
 
 5.9-dev - (unreleased)
 ----------------------
+* Feature: Progress monitoring based on workflow states
+  [voineali refs #14901]
 
 5.8 - (2013-07-09)
 ------------------

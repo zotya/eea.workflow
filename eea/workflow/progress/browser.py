@@ -33,4 +33,13 @@ class ZMIWorkflowProgressView(BrowserView):
     def states(self):
         """ Defined states
         """
-        return self.context.states.items()
+        def compare(a, b):
+            """ Sort
+            """
+            a_progress = getattr(a[1], 'progress', None) or 0
+            b_progress = getattr(b[1], 'progress', None) or 0
+            return cmp(a_progress, b_progress)
+
+        items = self.context.states.items()
+        items = sorted(items, cmp=compare)
+        return items
