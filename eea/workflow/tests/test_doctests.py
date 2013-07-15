@@ -17,7 +17,11 @@ def test_suite():
     """
     return unittest.TestSuite((
             FunctionalDocFileSuite('README.txt',
-                  optionflags=OPTIONFLAGS,
-                  package='eea.workflow',
-                  test_class=EEATestCase),
-              ))
+                optionflags=OPTIONFLAGS,
+                package='eea.workflow',
+                test_class=EEATestCase),
+            FunctionalDocFileSuite('docs/exportimport.txt',
+                optionflags=OPTIONFLAGS,
+                package='eea.workflow',
+                test_class=EEATestCase),
+    ))

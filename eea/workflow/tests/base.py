@@ -1,7 +1,7 @@
 """ Base module for tests
 """
+from Zope2.App import zcml
 from Products.Five import fiveconfigure
-from Products.Five import zcml
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
 

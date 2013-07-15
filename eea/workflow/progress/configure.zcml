@@ -3,6 +3,10 @@
   xmlns:browser="http://namespaces.zope.org/browser"
   i18n_domain="eea">
 
+  <class class="Products.CMFPlone.WorkflowTool.WorkflowTool">
+    <implements interface="eea.workflow.progress.interfaces.IWorkflowTool" />
+  </class>
+
   <class class="Products.DCWorkflow.States.StateDefinition">
     <implements interface="eea.workflow.progress.interfaces.IWorkflowState" />
   </class>

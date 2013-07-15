@@ -12,4 +12,19 @@
         description="Installs eea.workflow"
         provides="Products.GenericSetup.interfaces.EXTENSION" />
 
+  <genericsetup:importStep
+    name="workflow.progress.xml"
+    title="Workflow progress monitoring"
+    description="Progress monitoring based on workflow states"
+    handler="eea.workflow.exportimport.importWorkflowProgress">
+    <depends name="workflow"/>
+  </genericsetup:importStep>
+
+  <genericsetup:exportStep
+    name="workflow.progress.xml"
+    title="Workflow progress monitoring"
+    description="Progress monitoring based on workflow states"
+    handler="eea.workflow.exportimport.exportWorkflowProgress"
+    />
+
 </configure>

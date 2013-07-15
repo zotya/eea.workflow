@@ -3,7 +3,7 @@
 from Products.Five.browser import BrowserView
 
 class ZMIStateProgressView(BrowserView):
-    """ ZMI View for state progress bar
+    """ ZMI View for state progress monitoring
     """
 
     def setProperties(self, form):
@@ -27,7 +27,7 @@ class ZMIStateProgressView(BrowserView):
             redirect + '?manage_tabs_message=Changes saved')
 
 class ZMIWorkflowProgressView(BrowserView):
-    """ ZMI View for workflow progress bar
+    """ ZMI View for workflow progress monitoring
     """
 
     def states(self):

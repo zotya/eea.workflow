@@ -1,4 +1,4 @@
-""" Progress bar
+""" Progress monitoring
 """
 from Products.DCWorkflow.States import StateDefinition
 from Products.DCWorkflow.DCWorkflow import DCWorkflowDefinition
@@ -11,7 +11,7 @@ def extendState(context):
         if option['action'] == 'manage_progress':
             return
     StateDefinition.manage_options += (
-        {'label': 'Progress Bar', 'action': 'manage_progress'},
+        {'label': 'Progress monitoring', 'action': 'manage_progress'},
     )
 
 def extendWorkflow(conttext):
@@ -22,7 +22,7 @@ def extendWorkflow(conttext):
         if option['action'] == 'manage_progress':
             return
     DCWorkflowDefinition.manage_options += (
-        {'label': 'Progress Bar', 'action': 'manage_progress'},
+        {'label': 'Progress monitoring', 'action': 'manage_progress'},
     )
 
 def initialize(context=None):

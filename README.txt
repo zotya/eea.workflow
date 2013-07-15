@@ -30,7 +30,7 @@ Progress monitoring
 -------------------
 
 1. Go to *ZMI > portal_workflows > Contents Tab* and select your workflow
-2. Click on *Progress Bar Tab* and update *% done* for each state
+2. Click on *Progress monitoring Tab* and update *% done* for each state
 
 
 Source code

@@ -2,6 +2,10 @@
 """
 from zope.interface import Interface
 
+class IWorkflowTool(Interface):
+    """ Marker interface for portal_workflow
+    """
+
 class IWorkflow(Interface):
     """ Marker interface for workflow
     """

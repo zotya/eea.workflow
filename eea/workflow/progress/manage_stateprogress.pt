@@ -11,8 +11,8 @@
 <form action="manage_progress" method="POST">
   <table style="width: 100%">
     <tr>
-      <th align="left" style="width: 10%">% Done</th>
-      <td style="width: 80%">
+      <th align="right" style="width: 5em">% Done</th>
+      <td>
         <table style="width: 100%">
           <tr>
             <td style="padding:none; border: 1px dotted silver">
@@ -22,11 +22,12 @@
           </tr>
         </table>
       </td>
-      <td>
+      <td style="width: 6em">
         <input type="number" name="progress:int" min="0" max="100"
           tal:attributes="value context/progress|python:0" />
+        <span>%</span>
       </td>
-      <td>
+      <td style="width: 4em">
         <input type="submit" name="submit" value="Update" />
       </td>
     </tr>
