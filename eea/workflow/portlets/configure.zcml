@@ -7,15 +7,6 @@
 
   <include package="plone.app.portlets" file="permissions.zcml" />
 
-  <plone:portlet
-    zcml:condition="installed eea.indicators"
-    name="portlets.Readiness"
-    interface=".readiness.IReadinessPortlet"
-    assignment=".readiness.Assignment"
-    renderer=".readiness.Renderer"
-    addview=".readiness.AddForm"
-    />
-
   <browser:page
     zcml:condition="installed eea.indicators"
     name="readiness"
@@ -25,5 +16,24 @@
     permission="zope2.View"
     />
 
+  <plone:portlet
+    zcml:condition="installed eea.indicators"
+    name="portlets.Readiness"
+    interface=".readiness.IReadinessPortlet"
+    assignment=".readiness.Assignment"
+    renderer=".readiness.Renderer"
+    addview=".readiness.AddForm"
+    />
+
+  <plone:portlet
+    name="portlets.ProgressMonitoring"
+    interface=".progress.IProgressPortlet"
+    assignment=".progress.Assignment"
+    renderer=".progress.Renderer"
+    addview=".progress.AddForm"
+    editview=".progress.EditForm"
+    edit_permission="plone.app.portlets.ManagePortlets"
+    view_permission="zope2.View"
+    />
 
 </configure>

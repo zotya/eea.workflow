@@ -1,9 +1,10 @@
 """ Browser controllers
 """
 from Products.Five.browser import BrowserView
+from Products.CMFCore.utils import getToolByName
 
-class ZMIStateProgressView(BrowserView):
-    """ ZMI View for state progress monitoring
+class ZMIStateProgressEdit(BrowserView):
+    """ ZMI edit for state progress monitoring
     """
 
     def setProperties(self, form):
@@ -26,8 +27,8 @@ class ZMIStateProgressView(BrowserView):
         self.request.response.redirect(
             redirect + '?manage_tabs_message=Changes saved')
 
-class ZMIWorkflowProgressView(BrowserView):
-    """ ZMI View for workflow progress monitoring
+class ZMIWorkflowProgressEdit(BrowserView):
+    """ ZMI edit for workflow progress monitoring
     """
 
     def states(self):
@@ -43,3 +44,19 @@ class ZMIWorkflowProgressView(BrowserView):
         items = self.context.states.items()
         items = sorted(items, cmp=compare)
         return items
+
+class ProgressBarView(BrowserView):
+    """ Progress bar
+    """
+    def progress(self):
+        """ Get progress for context based on current state
+        """
+        wftool = getToolByName(self.context, 'portal_workflow')
+        state = wftool.getInfoFor(self.context, 'review_state')
+        workflows = wftool.getWorkflowsFor(self.context)
+        for wf in workflows:
+            state = wf.states.get(state)
+            if not state:
+                continue
+            return getattr(state, 'progress', 0)
+        return 0

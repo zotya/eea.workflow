@@ -13,3 +13,7 @@ class IWorkflow(Interface):
 class IWorkflowState(Interface):
     """ Marker interface for workflow state
     """
+
+class IBaseObject(Interface):
+    """ Marker interface for Archetypes or Dexterity objects
+    """

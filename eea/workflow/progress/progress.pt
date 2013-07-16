@@ -1,0 +1,13 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  tal:omit-tag=""
+  i18n:domain="eea">
+
+<div
+  tal:define="progress view/progress"
+  style="width: 100%; height: 15px; border: 1px dotted #ccc; background-color: #eee">
+    <div style="float: right; width: 60%" tal:content="python:'%s%%' % progress" />
+    <div tal:attributes="style string:width: $progress%;; height: 100%;; background-color: #BAE0BA;;"></div>
+</div>
+
+</html>

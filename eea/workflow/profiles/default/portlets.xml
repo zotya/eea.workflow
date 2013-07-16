@@ -1,9 +1,16 @@
 <?xml version="1.0"?>
 <portlets>
-<portlet
-  addview="portlets.Readiness"
-    title="Readiness portlet"
-    description="A portlet which shows readiness information" >
+  <portlet
+    addview="portlets.Readiness"
+      title="Readiness portlet"
+      description="A portlet which shows readiness information" >
+    <for interface="plone.app.portlets.interfaces.IColumn" />
+    <for interface="plone.app.portlets.interfaces.IDashboard" />
+  </portlet>
+  <portlet
+    addview="portlets.ProgressMonitoring"
+      title="Progress Monitoring"
+      description="A portlet which shows workflow progress information" >
     <for interface="plone.app.portlets.interfaces.IColumn" />
     <for interface="plone.app.portlets.interfaces.IDashboard" />
   </portlet>
