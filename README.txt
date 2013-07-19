@@ -41,8 +41,8 @@ version.
 More details under docs/License.txt
 
 
-Funding
-=======
+Funding and project management
+==============================
 
 EEA_ - European Environment Agency (EU)
 
