@@ -1,6 +1,7 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
   xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
   i18n_domain="eea">
 
   <class class="Products.CMFPlone.WorkflowTool.WorkflowTool">
@@ -19,6 +20,16 @@
     <implements interface=".interfaces.IBaseObject" />
   </class>
 
+  <class class="plone.app.collection.collection.Collection"
+    zcml:condition="installed plone.app.collection">
+    <implements interface=".interfaces.ICollection" />
+  </class>
+
+  <class class="Products.ATContentTypes.content.topic.ATTopic"
+    zcml:condition="installed Products.ATContentTypes.content.topic">
+    <implements interface=".interfaces.ICollection" />
+  </class>
+
   <browser:page
     for="eea.workflow.progress.interfaces.IWorkflowState"
     name="manage_progress"
@@ -35,6 +46,18 @@
     permission="cmf.ManagePortal"
     />
 
+  <adapter
+    for="eea.workflow.progress.interfaces.IBaseObject"
+    provides="eea.workflow.progress.interfaces.IWorkflowProgress"
+    factory=".adapters.WorkflowProgress"
+    />
+
+  <!--<adapter-->
+    <!--for="eea.workflow.progress.interfaces.ICollection"-->
+    <!--provides="eea.workflow.progress.interfaces.IWorkflowProgress"-->
+    <!--factory=".adapters.FolderishWorkflowProgress"-->
+    <!--/>-->
+
   <browser:page
     for="eea.workflow.progress.interfaces.IBaseObject"
     name="progress.bar"
@@ -42,5 +65,22 @@
     template="progress.pt"
     permission="zope2.View"
     />
+
+  <browser:page
+    for="eea.workflow.progress.interfaces.ICollection"
+    name="progress.bar"
+    class=".browser.CollectionProgressBarView"
+    template="collection-progress.pt"
+    permission="zope2.View"
+    />
+
+  <browser:resource
+    name="eea.workflow.progress.css"
+    file="progress.css"
+   />
+
+  <browser:resourceDirectory
+    name="eea.workflow.progress"
+    directory="images" />
 
 </configure>

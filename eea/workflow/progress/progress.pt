@@ -1,13 +1,24 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
   xmlns:metal="http://xml.zope.org/namespaces/metal"
   tal:omit-tag=""
-  i18n:domain="eea">
+  i18n:domain="eea" tal:define="
+    info view/info;
+    progress info/progress">
+
+<div class="progress-label">
+  <div tal:content="python: '%s%%' % progress">33%</div>
+</div>
 
 <div
-  tal:define="progress view/progress"
-  style="width: 100%; height: 15px; border: 1px dotted #ccc; background-color: #eee">
-    <div style="float: right; width: 60%" tal:content="python:'%s%%' % progress" />
-    <div tal:attributes="style string:width: $progress%;; height: 100%;; background-color: #BAE0BA;;"></div>
+  class="progressbar">
+    <tal:step tal:repeat="step view/table">
+      <div tal:define="workflow python:step[0]; done python:step[1]; width python:step[2]"
+      class="progressbar-step" tal:attributes="
+        class python:'progressbar-step progressbar-current' if (done <= progress) else 'progressbar-step';
+        title workflow;
+        style python:'width: %s%%' % width"></div>
+    </tal:step>
 </div>
+
 
 </html>

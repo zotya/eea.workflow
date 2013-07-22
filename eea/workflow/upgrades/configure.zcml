@@ -10,7 +10,7 @@
 
     <genericsetup:upgradeDepends
       title="Import changed steps from eea.workflow profile"
-      import_steps="portlets"
+      import_steps="portlets cssregistry"
       />
 
   </genericsetup:upgradeSteps>
