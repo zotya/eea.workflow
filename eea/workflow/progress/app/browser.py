@@ -52,6 +52,16 @@ class ProgressBarView(BrowserView):
     def __init__(self, context, request):
         super(ProgressBarView, self).__init__(context, request)
         self._info = None
+        self._state = None
+
+    @property
+    def state(self):
+        """ Current state
+        """
+        if self._state is None:
+            wftool = getToolByName(self.context, 'portal_workflow')
+            self._state = wftool.getInfoFor(self.context, 'review_state')
+        return self._state
 
     @property
     def info(self):
@@ -88,3 +98,14 @@ class ProgressBarView(BrowserView):
 class CollectionProgressBarView(ProgressBarView):
     """ Progress bar for collections
     """
+    @property
+    def table(self):
+        """ Compute visual progress bar
+        """
+        info = self.info
+        table = [info.closed, info.opened, info.total]
+        current = 0
+        for index, (state, progress) in enumerate(self.info.steps):
+            width = progress - current
+            current = progress
+            yield state, table[index], width
