@@ -1,186 +1,176 @@
-
-function getDialogButton(dialog_selector, button_name) {
-    var res = null;
-    (function($) {
-        var buttons = $(dialog_selector + ' .ui-dialog-buttonpane button' );
-        for ( var i = 0; i < buttons.length; ++i ) {
-            var jButton = $( buttons[i] );
-            if ( jButton.text() == button_name ) {
-                res = jButton[0];
-                return;
-            }
-        }
-        return;
-    })(jQuery);
-    return res;
+function PublishDialog(transitions){
+    this.transitions = transitions || ['publish'];
 }
 
-
-function make_publish_text(questions){
- return (function($) {
-    var text = "Self-QA:    ";
-    $(".question", questions).each(function(){
-        var title = $("h3", this).text();
-        var answer = $(":radio[checked='true']", this).val();
-        var comment = $("textarea", this).val();
-        if (comment.length) {
-            comment += "\n";
-        }
-        text += title + ": " + answer + "      " + comment + "      ";
+PublishDialog.prototype.install = function(){
+    var self = this;
+    jQuery(this.transitions).each(function(){
+            jQuery("#workflow-transition-" + this).click(self.onclick(this));
     });
-    return text;
-})(jQuery);
 }
 
-function get_base(){
-    var base = (window.context_url || $("base").attr('href') || document.baseURI ||
-                window.location.href.split("?")[0].split('@@')[0]);
-    return base;
-}
-
-function set_publish_dialog(){
-(function($) {
-    $("#workflow-transition-publish").attr('class', "kssIgnore");
-    $("#plone-contentmenu-workflow dd.actionMenuContent a").click(function(e){
-        if ($(this).attr('id') != "workflow-transition-publish") {
-            var href = $(this).attr('href');
-            var re = new RegExp("workflow_action=(.*)");
-            var action = href.match(re)[1];
-            var formaction = get_base() + '/content_status_modify';
-            var form = "<form id='publish_form' method='POST' action='" + formaction + "'>";
-            form += "<input name='workflow_action' type='hidden' value='" + action + "'/>";
-            form += "</form>";
-            $('body').append(form);
-            $("#publish_form").submit();
-
+PublishDialog.prototype.onclick = function(transition, e){
+    // this is a partial function, it curries the transition
+    var transition = transition;
+    var self = this;
+    if (typeof(e) === "undefined") {
+        return function(e){
+            self.open_dialog(transition);
             return false;
         }
+    }
+}
 
-        var transition = $(this).attr('href').split('=')[1];
-        var target = $("<div>").appendTo("body").attr('id', 'publish-dialog-target')[0];
-        $(".publishDialog").remove();
+PublishDialog.prototype.open_dialog = function(transition){
+    var w = new PublishDialog.Window(transition);
+    w.open();
+}
 
-        $(target).dialog({
+
+PublishDialog.Window = function(transition){
+    var $target = jQuery("#publish-dialog-target");
+    if ($target.length === 0){
+        var $target = jQuery("<div>").appendTo("body").attr('id', 'publish-dialog-target');
+    }
+    this.target = $target;
+    this.transition = transition;
+}
+
+PublishDialog.Window.prototype.open = function(){
+    var self = this;
+    self.dialog = jQuery(this.target).dialog({
             title:"Confirm information before publishing",
             dialogClass:'publishDialog',
             modal:true,
             resizable:true,
             width:800,
             height:700,
+            open:function(ui){self._open(ui);},
             buttons:{
-                "Ok":function(){
-                    var questions_area = $(".questions", target);
-
-                    // check if all required questions have been answered positively
-                    var go = true;
-                    $(".question", target).each(function(){
-                        var q = this;
-                        if ($(q).hasClass('required')){
-                            var radio = $("input[value='yes']", q).get(0);
-                            if (radio.checked !== true) {
-                                $("h3", q).after("<div class='notice' style='color:Black; background-color:#FFE291; " +
-                                    "padding:3px'>You need to answer with Yes</div>");
-                                $(".notice", q).effect("pulsate", {times:3}, 2000, function(){$('.notice', q).remove();});
-                                go = false;
-                                return false;
-                            }
-                        }
-                    });
-                    if (go === false){ return false; }
-
-                    var text = make_publish_text(questions_area);
-                    var form = $("form", target);
-                    $("textarea#comment", target).val(text);
-                    $(".questions").remove();
-
-                    //var now = new Date();
-                    //now_str = now.getFullYear() + "/" + now.getMonth() + 1 + '/' + now.getDate();
-                    //form.append($("<input type='hidden' name='effective_date'>").attr('value', now_str));
-
-                    $("input[name='workflow_action']", target).attr('value', transition);
-                    form.submit();
-                    $(this).dialog("close");
-                    return false;
-                },
-                "Cancel":function(){
-                    $(this).dialog("close");
-                }
-            },
-            open:function(ui){
-
-                     var base = get_base();
-                     var url = base + "/publish_dialog";
-
-                     $(this).load(url, function(){
-                         var base_url = $(".metadata .context_url").text();
-                         $("#workflow-emails-placeholder").load(base_url + '/workflow_emails', function(){
-                             $("#notice_emails .collapsibleHeader").click(
-                                 function(){
-                                     $(this).parent().each(
-                                         function(){
-                                             var el = $(this);
-                                             if (el.hasClass('expandedInlineCollapsible')) {
-                                                 el.removeClass('expandedInlineCollapsible').addClass('collapsedInlineCollapsible');
-                                             } else {
-                                                 el.removeClass('collapsedInlineCollapsible').addClass('expandedInlineCollapsible');
-                                             }
-                                         }
-                                         );
-                                 });
-                         });
-                         //see if all radios have a value. When they do, activate the OK button
-                         $(".questions input[type='radio']", target).change(function(){
-                             var questions = $(".question", target);
-                             var activated = $(":radio[checked='true']", target);
-                             var okbtn = getDialogButton('.publishDialog', 'Ok');
-                             if (questions.length === activated.length) {
-                                 $(okbtn).removeAttr('disabled').removeClass('ui-state-disabled');
-                             } else {
-                                 $(okbtn).attr('disabled', 'disabled').addClass('ui-state-disabled');
-                             }
-                         });
-
-                     });
-                     //
-                     //disabling ok button
-                     var okbtn = getDialogButton('.publishDialog', 'Ok');
-                     $(okbtn).attr('disabled', 'disabled').addClass('ui-state-disabled');
-
-                     return false;
-                 }
-        });
-        return false;
-    });
-})(jQuery);
+                    'Ok':function(e){self.handle_ok(e);},
+                    'Cancel':function(e){self.handle_cancel(e);}
+                    }
+            }
+    );
 }
 
-var disableWorkflowKSS = function(){
-    var rules = kukit.engine.getRules();
-    jQuery(rules).each(function(){
-            var selector = this.kssSelector.css;
-            if (selector == "#plone-contentmenu-workflow dd.actionMenuContent a") {
-                this.actions.content = {};
+PublishDialog.Window.prototype.handle_cancel = function(e){
+    this.dialog.dialog("close");
+}
+
+PublishDialog.Window.prototype.handle_ok = function(e){
+
+    var self = this;
+    var $questions_area = jQuery(".questions", this.target);
+
+    // check if all required questions have been answered positively
+    var go = true;
+    jQuery(".question", this.target).each(function(){
+        var q = this;
+        if (jQuery(q).hasClass('required')){
+            var radio = jQuery("input[value='yes']", q).get(0);
+            if (radio.checked !== true) {
+                jQuery("h3", q).after("<div class='notice' style='color:Black; background-color:#FFE291; " +
+                    "padding:3px'>You need to answer with Yes</div>");
+                jQuery(".notice", q).effect("pulsate", {times:3}, 2000, 
+                                            function(){jQuery('.notice', q).remove();});
+                go = false;
+                return false;
             }
-            if (selector == "#plone-contentmenu-workflow dd.actionMenuContent a.kssIgnore") {
-                this.actions.content = {};
-            }
+        }
     });
-};
+    if (go === false){ return false; }
+
+    var text = make_publish_text($questions_area);
+    var $form = jQuery("form", self.target);
+    jQuery("textarea#comment", self.target).val(text);
+    jQuery(".questions").remove();
+
+    //var now = new Date();
+    //now_str = now.getFullYear() + "/" + now.getMonth() + 1 + '/' + now.getDate();
+    //form.append(jQuery("<input type='hidden' name='effective_date'>").attr('value', now_str));
+
+    jQuery("input[name='workflow_action']", self.target).attr('value', self.transition);
+    $form.submit();
+    this.dialog.dialog("close");
+    return false;
+
+}
+
+PublishDialog.Window.prototype._open = function(ui){
+    var self = this;
+    var okbtn = self.getDialogButton('Ok');
+    jQuery(okbtn).attr('disabled', 'disabled').addClass('ui-state-disabled');
+
+    var base = get_base();
+    var url = base + "/publish_dialog";
+
+    jQuery(self.target).load(url, function(){
+        var base_url = jQuery(".metadata .context_url").text();
+        jQuery("#workflow-emails-placeholder").load(base_url + '/workflow_emails', function(){
+            jQuery("#notice_emails .collapsibleHeader").click(
+                function(){
+                    jQuery(this).parent().each(
+                        function(){
+                            var el = jQuery(this);
+                            if (el.hasClass('expandedInlineCollapsible')) {
+                                el.removeClass('expandedInlineCollapsible').addClass('collapsedInlineCollapsible');
+                            } else {
+                                el.removeClass('collapsedInlineCollapsible').addClass('expandedInlineCollapsible');
+                            }
+                        }
+                        );
+                });
+        });
+        //see if all radios have a value. When they do, activate the Ok button
+        jQuery(".questions input[type='radio']", self.target).change(function(){
+            var questions = jQuery(".question", self.target);
+            var activated = jQuery(":radio[checked]", self.target);
+            var okbtn = self.getDialogButton('Ok');
+            if (questions.length === activated.length) {
+                jQuery(okbtn).removeAttr('disabled').removeClass('ui-state-disabled');
+            } else {
+                jQuery(okbtn).attr('disabled', 'disabled').addClass('ui-state-disabled');
+            }
+        });
+
+    });
+}
+
+PublishDialog.Window.prototype.getDialogButton = function(button_name) {
+    var parent = jQuery(this.target).parent();  //during construction we don't have this.dialog
+    var buttons = jQuery('.ui-dialog-buttonpane button', parent);
+    for ( var i = 0; i < buttons.length; ++i ) {
+        var $button = jQuery(buttons[i]);
+        if ( $button.text() == button_name ) {
+            return $button[0];
+        }
+    }
+    return;
+}
+
+
+function make_publish_text(questions){
+    var text = "Self-QA:    ";
+    jQuery(".question", questions).each(function(){
+        var title = jQuery("h3", this).text();
+        var answer = jQuery(":radio[checked]", this).val();
+        var comment = jQuery("textarea", this).val();
+        if (comment.length) {
+            comment += "\n";
+        }
+        text += title + ": " + answer + ".      " + comment + ".      ";
+    });
+    return text;
+}
+
+function get_base(){
+    var base = (window.context_url || jQuery("base").attr('href') || document.baseURI ||
+                window.location.href.split("?")[0].split('@@')[0]);
+    return base;
+}
 
 jQuery(document).ready(function ($) {
-
-  set_publish_dialog();
-  $("#workflow-transition-fake_publish").click(function(){
-      //ZZZ: this doesn't work
-      //alert("This item is not ready to be published");
-      return false;
-  });
-
-  // We need to wait for kukit to be initialized
-  if(jQuery(document).oneTime){
-    jQuery(document).oneTime(1000, "disable-kss", function(){
-      disableWorkflowKSS();
-    });
-  }
-
+        var p = new PublishDialog(['publish']);
+        p.install();
 });

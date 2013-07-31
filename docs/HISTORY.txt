@@ -3,6 +3,9 @@ Changelog
 
 5.9-dev - (unreleased)
 ----------------------
+* Bug fix: get rid of kss support for publish_dialog, with no backwards dependency. 
+  From now on, eea.workflow needs Plone 4.3 for the publish dialog to work properly.
+  [tiberich #15587]
 
 5.8 - (2013-07-09)
 ------------------
