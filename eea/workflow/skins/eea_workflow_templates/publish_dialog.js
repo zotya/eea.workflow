@@ -2,12 +2,32 @@ function PublishDialog(transitions){
     this.transitions = transitions || ['publish'];
 }
 
+function make_publish_text(questions){
+    var text = "Self-QA:    ";
+    jQuery(".question", questions).each(function(){
+        var title = jQuery("h3", this).text();
+        var answer = jQuery(":radio[checked]", this).val();
+        var comment = jQuery("textarea", this).val();
+        if (comment.length) {
+            comment += "\n";
+        }
+        text += title + ": " + answer + ".      " + comment + ".      ";
+    });
+    return text;
+}
+
+function get_base(){
+    var base = (window.context_url || jQuery("base").attr('href') || document.baseURI ||
+                window.location.href.split("?")[0].split('@@')[0]);
+    return base;
+}
+
 PublishDialog.prototype.install = function(){
     var self = this;
     jQuery(this.transitions).each(function(){
             jQuery("#workflow-transition-" + this).click(self.onclick(this));
     });
-}
+};
 
 PublishDialog.prototype.onclick = function(transition, e){
     // this is a partial function, it curries the transition
@@ -17,24 +37,24 @@ PublishDialog.prototype.onclick = function(transition, e){
         return function(e){
             self.open_dialog(transition);
             return false;
-        }
+        };
     }
-}
+};
 
 PublishDialog.prototype.open_dialog = function(transition){
     var w = new PublishDialog.Window(transition);
     w.open();
-}
+};
 
 
 PublishDialog.Window = function(transition){
     var $target = jQuery("#publish-dialog-target");
     if ($target.length === 0){
-        var $target = jQuery("<div>").appendTo("body").attr('id', 'publish-dialog-target');
+        $target = jQuery("<div>").appendTo("body").attr('id', 'publish-dialog-target');
     }
     this.target = $target;
     this.transition = transition;
-}
+};
 
 PublishDialog.Window.prototype.open = function(){
     var self = this;
@@ -52,11 +72,11 @@ PublishDialog.Window.prototype.open = function(){
                     }
             }
     );
-}
+};
 
 PublishDialog.Window.prototype.handle_cancel = function(e){
     this.dialog.dialog("close");
-}
+};
 
 PublishDialog.Window.prototype.handle_ok = function(e){
 
@@ -95,7 +115,7 @@ PublishDialog.Window.prototype.handle_ok = function(e){
     this.dialog.dialog("close");
     return false;
 
-}
+};
 
 PublishDialog.Window.prototype._open = function(ui){
     var self = this;
@@ -135,7 +155,7 @@ PublishDialog.Window.prototype._open = function(ui){
         });
 
     });
-}
+};
 
 PublishDialog.Window.prototype.getDialogButton = function(button_name) {
     var parent = jQuery(this.target).parent();  //during construction we don't have this.dialog
@@ -147,28 +167,10 @@ PublishDialog.Window.prototype.getDialogButton = function(button_name) {
         }
     }
     return;
-}
+};
 
 
-function make_publish_text(questions){
-    var text = "Self-QA:    ";
-    jQuery(".question", questions).each(function(){
-        var title = jQuery("h3", this).text();
-        var answer = jQuery(":radio[checked]", this).val();
-        var comment = jQuery("textarea", this).val();
-        if (comment.length) {
-            comment += "\n";
-        }
-        text += title + ": " + answer + ".      " + comment + ".      ";
-    });
-    return text;
-}
 
-function get_base(){
-    var base = (window.context_url || jQuery("base").attr('href') || document.baseURI ||
-                window.location.href.split("?")[0].split('@@')[0]);
-    return base;
-}
 
 jQuery(document).ready(function ($) {
         var p = new PublishDialog(['publish']);
