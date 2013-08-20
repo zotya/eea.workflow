@@ -1,0 +1,20 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:cmf="http://namespaces.zope.org/cmf"
+           xmlns:monkey="http://namespaces.plone.org/monkey"
+           xmlns:plone="http://namespaces.plone.org/plone"
+           i18n_domain="eea">
+
+    <browser:page
+        name="workflow_menu"
+        for="*"
+        permission="zope2.View"
+        class=".async.WorkflowMenu"
+        template="workflow_menu.pt"
+        />
+
+
+  <browser:resource name='asyncworkflow.js'
+                    file='asyncworkflow.js' />
+
+</configure>

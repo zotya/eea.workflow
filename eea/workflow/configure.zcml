@@ -18,6 +18,7 @@
     <include file="profiles.zcml" />
     <include file="skins.zcml" />
     <include package=".portlets" />
+    <include package=".browser" />
 
     <adapter factory=".utils.ATFieldValueProvider" />
     <adapter factory=".utils.TextFieldValueProvider" />
@@ -46,7 +47,6 @@
         class=".readiness.ObjectReadinessView"
         allowed_interface=".interfaces.IObjectReadiness" />
     <adapter factory=".readiness.ObjectReadiness" for="*" />
-
 
     <subscriber
         for="Products.Archetypes.interfaces.IBaseContent

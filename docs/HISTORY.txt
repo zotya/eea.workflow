@@ -3,6 +3,8 @@ Changelog
 
 6.0-dev - (unreleased)
 ----------------------
+* WIP Feature: now handle with ajax all workflow state changes
+  [tiberich #15629]
 
 5.9 - (2013-08-09)
 ------------------
