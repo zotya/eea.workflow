@@ -2,6 +2,7 @@
 <object name="portal_javascripts">
   <javascript id="readiness.js"/>
   <javascript id="resolveuid.js"/>
+  <javascript id="++resource++asyncworkflow.js" authenticated="True" />
   <javascript id="publish_dialog.js"
     expression="python: (not portal.portal_membership.isAnonymousUser()) and object.meta_type in ['Assessment', 'Specification']"
     authenticated="True"

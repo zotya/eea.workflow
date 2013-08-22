@@ -15,4 +15,17 @@
 
   </genericsetup:upgradeSteps>
 
+
+  <genericsetup:upgradeSteps
+    source="4.0"
+    destination="6.0eea"
+    profile="eea.workflow:default">
+
+    <genericsetup:upgradeDepends
+      title="Import the Javascript registry"
+      import_steps="jsregistry"
+      />
+
+  </genericsetup:upgradeSteps>
+
 </configure>

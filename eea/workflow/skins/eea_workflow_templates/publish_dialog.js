@@ -1,5 +1,12 @@
 function PublishDialog(transitions){
+    var self = this;
     this.transitions = transitions || ['publish'];
+    jQuery(AsyncWorkflow.Events).bind(
+            AsyncWorkflow.Events.WORKFLOW_MENU_REFRESHED, 
+            function(evt, data){
+                self.install();
+                return true;
+            });
 }
 
 function make_publish_text(questions){
@@ -24,8 +31,9 @@ function get_base(){
 
 PublishDialog.prototype.install = function(){
     var self = this;
-    jQuery(this.transitions).each(function(){
-            jQuery("#workflow-transition-" + this).click(self.onclick(this));
+    jQuery(self.transitions).each(function(){
+        var $transition = jQuery("#workflow-transition-" + this);
+        $transition.addClass('kssIgnore').click(self.onclick(this));
     });
 };
 
@@ -157,6 +165,7 @@ PublishDialog.Window.prototype._open = function(ui){
     });
 };
 
+
 PublishDialog.Window.prototype.getDialogButton = function(button_name) {
     var parent = jQuery(this.target).parent();  //during construction we don't have this.dialog
     var buttons = jQuery('.ui-dialog-buttonpane button', parent);
@@ -170,9 +179,7 @@ PublishDialog.Window.prototype.getDialogButton = function(button_name) {
 };
 
 
-
-
 jQuery(document).ready(function ($) {
-        var p = new PublishDialog(['publish']);
-        p.install();
+    var p = new PublishDialog(['publish']);
+    p.install();
 });

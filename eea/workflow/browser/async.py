@@ -1,4 +1,6 @@
 from Products.Five import BrowserView
+from Products.statusmessages import STATUSMESSAGEKEY
+from Products.statusmessages.adapter import _decodeCookieValue
 from eea.workflow.browser.interfaces import IAjaxWorkflowMenuView
 from plone.app.layout.globals.interfaces import IViewView
 from urlparse import urlsplit
@@ -12,6 +14,7 @@ class WorkflowMenu(BrowserView):
     """
     
     implements(IViewView)   #needed for plone viewlet registrations
+    messages = None
 
     def cancel_redirect(self):
         if self.request.response.getStatus() in (302, 303):
@@ -26,6 +29,20 @@ class WorkflowMenu(BrowserView):
         (proto, host, path, query, anchor) = urlsplit(url)
         action = query.split("workflow_action=")[-1].split('&')[0]
         self.context.content_status_modify(action)
+
+        self.messages = self.get_portal_messages()
         self.cancel_redirect()
 
         return self.index()
+
+    def get_portal_messages(self):
+        statusmessages = []
+        if hasattr(self.request.RESPONSE, 'cookies'):
+            cookie = self.request.RESPONSE.cookies.get(STATUSMESSAGEKEY)
+            if cookie:
+                encodedstatusmessages = cookie['value']
+                statusmessages = _decodeCookieValue(encodedstatusmessages)
+
+        self.request.RESPONSE.expireCookie(STATUSMESSAGEKEY, path='/')
+        return statusmessages
+

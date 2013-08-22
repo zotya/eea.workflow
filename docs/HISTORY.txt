@@ -3,7 +3,8 @@ Changelog
 
 6.0-dev - (unreleased)
 ----------------------
-* WIP Feature: now handle with ajax all workflow state changes
+* Feature: now handle with ajax all workflow state changes. The publish
+  dialog javascript has been updated to integrate with this new script
   [tiberich #15629]
 
 5.9 - (2013-08-09)
