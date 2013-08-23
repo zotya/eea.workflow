@@ -7,4 +7,8 @@
     expression="python: (not portal.portal_membership.isAnonymousUser()) and object.meta_type in ['Assessment', 'Specification']"
     authenticated="True"
     />
+  <javascript id="archive_dialog.js"
+    expression="python: (not portal.portal_membership.isAnonymousUser())"
+    authenticated="True"
+    />
 </object>

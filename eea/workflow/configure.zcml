@@ -68,6 +68,9 @@
              OFS.interfaces.IObjectClonedEvent"
         handler="eea.workflow.events.handle_object_cloned" />
 
+    <utility component=".vocab.ReasonsVocabularyFactory"
+        name="eea.workflow.reasons"/>
+
     <include package=".upgrades" />
 
 </configure>
