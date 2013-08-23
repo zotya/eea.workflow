@@ -1,0 +1,9 @@
+<p>Note: this page will be watermarked as "Archived" and a message with a reason will be displayed to the web visitor</p>
+<h3>Reason:</h3>
+<label>Reason message to be displayed</label>
+<br/>
+<h3>Request Initiator:</h3>
+<label>Staff name who initially requested and/or approved this page to be archived/expired.</label>
+<br/>
+<input type="text" style="width:400px"/>
+
