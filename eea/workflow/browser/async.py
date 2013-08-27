@@ -1,7 +1,6 @@
 from Products.Five import BrowserView
 from Products.statusmessages import STATUSMESSAGEKEY
 from Products.statusmessages.adapter import _decodeCookieValue
-from eea.workflow.browser.interfaces import IAjaxWorkflowMenuView
 from plone.app.layout.globals.interfaces import IViewView
 from urlparse import urlsplit
 from zope.interface import implements
@@ -12,7 +11,7 @@ class WorkflowMenu(BrowserView):
 
     This allows reloading it through AJAX
     """
-    
+
     implements(IViewView)   #needed for plone viewlet registrations
     messages = None
 
