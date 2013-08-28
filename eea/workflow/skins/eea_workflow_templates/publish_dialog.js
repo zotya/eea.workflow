@@ -2,7 +2,7 @@ function PublishDialog(transitions){
     var self = this;
     this.transitions = transitions || ['publish'];
     jQuery(AsyncWorkflow.Events).bind(
-            AsyncWorkflow.Events.WORKFLOW_MENU_REFRESHED, 
+            AsyncWorkflow.Events.WORKFLOW_MENU_REFRESHED,
             function(evt, data){
                 self.install();
                 return true;
@@ -39,7 +39,6 @@ PublishDialog.prototype.install = function(){
 
 PublishDialog.prototype.onclick = function(transition, e){
     // this is a partial function, it curries the transition
-    var transition = transition;
     var self = this;
     if (typeof(e) === "undefined") {
         return function(e){
@@ -100,7 +99,7 @@ PublishDialog.Window.prototype.handle_ok = function(e){
             if (radio.checked !== true) {
                 jQuery("h3", q).after("<div class='notice' style='color:Black; background-color:#FFE291; " +
                     "padding:3px'>You need to answer with Yes</div>");
-                jQuery(".notice", q).effect("pulsate", {times:3}, 2000, 
+                jQuery(".notice", q).effect("pulsate", {times:3}, 2000,
                                             function(){jQuery('.notice', q).remove();});
                 go = false;
                 return false;

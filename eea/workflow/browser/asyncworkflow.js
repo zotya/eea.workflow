@@ -4,9 +4,9 @@ function AsyncWorkflow(){
     this.menuHeader = jQuery(".actionMenuHeader", this.menu);
     this.submenu = jQuery(".actionMenuContent", this.menu);
     var self = this;
-    jQuery("#edit-bar").on('click', 
-                           "#plone-contentmenu-workflow dd a", 
-                           function(e){return self.handle_click(e)});
+    jQuery("#edit-bar").on('click',
+                           "#plone-contentmenu-workflow dd a",
+                           function(e){return self.handle_click(e);});
 }
 
 AsyncWorkflow.Events = {};
@@ -24,15 +24,15 @@ AsyncWorkflow.prototype.handle_click = function(e){
 
     // compatibility with publishDialog and any other script that wants
     // to handle workflow action by itself
-    if ($element.hasClass('kssIgnore') === true){ return true };
+    if ($element.hasClass('kssIgnore') === true){ return true; }
 
     var url = $element.attr('href');
-    jQuery("#plone-contentmenu-workflow .actionMenuHeader").html("<img src='" + context_url + "/eea-ajax-loader.gif' " + 
+    jQuery("#plone-contentmenu-workflow .actionMenuHeader").html("<img src='" + context_url + "/eea-ajax-loader.gif' " +
                                  "alt='Changing state ...' title='Changing state ...' />");
     this.execute(url);
     /* debugger; */
     return false;
-}
+};
 
 AsyncWorkflow.prototype.execute = function(url){
     var self = this;
@@ -47,9 +47,8 @@ AsyncWorkflow.prototype.execute = function(url){
     }).fail(function(){
         self.menuHeader.html("Failure!");
     });
-}
+};
 
 jQuery(document).ready(function ($) {
-    new AsyncWorkflow();
+    var async = new AsyncWorkflow();
 });
-
