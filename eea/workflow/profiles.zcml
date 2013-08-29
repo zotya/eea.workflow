@@ -13,7 +13,7 @@
         provides="Products.GenericSetup.interfaces.EXTENSION" />
 
     <genericsetup:importStep
-        name="eea-workflow-reasons-vocabularies"
+        name="eea-workflow-vocabularies"
         title="EEA Workflow vocabularies"
         description="Setup vocabularies for EEA Workflow"
         handler="eea.workflow.setuphandlers.setupATVocabularies">

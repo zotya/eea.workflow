@@ -26,6 +26,11 @@
       import_steps="jsregistry"
       />
 
+    <genericsetup:upgradeDepends
+      title="Import vocabularies"
+      import_steps="eea-workflow-vocabularies"
+      />
+
   </genericsetup:upgradeSteps>
 
 </configure>
