@@ -13,6 +13,13 @@
         template="workflow_menu.pt"
         />
 
+    <browser:page
+        name="workflow_reasons"
+        for="*"
+        permission="cmf.ModifyPortalContent"
+        class=".expire.Reasons"
+        />
+
 
   <browser:resource name='asyncworkflow.js'
                     file='asyncworkflow.js' />
