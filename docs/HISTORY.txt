@@ -3,6 +3,8 @@ Changelog
 
 6.1-dev - (unreleased)
 ----------------------
+* Bug fix: fix security problem with Plone 4.3
+  [tiberich #16698]
 
 6.0 - (2013-09-06)
 ------------------
