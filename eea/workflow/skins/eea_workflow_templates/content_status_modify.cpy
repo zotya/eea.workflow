@@ -46,7 +46,7 @@ if workflow_action == "publish" and \
 try:
     editContent(new_context,effective_date,expiration_date)
     contentEditSuccess=1
-except (Unauthorized,'Unauthorized'):
+except Unauthorized:
     pass
 
 wfcontext = context
@@ -66,7 +66,7 @@ if not wfcontext:
 if not contentEditSuccess:
     try:
         editContent(wfcontext, effective_date, expiration_date)
-    except (Unauthorized,'Unauthorized'):
+    except Unauthorized:
         pass
 
 transaction_note(note)
