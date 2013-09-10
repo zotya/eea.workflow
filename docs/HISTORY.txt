@@ -1,8 +1,11 @@
 Changelog
 =========
 
-6.0-dev - (unreleased)
+6.1-dev - (unreleased)
 ----------------------
+
+6.0 - (2013-09-06)
+------------------
 * Feature: now handle with ajax all workflow state changes. The publish
   dialog javascript has been updated to integrate with this new script
   [tiberich #15629]
