@@ -53,6 +53,34 @@ ArchiveDialog.Window.prototype.handle_cancel = function(e){
 };
 
 ArchiveDialog.Window.prototype.handle_ok = function(e){
+    jQuery('.notice').remove();
+    var workflow_reason = jQuery("input[name='workflow_reasons_radio']:checked").val()
+    var hasErrors = false;
+    if (!workflow_reason){
+       jQuery("#workflow_reason_label").after("<div class='notice' style='color:Black; background-color:#FFE291; " +
+                    "padding:3px'>Please select reason</div>");
+        hasErrors = true;
+    }
+    if ((workflow_reason === 'other') && (!jQuery("input[name='workflow_other_reason']").val())){
+        jQuery("input[name='workflow_other_reason']").after("<div class='notice' style='color:Black; background-color:#FFE291; " +
+                    "padding:3px'>Please sepecify reason</div>");
+        hasErrors = true;
+    }
+
+    if (!jQuery("input[name='workflow_archive_initiator']").val()){
+       jQuery("#workflow_initiator_label").after("<div class='notice' style='color:Black; background-color:#FFE291; " +
+                    "padding:3px'>Please specify initiator</div>");
+        hasErrors = true;
+    }
+    if (hasErrors){
+        jQuery(".notice").effect("pulsate", {times:3}, 2000,
+                    function(){jQuery('.notice').remove();});
+       return;
+    }
+    var $form = jQuery("form", this.target);
+    $form.submit();
+
+
     this.dialog.dialog("close");
 };
 

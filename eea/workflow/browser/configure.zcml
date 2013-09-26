@@ -18,6 +18,14 @@
         for="*"
         permission="cmf.ModifyPortalContent"
         class=".expire.Reasons"
+        class=".archive.Reasons"
+        />
+
+    <browser:page
+        name="archive_content"
+        for="*"
+        permission="cmf.ModifyPortalContent"
+        class=".archive.ArchiveContent"
         />
 
 
