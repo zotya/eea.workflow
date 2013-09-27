@@ -17,7 +17,6 @@
         name="workflow_reasons"
         for="*"
         permission="cmf.ModifyPortalContent"
-        class=".expire.Reasons"
         class=".archive.Reasons"
         />
 

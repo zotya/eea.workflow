@@ -84,3 +84,12 @@ class IObjectReadiness(Interface):
         """
 
 
+class IObjectArchived(Interface):
+    """ Returns info on the archival status of an object
+    """
+
+    is_archived = Attribute("Is this object archived?")
+    initiator = Attribute("The actor who initiated the archival")
+    reason = Attribute("The reason for archival, selected from a predefined list")
+    custom_message = Attribute("A human-readable text reason for archival")
+
