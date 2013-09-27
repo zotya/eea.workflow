@@ -17,8 +17,8 @@
 
 
   <genericsetup:upgradeSteps
-    source="4.0"
-    destination="6.0eea"
+    source="*"
+    destination="6.2"
     profile="eea.workflow:default">
 
     <genericsetup:upgradeDepends

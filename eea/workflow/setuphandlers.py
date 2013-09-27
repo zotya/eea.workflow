@@ -1,9 +1,9 @@
-""" Setup
+""" Setuphandlers
 """
-from Products.CMFCore.utils import getToolByName
-from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
-from eea.workflow.vocab import atvocabs
 
+from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
+from Products.CMFCore.utils import getToolByName
+from eea.workflow.vocab import ATVOCABS
 import logging
 
 logger = logging.getLogger('eea.workflow.setuphandlers')
@@ -22,7 +22,7 @@ def setupATVocabularies(context):
     if atvm is None:
         return
 
-    for vkey in atvocabs.keys():
+    for vkey in ATVOCABS.keys():
         if hasattr(atvm, vkey):
             if not replace:
                 continue

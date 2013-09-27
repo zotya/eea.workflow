@@ -70,6 +70,6 @@
 
     <include package=".upgrades" />
 
-    <adaptor factory=".archive.archive_annotation_storage" locate='True' />
+    <adapter factory=".archive.archive_annotation_storage" />
 
 </configure>

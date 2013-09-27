@@ -1,9 +1,9 @@
-<form method="POST" action="" tal:attributes="action string:${context/absolute_url}/archive_content">
+<form method="POST" action="" tal:attributes="action string:${context/absolute_url}/@@archive_content">
   <p>Note: this page will be watermarked as "Archived" and a message with a reason will be displayed to the web visitor</p>
   <h3 id="workflow_reason_label">Reason:</h3>
   <label>Reason message to be displayed</label><br/>
   <tal:block tal:define="reasons context/@@workflow_reasons">
-    <tal:block tal:repeat="reason reasons">
+    <tal:block tal:repeat="reason python:reasons.keys()">
       <input name="workflow_reasons_radio" type="radio" tal:attributes="value reason" />
       <tal:block tal:content="python: reasons[reason]"></tal:block><br/>
     </tal:block>

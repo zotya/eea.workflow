@@ -85,11 +85,22 @@ class IObjectReadiness(Interface):
 
 
 class IObjectArchived(Interface):
-    """ Returns info on the archival status of an object
+    """ A marker interface for objects that are archived
+    """
+
+
+class IObjectArchivator(Interface):
+    """ Execute archival operations on objects
     """
 
     is_archived = Attribute("Is this object archived?")
     initiator = Attribute("The actor who initiated the archival")
     reason = Attribute("The reason for archival, selected from a predefined list")
     custom_message = Attribute("A human-readable text reason for archival")
+
+    # It may be useful to keep this date, as the object's ExpirationDate can be changed
+    archive_date = Attribute("The date when the object was archived")
+
+    def archive():
+        """ Archives the object """
 

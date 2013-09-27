@@ -1,28 +1,39 @@
 """ IObjectArchived implementation
 """
 
-from zope.annotation.factory import factory
-from eea.workflow.interface import IObjectArchived
+from Products.Archetypes.interfaces import IBaseObject
+from eea.workflow.interfaces import IObjectArchived, IObjectArchivator
 from persistent import Persistent
+from zope.annotation.factory import factory
+from zope.component import adapts
+from zope.interface import implements, alsoProvides
+from DateTime import DateTime
 
 
 class ObjectArchivedAnnotationStorage(Persistent):
     """ The IObjectArchived information stored as annotation
     """
-    implements (IObjectArchived)
+    implements (IObjectArchivator)
     adapts(IBaseObject)
 
-    is_archived    = None
-    initiator      = None
-    reason         = None
-    custom_message = None
+    @property
+    def is_archived(self):
+        """Is this object archived?"""
+        return bool(IObjectArchived.providedBy(self.__parent__))
 
-    def archive(self, initiator, reason, custom_message):
-        self.is_archive = True
-        self.initiator = initiator
+    def archive(self, context, initiator=None, reason=None, custom_message=None):
+        """Archive the object"""
+
+        now = DateTime()
+        alsoProvides(context, IObjectArchived)
+        context.setExpirationDate(now)
+
+        self.archive_date   = now
+        self.initiator      = initiator
         self.custom_message = custom_message
+        self.reason         = reason
 
-        self.__parent__.setExpirationDate(DateTime())
-        #self.__parent__.reindexObject()
+        self.context.reindexObject()
 
-archive_annotation_storage = factory(ObjectArchivedAnnotationStorage)
+
+archive_annotation_storage = factory(ObjectArchivedAnnotationStorage, key="eea.workflow.archive")

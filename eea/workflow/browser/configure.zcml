@@ -25,7 +25,7 @@
         for="*"
         permission="cmf.ModifyPortalContent"
         class=".archive.ArchiveContent"
-        />
+    />
 
 
   <browser:resource name='asyncworkflow.js'

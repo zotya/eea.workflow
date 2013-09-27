@@ -20,4 +20,8 @@ def test_suite():
                   optionflags=OPTIONFLAGS,
                   package='eea.workflow',
                   test_class=EEATestCase),
+            FunctionalDocFileSuite('tests/archive.txt',
+                  optionflags=OPTIONFLAGS,
+                  package='eea.workflow',
+                  test_class=EEATestCase),
               ))
