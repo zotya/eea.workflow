@@ -6,3 +6,28 @@ It is added in the workflow menu. If the object is archived, then this action
 is no longer available. Instead, a viewlet is shown that describes the archival
 status of the object.
 
+    >>> self.loginAsPortalOwner()
+    >>> _ = portal.invokeFactory("Folder", 'archived-test-folder')
+    >>> folder = portal['archived-test-folder']
+    >>> _ = folder.invokeFactory("Document", 'doc2')
+    >>> doc = folder['doc2']
+
+By default, archiving is allowed on all objects. An archived object is marked with the
+IObjectArchived interface
+
+    >>> from eea.workflow.interfaces import IObjectArchived, IObjectArchivator
+    >>> IObjectArchived.providedBy(doc)
+    False
+
+We use the IObjectArchivator interface to perform archiving actions.
+
+    >>> adapter = IObjectArchivator(doc)
+    >>> adapter.archive(doc, dict(initiator='TheInitiator', reason='content_is_outdated', custom_message=''))
+
+By archiving the object, the object is reindexed.
+
+    >>> brain = portal.portal_catalog.searchResults(getId='doc2')[0]
+    >>> brain.ExpirationDate == doc.ExpirationDate()
+    True
+
+The object is expired:

@@ -27,7 +27,9 @@ def setup_site():
 
 
 setup_site()
+ptc.installProduct("ATVocabularyManager")
 ptc.setupPloneSite(
+        products=["ATVocabularyManager"],
         extension_profiles=['eea.workflow:default', 'eea.versions:default'],
 )
 
