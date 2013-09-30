@@ -40,4 +40,12 @@
         permission="zope.Public"
         />
 
+    <browser:page
+        name="eea.workflow.archived"
+        for="eea.workflow.interfaces.IObjectArchived"
+        template="archive_status.pt"
+        class=".archive.ArchiveStatus"
+        permission="zope.Public"
+        />
+
 </configure>

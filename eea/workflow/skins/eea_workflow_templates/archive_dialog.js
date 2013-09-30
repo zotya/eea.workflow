@@ -92,6 +92,10 @@ ArchiveDialog.Window.prototype.handle_ok = function(e){
     $.post($form.attr('action'), $form.serialize(), function(res){
         self.dialog.dialog("close");
         $("#workflow-transition-archive").remove();
+        $.get(context_url+"/@@eea.workflow.archived", function(dom){
+            $('.archive_status').remove();
+            $("#plone-document-byline").after(dom);
+        });
     });
 
     return false;

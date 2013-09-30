@@ -26,9 +26,19 @@ class ArchiveContent(BrowserView):
         # TODO: validate form using zope.schema
         form = self.request.form
         values = {'initiator':      form.get('workflow_archive_initiator'),
-                  'custom_message': form.get('workflow_other_reason'),
+                  'custom_message': form.get('workflow_other_reason', '').strip(),
                   'reason':         form.get('workflow_reasons_radio', 'other')
                   }
         storage = IObjectArchivator(self.context)
         storage.archive(context=self.context, **values)
         return "OK"
+
+
+class ArchiveStatus(BrowserView):
+    """ Show the same info as the archive status viewlet
+    """
+
+    @property
+    def info(self):
+        return IObjectArchivator(self.context)
+
