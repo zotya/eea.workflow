@@ -1,13 +1,15 @@
 """ IObjectArchived implementation
 """
 
+from DateTime import DateTime
+from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.Archetypes.interfaces import IBaseObject
+from Products.CMFPlone.utils import getToolByName
 from eea.workflow.interfaces import IObjectArchived, IObjectArchivator
 from persistent import Persistent
 from zope.annotation.factory import factory
 from zope.component import adapts
 from zope.interface import implements, alsoProvides
-from DateTime import DateTime
 
 
 class ObjectArchivedAnnotationStorage(Persistent):
@@ -33,7 +35,40 @@ class ObjectArchivedAnnotationStorage(Persistent):
         self.custom_message = custom_message
         self.reason         = reason
 
-        self.context.reindexObject()
+        wftool = getToolByName(context, 'portal_workflow')
+        mtool = getToolByName(context, 'portal_membership')
+
+        state = wftool.getInfoFor(context, 'review_state')
+        actor = mtool.getAuthenticatedMember().getId()
+
+        rv = NamedVocabulary('eea.workflow.reasons')
+        vocab = rv.getVocabularyDict(context)
+        reason = vocab.get('reason', "Other")
+
+        if custom_message:
+            reason += u" (%s)" % custom_message
+
+        comments = (u"Archived by %(actor)s on %(date)s by request "
+                    u"from %(initiator)s with reason: %(reason)s" % {
+                        'actor':actor,
+                        'initiator':initiator,
+                        'reason':reason,
+                        'date':now.ISO8601(),
+                    })
+
+        for wfname in context.workflow_history.keys():
+            history = context.workflow_history[wfname]
+            history += ({
+                'action':'Archive',
+                'review_state':state,
+                'actor':actor,
+                'comments':comments,
+                'time':now,
+                },)
+            context.workflow_history[wfname] = history
+
+        context.workflow_history._p_changed = True
+        context.reindexObject()
 
 
 archive_annotation_storage = factory(ObjectArchivedAnnotationStorage, key="eea.workflow.archive")
