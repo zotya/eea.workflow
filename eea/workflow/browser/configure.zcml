@@ -1,9 +1,9 @@
 <configure xmlns="http://namespaces.zope.org/zope"
-           xmlns:browser="http://namespaces.zope.org/browser"
-           xmlns:cmf="http://namespaces.zope.org/cmf"
-           xmlns:monkey="http://namespaces.plone.org/monkey"
-           xmlns:plone="http://namespaces.plone.org/plone"
-           i18n_domain="eea">
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    xmlns:monkey="http://namespaces.plone.org/monkey"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="eea">
 
     <browser:page
         name="workflow_menu"
@@ -25,10 +25,19 @@
         for="*"
         permission="cmf.ModifyPortalContent"
         class=".archive.ArchiveContent"
-    />
+        />
 
 
-  <browser:resource name='asyncworkflow.js'
-                    file='asyncworkflow.js' />
+    <browser:resource name='asyncworkflow.js'
+        file='asyncworkflow.js' />
+
+    <browser:viewlet
+        name="eea.workflow.archived"
+        for="eea.workflow.interfaces.IObjectArchived"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+        template="archive_status.pt"
+        class=".viewlets.ArchiveViewlet"
+        permission="zope.Public"
+        />
 
 </configure>
