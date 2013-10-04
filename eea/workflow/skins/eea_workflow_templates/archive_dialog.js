@@ -1,5 +1,5 @@
 function ArchiveDialog(){
-    this.install()
+    this.install();
 }
 
 ArchiveDialog.prototype.install = function(){
@@ -18,7 +18,7 @@ ArchiveDialog.prototype.install = function(){
 ArchiveDialog.prototype.onclick = function(self, e){
     // this is a partial function, it curries the self object
     // it is needed because jquery event object are detached from the OOP object
-    if (typeof(e) === "undefined") {
+    if (typeof e === "undefined") {
         return function(e){
             self.open_dialog(self);
             return false;
@@ -65,8 +65,8 @@ ArchiveDialog.Window.prototype.handle_cancel = function(e){
 ArchiveDialog.Window.prototype.handle_ok = function(e){
     var self = this;
     jQuery('.notice').remove();
-    var workflow_reason = jQuery("input[name='workflow_reasons_radio']:checked").val()
-        var hasErrors = false;
+    var workflow_reason = jQuery("input[name='workflow_reasons_radio']:checked").val();
+    var hasErrors = false;
     if (!workflow_reason){
         jQuery("#workflow_reason_label").after("<div class='notice' style='color:Black; background-color:#FFE291; " +
                 "padding:3px'>Please select reason</div>");
@@ -107,7 +107,7 @@ ArchiveDialog.Window.prototype._open = function(ui){
     var base = get_base();
     var url = base + "/archive_dialog";
 
-    jQuery(self.target).load(url, function(){});
+    jQuery(self.target).load(url);
 };
 
 jQuery(document).ready(function ($) {
